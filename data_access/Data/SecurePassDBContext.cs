@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using data_access.Entities;
+using data_access.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
 namespace data_access.Data
 {
@@ -19,12 +22,16 @@ namespace data_access.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration<MyEntity>(new MyEntityConfig());
+            modelBuilder.ApplyConfiguration<User>(new UserConfig());
+
+            ///...
 
 
+            DefaultData.Initialize(modelBuilder);
         }
 
         //public DbSet<MyEntity> MyEntity { get; set; }
-       
+          public DbSet<User> Users { get; set; }
 
     }
 }
