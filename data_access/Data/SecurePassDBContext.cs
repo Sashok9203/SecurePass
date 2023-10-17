@@ -23,6 +23,7 @@ namespace data_access.Data
         {
             //modelBuilder.ApplyConfiguration<MyEntity>(new MyEntityConfig());
             modelBuilder.ApplyConfiguration<User>(new UserConfig());
+            modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
 
             ///...
 
@@ -32,6 +33,7 @@ namespace data_access.Data
 
         //public DbSet<MyEntity> MyEntity { get; set; }
           public DbSet<User> Users { get; set; }
+          public DbSet<Category> Categories { get; set; }
 
     }
 }
