@@ -6,7 +6,7 @@ namespace data_access.Data
     {
         public SecurePassDBContext()
         {
-            //Database.EnsureDeleted();
+             Database.EnsureDeleted();
              Database.EnsureCreated();
         }
 
