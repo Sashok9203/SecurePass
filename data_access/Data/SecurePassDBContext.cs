@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using data_access.Entities;
+using data_access.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace data_access.Data
 {
@@ -19,12 +21,17 @@ namespace data_access.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration<MyEntity>(new MyEntityConfig());
+            modelBuilder.ApplyConfiguration<User>(new UserConfig());
+            modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
+            modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
 
+            ///...
 
+            DefaultData.Initialize(modelBuilder);
         }
-
         //public DbSet<MyEntity> MyEntity { get; set; }
-       
-
+          public DbSet<User> Users { get; set; }
+          public DbSet<Category> Categories { get; set; }
+          public DbSet<Universal> Universals { get; set; }
     }
 }
