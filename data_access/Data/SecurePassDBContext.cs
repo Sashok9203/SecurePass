@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using data_access.Entities;
+using data_access.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace data_access.Data
 {
@@ -18,12 +20,12 @@ namespace data_access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration<MyEntity>(new MyEntityConfig());
+            modelBuilder.ApplyConfiguration<BankAccount>(new BankAccountConfig());
 
 
         }
 
-        //public DbSet<MyEntity> MyEntity { get; set; }
+        public DbSet<BankAccount> BankAccount{ get; set; }
        
 
     }
