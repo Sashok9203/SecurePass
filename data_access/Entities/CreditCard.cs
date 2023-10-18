@@ -11,6 +11,7 @@ namespace data_access.Entities
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public string OwnerName { get; set; }
         public string Type { get; set; }
         public string Number { get; set; }
@@ -18,5 +19,6 @@ namespace data_access.Entities
         public DateTime Validity { get; set; }
         public DateTime StartDate { get; set; }
         public int UserId { get; set; }
+        public  User User { get; set; }
     }
 }
