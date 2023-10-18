@@ -8,6 +8,7 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x=>x.ImageId);
             builder.Property(x => x.NikName).HasMaxLength(56);
             builder.Property(x => x.PasswordHash).HasMaxLength(64);
             builder.HasIndex(x => x.NikName).IsUnique();

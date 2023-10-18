@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public class Universal: SecureObject
+    public class BaseEntity
     {
-        public int TypeId { get; set; }
-        public string Label { get; set; }
-        public string Value { get; set; }
+        public int Id { get; set; }
+        public int ImageId { get; set; }
     }
 }

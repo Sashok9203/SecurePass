@@ -9,6 +9,7 @@ namespace data_access.Entities.Configs
         {
             builder.HasKey(x => x.Id);
             builder.HasKey(x => x.CategoryId);
+            builder.Property(x => x.ImageId);
             builder.Property(x => x.OwnerName).HasMaxLength(200);
             builder.Property(x => x.Type).HasMaxLength(50);
             builder.HasIndex(x => x.Number).IsUnique();

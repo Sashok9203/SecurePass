@@ -13,6 +13,7 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<Universal> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.ImageId);
             builder.Property(x => x.Label).HasMaxLength(256);
             builder.Property(x => x.Value);
             builder.Property(x => x.TypeId);
