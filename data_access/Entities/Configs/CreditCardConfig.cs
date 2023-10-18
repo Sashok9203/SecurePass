@@ -17,6 +17,8 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.StartDate).HasColumnType("date");
             builder.ToTable(t => t.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
             builder.ToTable(t => t.HasCheckConstraint("Type_check", "[Type] <> ''"));
+            builder.HasOne(x => x.User).WithMany(x => x.CreditCards);
+            builder.HasOne(x => x.Category).WithMany(x => x.CreditCards);
         }
     }
 }
