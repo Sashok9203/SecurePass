@@ -8,8 +8,8 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasKey(x => x.CategoryId);
             builder.Property(x => x.ImageId);
+            builder.Property(x => x.Title).HasMaxLength(128);
             builder.Property(x => x.OwnerName).HasMaxLength(200);
             builder.Property(x => x.Type).HasMaxLength(50);
             builder.HasIndex(x => x.Number).IsUnique();

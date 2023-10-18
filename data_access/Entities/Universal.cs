@@ -8,7 +8,6 @@ namespace data_access.Entities
 {
     public class Universal: SecureObject
     {
-        public int TypeId { get; set; }
         public string Label { get; set; }
         public string Value { get; set; }
     }

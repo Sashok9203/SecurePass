@@ -16,7 +16,7 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.ImageId);
             builder.Property(x => x.Label).HasMaxLength(256);
             builder.Property(x => x.Value);
-            builder.Property(x => x.TypeId);
+            builder.Property(x => x.Title).HasMaxLength(128);
             builder.HasOne(x => x.User).WithMany(x => x.Universals);
             builder.HasOne(x => x.Category).WithMany(x => x.Universals);
             builder.ToTable(t => t.HasCheckConstraint("Label_check", "[Label] <> ''"));
