@@ -12,5 +12,6 @@ namespace data_access.Entities
         public string NikName { get; set; }
         public string PasswordHash { get; set; }
         public ICollection<Universal> Universals { get; set; } = new List<Universal>();
+        public ICollection<CreditCard> CreditCards { get; set;} = new List<CreditCard>();
     }
 }

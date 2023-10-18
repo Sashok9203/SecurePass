@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace data_access.Entities.Configs
 {
-    internal class UserConfig : IEntityTypeConfiguration<CreditCard>
+    internal class CreditCardConfig : IEntityTypeConfiguration<CreditCard>
     {
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
