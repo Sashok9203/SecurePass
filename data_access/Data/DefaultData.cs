@@ -31,5 +31,10 @@ namespace data_access.Data
         {
             new(){ Id = 1, CategoryId = 1, Label = "Door pass", TypeId = 1, UserId = 1, Value  ="24523" }
         };
+
+        public static readonly CreditCard[] CreditCards =
+        {
+            new() { Id = 1, CategoryId = 2, OwnerName = "John Doe", Type = "Type1", StartDate = new DateTime(2010, 10, 10) , Number ="00000000", UserId =1, Validity = new DateTime(2030, 10, 10), VerificationCode ="0000" }
+        };
     }
 }
