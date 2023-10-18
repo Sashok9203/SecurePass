@@ -27,7 +27,7 @@ namespace data_access.Data
 
             DefaultData.Initialize(modelBuilder);
         }
-        public DbSet<CreditCard> CreditCard { get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Universal> Universals { get; set; }

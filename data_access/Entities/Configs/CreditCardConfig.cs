@@ -14,9 +14,11 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.Type).HasMaxLength(50);
             builder.HasIndex(x => x.Number).IsUnique();
             builder.HasIndex(x => x.VerificationCode).IsUnique();
-           
+            builder.Property(x => x.Validity).HasColumnType("date");
+            builder.Property(x => x.StartDate).HasColumnType("date");
 
-
+            builder.ToTable(t => t.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("Type_check", "[Type] <> ''"));
         }
     }
 }

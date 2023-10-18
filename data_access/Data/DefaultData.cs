@@ -34,7 +34,7 @@ namespace data_access.Data
 
         public static readonly CreditCard[] CreditCards =
         {
-            new() { Id = 1, CategoryId = 2, OwnerName = "John Doe", Type = "Type1", StartDate = , Number ="00000000", UserId =1, Validity = , VerificationCode ="0000" }
+            new() { Id = 1, CategoryId = 2, OwnerName = "John Doe", Type = "Type1", StartDate = new DateTime(2010, 10, 10) , Number ="00000000", UserId =1, Validity = new DateTime(2030, 10, 10), VerificationCode ="0000" }
         };
     }
 }
