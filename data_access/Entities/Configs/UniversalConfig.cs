@@ -16,6 +16,7 @@ namespace data_access.Entities.Configs
             builder.HasOne(x => x.Category).WithMany(x => x.Universals);
             builder.ToTable(t => t.HasCheckConstraint("Label_check", "[Label] <> ''"));
             builder.ToTable(t => t.HasCheckConstraint("Value_check", "[Value] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
         }
     }
 }
