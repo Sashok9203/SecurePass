@@ -1,6 +1,5 @@
 ﻿using data_access.Entities;
 using data_access.Entities.Configs;
-using data_access.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace data_access.Data
@@ -9,8 +8,8 @@ namespace data_access.Data
     {
         public SecurePassDBContext()
         {
-             Database.EnsureDeleted();
-             Database.EnsureCreated();
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,22 +20,16 @@ namespace data_access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration<MyEntity>(new MyEntityConfig());
+            modelBuilder.ApplyConfiguration<CreditCard>(new CreditCardConfig());
             modelBuilder.ApplyConfiguration<User>(new UserConfig());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
-            modelBuilder.ApplyConfiguration<CreditCard>(new CreditCard());
-
-            ///...
 
             DefaultData.Initialize(modelBuilder);
         }
-        //public DbSet<MyEntity> MyEntity { get; set; }
-          public DbSet<User> Users { get; set; }
-          public DbSet<Category> Categories { get; set; }
-          public DbSet<Universal> Universals { get; set; }
         public DbSet<CreditCard> CreditCard { get; set; }
-
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Universal> Universals { get; set; }
     }
 }
