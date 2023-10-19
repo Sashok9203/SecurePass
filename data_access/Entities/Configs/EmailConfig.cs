@@ -15,6 +15,7 @@ namespace data_access.Entities.Configs
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ImageId);
             builder.Property(x => x.Type).HasMaxLength(128);
+            builder.Property(x => x.Title).HasMaxLength(128);
             builder.Property(x => x.Name).HasMaxLength(128);
             builder.Property(x => x.Server).HasMaxLength(128);
             builder.HasIndex(x => x.Port);
