@@ -8,7 +8,8 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasKey(x => x.CategoryId);
+            builder.Property(x => x.ImageId);
+            builder.Property(x => x.Title).HasMaxLength(128);
             builder.Property(x => x.OwnerName).HasMaxLength(200);
             builder.Property(x => x.Type).HasMaxLength(50);
             builder.HasIndex(x => x.Number).IsUnique();
@@ -17,6 +18,7 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.StartDate).HasColumnType("date");
             builder.ToTable(t => t.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
             builder.ToTable(t => t.HasCheckConstraint("Type_check", "[Type] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
             builder.HasOne(x => x.User).WithMany(x => x.CreditCards);
             builder.HasOne(x => x.Category).WithMany(x => x.CreditCards);
         }
