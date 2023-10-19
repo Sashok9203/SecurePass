@@ -24,6 +24,7 @@ namespace data_access.Data
             modelBuilder.ApplyConfiguration<User>(new UserConfig());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
+            modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
 
             DefaultData.Initialize(modelBuilder);
         }
@@ -31,5 +32,6 @@ namespace data_access.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Universal> Universals { get; set; }
+        public DbSet<Server> Servers { get; set; }
     }
 }
