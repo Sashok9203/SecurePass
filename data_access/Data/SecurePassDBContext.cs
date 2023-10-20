@@ -20,6 +20,7 @@ namespace data_access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration<BankAccount>(new BankAccountConfig());
             modelBuilder.ApplyConfiguration<CreditCard>(new CreditCardConfig());
             modelBuilder.ApplyConfiguration<Email>(new EmailConfig());
             modelBuilder.ApplyConfiguration<User>(new UserConfig());
@@ -30,9 +31,13 @@ namespace data_access.Data
 
             DefaultData.Initialize(modelBuilder);
         }
-
-        //public DbSet<MyEntity> MyEntity { get; set; }
-       
-
+        
+        public DbSet<BankAccount> BankAccount{ get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Universal> Universals { get; set; }
+        public DbSet<Server> Servers { get; set; }
     }
 }
