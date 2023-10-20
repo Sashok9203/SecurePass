@@ -18,6 +18,16 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.Name).HasMaxLength(56);
             builder.HasIndex(x => x.Name).IsUnique();
             builder.ToTable(t => t.HasCheckConstraint("Name_check", "[Name] <> ''"));
+            builder.Property(a => a.OwnerName).HasMaxLength(56);
+            builder.HasIndex(a => a.OwnerName).IsUnique();
+            builder.ToTable(q => q.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
+            builder.Property(w => w.Type).HasMaxLength(56);
+            builder.HasKey(x => x.DepartmentNumber);
+            builder.Property(x => x.BankAccountNumber).HasMaxLength(56);
+            builder.Property(x => x.SWIFT).HasMaxLength(56);
+            builder.Property(x => x.IBAN).HasMaxLength(56);
+            builder.Property(x => x.PIN).HasMaxLength(56);
+            builder.HasKey(x => x.UserId);
 
             /*
             public string OwnerName { get; set; }
