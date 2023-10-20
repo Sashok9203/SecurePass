@@ -21,16 +21,20 @@ namespace data_access.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration<CreditCard>(new CreditCardConfig());
+            modelBuilder.ApplyConfiguration<Email>(new EmailConfig());
             modelBuilder.ApplyConfiguration<User>(new UserConfig());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
+            modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
             modelBuilder.ApplyConfiguration<WiFi>(new WiFiConfig());
 
             DefaultData.Initialize(modelBuilder);
         }
         public DbSet<CreditCard> CreditCards { get; set; }
+        public DbSet<Email> Emails { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Universal> Universals { get; set; }
+        public DbSet<Server> Servers { get; set; }
     }
 }

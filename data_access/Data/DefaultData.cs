@@ -12,6 +12,7 @@ namespace data_access.Data
             modelBuilder.Entity<Category>().HasData(Categories);
             modelBuilder.Entity<Universal>().HasData(Universals);
             modelBuilder.Entity<CreditCard>().HasData(CreditCards);
+            modelBuilder.Entity<Server>().HasData(Servers);
         }
 
         public static readonly User[] Users =
@@ -26,6 +27,7 @@ namespace data_access.Data
              new(){ Id = 1, ImageId = 3, Name = "Passwords" },
              new(){ Id = 2, ImageId = 4, Name = "Emails" },
              new(){ Id = 3, ImageId = 3, Name = "Sites" },
+             new(){ Id = 4, ImageId = 4, Name = "Servers"},
         };
 
         public static readonly Universal[] Universals =
@@ -36,6 +38,16 @@ namespace data_access.Data
         public static readonly CreditCard[] CreditCards =
         {
             new() { Id = 1, ImageId = 1, CategoryId = 2,Title = "My credit card", OwnerName = "John Doe", Type = "Type1", StartDate = new DateTime(2010, 10, 10) , Number ="00000000", UserId =1, Validity = new DateTime(2030, 10, 10), VerificationCode ="0000" }
+        };
+
+        public static readonly Email[] emails =
+        {
+            new(){Id = 1, ImageId = 1, AuthenticationMethod ="Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 1, Type = "gmail", UserId = 1, Title = "Email1", Safety = "SafetyExample" }
+        };
+
+        public static readonly Server[] Servers =
+        {
+            new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
         };
     }
 }
