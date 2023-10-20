@@ -27,6 +27,7 @@ namespace data_access.Data
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
             modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
             modelBuilder.ApplyConfiguration<WiFi>(new WiFiConfig());
+            modelBuilder.ApplyConfiguration<Contact>(new ContactConfig());
 
             DefaultData.Initialize(modelBuilder);
         }
