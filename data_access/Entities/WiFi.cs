@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    internal class WiFi
+    internal class WiFi:SecureObject
     {
         public int Id { get; set; }
         public int CetegoryId { get; set; }
@@ -17,7 +17,7 @@ namespace data_access.Entities
         public string NetworkName { get; set; }
         public string WirelessSecurity { get; set; }
         public string WirelessPassword { get; set; }
-        public ICollection<WiFi> ConnectedStoreagePasswords { get; set; } = new HashSet<WiFi>();
+        public string ConnectedStoragePasswords { get; set; }
 
     }
 }

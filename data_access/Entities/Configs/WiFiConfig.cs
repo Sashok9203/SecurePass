@@ -17,7 +17,7 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.BaseStation);
             builder.Property(x => x.Password);
             builder.Property(x => x.IP).HasMaxLength(64);
-            builder.HasIndex(x => x.AirPortId).IsUnique();
+            builder.Property(x => x.AirPortId);
             builder.Property(x => x.NetworkName).HasMaxLength(128);
             builder.Property(x => x.WirelessSecurity).HasMaxLength(64);
             builder.Property(x => x.WirelessPassword).HasMaxLength(56);
