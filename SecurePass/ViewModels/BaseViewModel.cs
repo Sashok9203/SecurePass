@@ -15,6 +15,7 @@ namespace SecurePass.ViewModels
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            //Comment
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
