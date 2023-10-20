@@ -19,9 +19,70 @@
         </Border>
           
         <!--Authorization window-->
-        <Border Background="Red" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
+		<Border Background ="#2e2e2e">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="9*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="3*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition Height="3*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<!--Login Window-->
+				<Border Grid.Column="2" Background="#333333" Grid.ColumnSpan="2" Grid.RowSpan="4">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width ="1*"></ColumnDefinition>
+							<ColumnDefinition Width ="0.5*"></ColumnDefinition>
+							<ColumnDefinition Width ="1.5*"></ColumnDefinition>
+							<ColumnDefinition Width ="0.4*"></ColumnDefinition>
+							<ColumnDefinition Width ="1.5*"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="2.5*"></RowDefinition>
+							<RowDefinition Height="0.8*"></RowDefinition>
+							<RowDefinition Height="0.7*"></RowDefinition>
+							<RowDefinition Height="2.5*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Border Grid.Column="1" Grid.Row="1" Background="AliceBlue" Margin="8"></Border>
+						<TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="7"></TextBox>
+						<Button Grid.Column="3" Grid.Row="2" Width="40" Height="32" HorizontalAlignment="Left"></Button>
+					</Grid>
+				</Border>
+				<!--Authorization Window-->
+				<Border Grid.Column="2" Background="#333333" Grid.ColumnSpan="2" Grid.RowSpan="4">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width ="1*"></ColumnDefinition>
+							<ColumnDefinition Width ="0.5*"></ColumnDefinition>
+							<ColumnDefinition Width ="1.5*"></ColumnDefinition>
+							<ColumnDefinition Width ="0.4*"></ColumnDefinition>
+							<ColumnDefinition Width ="1.5*"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="2.5*"></RowDefinition>
+							<RowDefinition Height="0.6*"></RowDefinition>
+							<RowDefinition Height="0.7*"></RowDefinition>
+							<RowDefinition Height="0.7*"></RowDefinition>
+							<RowDefinition Height="2*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Column="1" Grid.Row="1" Margin="8" Grid.ColumnSpan="3" FontSize="20" >Welcome to SecurePass</TextBlock>
+						<Button Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="7" Background="#2150f5">Login</Button>
+						<Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="7">Create new account</Button>
 
-        </Border>
 
-    </Grid>
+					</Grid>
+				</Border>
+				<!--SecurePassImage-->
+				<Border Background="AliceBlue" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Margin="7"></Border>
+			</Grid>
+		</Border>
+
+
+	</Grid>
 </Window>
