@@ -8,8 +8,8 @@ namespace data_access.Data
     {
         public SecurePassDBContext()
         {
-             Database.EnsureDeleted();
-             Database.EnsureCreated();
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -20,12 +20,18 @@ namespace data_access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration<CreditCard>(new CreditCardConfig());
+            modelBuilder.ApplyConfiguration<Email>(new EmailConfig());
+            modelBuilder.ApplyConfiguration<User>(new UserConfig());
+            modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
+            modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
+            modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
             modelBuilder.ApplyConfiguration<BankAccount>(new BankAccountConfig());
 
-
+            DefaultData.Initialize(modelBuilder);
         }
 
-        public DbSet<BankAccount> BankAccount{ get; set; }
+        //public DbSet<MyEntity> MyEntity { get; set; }
        
 
     }

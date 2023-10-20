@@ -13,6 +13,15 @@
     </Window.DataContext>
     
     <Grid>
+          <!--Main window-->
+        <Border Background="Green" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
+            
+        </Border>
+          
+        <!--Authorization window-->
+        <Border Background="Red" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
+
+        </Border>
 
     </Grid>
 </Window>
