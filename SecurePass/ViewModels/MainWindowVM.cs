@@ -16,7 +16,6 @@ namespace SecurePass.ViewModels
         private bool isMainWindowEnabled, isFirstProgramStart;
         private readonly SecurePassDBContext dbContex;
         private string userLogin = string.Empty;
-
         private string tryGetLogin()
         {
             RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
@@ -42,6 +41,19 @@ namespace SecurePass.ViewModels
                 // Authorization logic
                
             }
+        }
+        private void EnterLoginClick()
+        {
+
+        }
+        private void CreateNewAccClick()
+        {
+
+        }
+
+        private void LoginClick()
+        {
+
         }
 
         public MainWindowVM()
@@ -70,5 +82,10 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged();
             }
         }
+        //Login
+        public RelayCommand EnterLoginButtonClick => new((o) => EnterLoginClick());
+        //Authorization
+        public RelayCommand LoginButtonClick => new((o) => LoginClick());
+        public RelayCommand CreateNewAccButtonClick => new((o) => CreateNewAccClick());
     }
 }
