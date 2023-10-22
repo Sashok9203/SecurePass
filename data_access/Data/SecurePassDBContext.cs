@@ -27,8 +27,7 @@ namespace data_access.Data
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
             modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
-            modelBuilder.ApplyConfiguration<BankAccount>(new BankAccountConfig());
-
+            
             DefaultData.Initialize(modelBuilder);
         }
         
