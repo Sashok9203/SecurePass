@@ -49,5 +49,9 @@ namespace data_access.Data
         {
             new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
         };
+        public static readonly DataBase[] DataBases=
+        {
+            new() { Id = 1, ImageId= 1, CategoryId = 1, Title = "My database", Type = "type", Server = "my server", Port = 1234, Database = "My database", Name = "Database1", Password = "database1", SID = "90900890", Pseudonym = "basebase", ConnectionSettings = "settings", UserId = 1 }
+        };
     }
 }
