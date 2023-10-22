@@ -15,10 +15,8 @@ namespace data_access.Entities.Configs
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(56);
-            builder.HasIndex(x => x.Name).IsUnique();
             builder.ToTable(t => t.HasCheckConstraint("Name_check", "[Name] <> ''"));
             builder.Property(a => a.OwnerName).HasMaxLength(56);
-            builder.HasIndex(a => a.OwnerName).IsUnique();
             builder.ToTable(q => q.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
             builder.Property(w => w.Type).HasMaxLength(56);
             builder.Property(w => w.DepartmentNumber).HasMaxLength(56);
