@@ -14,7 +14,6 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasKey(x => x.CategoryId);
             builder.Property(x => x.Name).HasMaxLength(56);
             builder.HasIndex(x => x.Name).IsUnique();
             builder.ToTable(t => t.HasCheckConstraint("Name_check", "[Name] <> ''"));
@@ -22,23 +21,14 @@ namespace data_access.Entities.Configs
             builder.HasIndex(a => a.OwnerName).IsUnique();
             builder.ToTable(q => q.HasCheckConstraint("OwnerName_check", "[OwnerName] <> ''"));
             builder.Property(w => w.Type).HasMaxLength(56);
-            builder.HasKey(x => x.DepartmentNumber);
+            builder.Property(w => w.DepartmentNumber).HasMaxLength(56);
             builder.Property(x => x.BankAccountNumber).HasMaxLength(56);
             builder.Property(x => x.SWIFT).HasMaxLength(56);
             builder.Property(x => x.IBAN).HasMaxLength(56);
             builder.Property(x => x.PIN).HasMaxLength(56);
-            builder.HasKey(x => x.UserId);
+            builder.Property(x => x.Title).HasMaxLength(128);
+            builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
 
-            /*
-            public string OwnerName { get; set; }
-            public string Type { get; set; }
-            public int DepartmentNumber { get; set; }
-            public string BankAccountNumber { get; set; }
-            public string SWIFT { get; set; }
-            public string IBAN { get; set; }
-            public string PIN { get; set; }
-            public int UserId { get; set; }
-            */
             throw new NotImplementedException();
         }
 
