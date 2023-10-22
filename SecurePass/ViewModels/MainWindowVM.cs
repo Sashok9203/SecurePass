@@ -1,7 +1,11 @@
 ﻿using data_access.Data;
+using data_access.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
+using SecurePass.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +17,10 @@ namespace SecurePass.ViewModels
     {
         private const string keyLoginRegistryPath = @"Software\SecurePass\";
         private const string userLoginValueName = "SecurePassUserLogin";
-        private bool isMainWindowEnabled, isFirstProgramStart;
-        private readonly SecurePassDBContext dbContex;
-        private string userLogin = string.Empty;
+        private bool isMainWindowEnabled, isFirstStart;
+        private readonly SecurePassDBContext dbContext;
+        private User? currentUser;
+
         private string tryGetLogin()
         {
             RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
@@ -24,55 +29,83 @@ namespace SecurePass.ViewModels
                 return registryKey?.GetValue(userLoginValueName)?.ToString() ?? string.Empty;
         }
 
-        private void programStart()
+        private void addRegistryKey()
         {
-            userLogin = tryGetLogin();
-            IsFirstProgramStart = userLogin == string.Empty;
-            if (IsFirstProgramStart)
+            RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath);
+            registryKey.SetValue(userLoginValueName, UserLogin);
+        }
+
+        // Create new account logic
+        private async Task CreateNewAccClick()
+        {
+            if (dbContext.Users.Any(x => x.NikName == UserLogin))
+                MessageBox.Show("This login is already in use...", "Server information");
+            else
             {
-                //Create new account 
-               
-                //Create key in registry
-                RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath);
-                registryKey.SetValue(userLoginValueName, userLogin);
+                CurrentUser = new()
+                {
+                    NikName = UserLogin,
+                    PasswordHash = Utility.GetHash(UserPassword)
+                };
+                await dbContext.Users.AddAsync(CurrentUser);
+                dbContext.SaveChanges();
+                addRegistryKey();
+                IsMainWindowEnabled = true;
+                var test = Resource.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentUICulture, true, true);
+
             }
-            else 
+        }
+
+        // Login logic
+        private async Task LoginClick()
+        {
+            CurrentUser = await dbContext.Users.FirstOrDefaultAsync(x => x.NikName == UserLogin);
+            if (CurrentUser == null)
+                MessageBox.Show("User with this login is not registered...", "Server information");
+            else
             {
-                // Authorization logic
-               
+                if (Utility.GetHash(UserPassword) != CurrentUser.PasswordHash)
+                    MessageBox.Show("Invalid password...", "Server information");
+                else
+                {
+                    await dbContext.Emails.Where(p => p.Id == CurrentUser.Id).LoadAsync();
+                    await dbContext.CreditCards.Where(p => p.Id == CurrentUser.Id).LoadAsync();
+                    await dbContext.Universals.Where(p => p.Id == CurrentUser.Id).LoadAsync();
+                    await dbContext.Servers.Where(p => p.Id == CurrentUser.Id).LoadAsync();
+                    List<SecureObject> temp = new();
+                    temp.AddRange(dbContext.Emails.Include(x => x.Category));
+                    temp.AddRange(dbContext.CreditCards.Include(x => x.Category));
+                    temp.AddRange(dbContext.Universals.Include(x => x.Category));
+                    temp.AddRange(dbContext.Servers.Include(x => x.Category));
+                    foreach (var item in temp)
+                        SecureObjects.Add(item);
+                    foreach (var item in temp.Select(x => x.Category).Distinct())
+                        UserCategories.Add(new() { Category = item, IsSelected = false });
+                    addRegistryKey();
+                    IsMainWindowEnabled = true;
+                }
             }
-        }
-        private void EnterLoginClick()
-        {
-
-        }
-        private void CreateNewAccClick()
-        {
-
-        }
-
-        private void LoginClick()
-        {
-
         }
 
         public MainWindowVM()
         {
-            dbContex = new();
-            programStart();
+            dbContext = new();
+            UserLogin = tryGetLogin();
+            IsFirstStart = UserLogin == string.Empty;
         }
         
-        public bool IsFirstProgramStart
+        // First program start flag
+        public bool IsFirstStart
         {
-            get => isFirstProgramStart;
+            get => isFirstStart;
             set
             {
-                isFirstProgramStart = value;
+                isFirstStart = value;
                 OnPropertyChanged();
             }
         }
 
-
+        // Switch main window - registration/authorization window
         public bool IsMainWindowEnabled
         {
             get => isMainWindowEnabled;
@@ -82,10 +115,31 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged();
             }
         }
-        //Login
-        public RelayCommand EnterLoginButtonClick => new((o) => EnterLoginClick());
-        //Authorization
-        public RelayCommand LoginButtonClick => new((o) => LoginClick());
-        public RelayCommand CreateNewAccButtonClick => new((o) => CreateNewAccClick());
+
+        // Authorized user
+        public User? CurrentUser
+        {
+            get => currentUser;
+            set
+            {
+                currentUser = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Colection of the user SecureOblects
+        public ObservableCollection<SecureObject> SecureObjects { get; set; } = new();
+
+        // Colection of the user Categories
+        public ObservableCollection<CategoryVM> UserCategories { get; set; } = new();
+
+        // User login value 
+        public string UserLogin { get; set; } = string.Empty;
+
+        // User password value 
+        public string UserPassword { get; set; } = string.Empty;
+
+        public RelayCommand LoginButtonClick => new(async(o) => await LoginClick());
+        public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick());
     }
 }
