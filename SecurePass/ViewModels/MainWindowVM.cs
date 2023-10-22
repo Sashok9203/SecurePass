@@ -29,6 +29,10 @@ namespace SecurePass.ViewModels
                 return registryKey?.GetValue(userLoginValueName)?.ToString() ?? string.Empty;
         }
 
+        private bool isUserLoginInfoExist() => !string.IsNullOrWhiteSpace(UserLogin) && !string.IsNullOrWhiteSpace(UserPassword);
+
+
+
         private void addRegistryKey()
         {
             RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath);
@@ -139,7 +143,7 @@ namespace SecurePass.ViewModels
         // User password value 
         public string UserPassword { get; set; } = string.Empty;
 
-        public RelayCommand LoginButtonClick => new(async(o) => await LoginClick());
-        public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick());
+        public RelayCommand LoginButtonClick => new(async(o) => await LoginClick(), (o) => isUserLoginInfoExist());
+        public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick(),(o)=>isUserLoginInfoExist());
     }
 }

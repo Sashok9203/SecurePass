@@ -81,9 +81,9 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
                             <TextBlock  Width ="240" Margin="8" FontSize="20" Text=" Welcome to SecurePass" FontWeight="Bold" Foreground ="#FFCCCCCC"></TextBlock>
                             <TextBlock Margin="30,0,0,4" HorizontalAlignment="Left" Text="Login" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
-                            <TextBox Text="{Binding UserLogin}" HorizontalContentAlignment="Center" CaretBrush="White" FontSize="15" VerticalContentAlignment="Center"  Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7"></TextBox>
+                            <TextBox Text="{Binding UserLogin ,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" CaretBrush="White" FontSize="15" VerticalContentAlignment="Center"  Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7"></TextBox>
                             <TextBlock Margin="30,3,0,4" HorizontalAlignment="Left" Text="Password" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
-                            <TextBox Text="{Binding UserPassword}" HorizontalContentAlignment="Center" FontSize="15"  CaretBrush="White"  VerticalContentAlignment="Center" Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7" ></TextBox>
+                            <TextBox Text="{Binding UserPassword , UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" FontSize="15"  CaretBrush="White"  VerticalContentAlignment="Center" Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7" ></TextBox>
                             <Button Command ="{Binding LoginButtonClick}" Style="{StaticResource RoundedButtonStyle}" Height="35" Width ="200" Margin="7" Background="#2150f5">Login</Button>
                             <Button Command="{Binding CreateNewAccButtonClick}"  Style="{StaticResource RoundedButtonStyle}" Background="Gray" Height="35" Width ="200" Margin="7">Create new account</Button>
                         </StackPanel>
