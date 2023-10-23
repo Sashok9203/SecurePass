@@ -84,7 +84,7 @@ namespace SecurePass.ViewModels
                     foreach (var item in temp)
                         SecureObjects.Add(item);
                     foreach (var item in temp.Select(x => x.Category).Distinct())
-                        UserCategories.Add(new() { Category = item, IsSelected = false });
+                        UserCategories.Add(new(item));
                     addRegistryKey();
                     IsMainWindowEnabled = true;
                 }

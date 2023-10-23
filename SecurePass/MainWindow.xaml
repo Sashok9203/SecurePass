@@ -7,7 +7,7 @@
         xmlns:vmf="clr-namespace:SecurePass.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vmf:MainWindowVM}"
-        Title="SecurePass" Height="450" Width="800" Icon="/Images/preview.png" >
+        Title="SecurePass" Height="550" Width="900" Icon="/Images/preview.png" >
     <Window.DataContext>
         <vmf:MainWindowVM/>
     </Window.DataContext>
@@ -76,7 +76,7 @@
                     </StackPanel>
                 </Border>
                 <!--Authorization Control-->
-                <!--<Border Grid.Column="4" Background="#333333" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenConverter}}">
+                <Border Grid.Column="4" Background="#333333" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenConverter}}">
                     <Border>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
                             <TextBlock  Width ="240" Margin="8" FontSize="20" Text=" Welcome to SecurePass" FontWeight="Bold" Foreground ="#FFCCCCCC"></TextBlock>
@@ -88,7 +88,7 @@
                             <Button Command="{Binding CreateNewAccButtonClick}"  Style="{StaticResource RoundedButtonStyle}" Background="Gray" Height="35" Width ="200" Margin="7">Create new account</Button>
                         </StackPanel>
                     </Border>
-                </Border>-->
+                </Border>
                 <!--SecurePassImage-->
                 <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="7" Source="/Images/preview.png"></Image>
             </Grid>
