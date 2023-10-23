@@ -13,6 +13,7 @@ namespace data_access.Data
             modelBuilder.Entity<Universal>().HasData(Universals);
             modelBuilder.Entity<CreditCard>().HasData(CreditCards);
             modelBuilder.Entity<Server>().HasData(Servers);
+            modelBuilder.Entity<BankAccount>().HasData(BankAccounts);
         }
 
         public static readonly User[] Users =
@@ -49,9 +50,16 @@ namespace data_access.Data
         {
             new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
         };
+
         public static readonly DataBase[] DataBases=
         {
-            new() { Id = 1, ImageId= 1, CategoryId = 1, Title = "My database", Type = "type", Server = "my server", Port = 1234, Database = "My database", Name = "Database1", Password = "database1", SID = "90900890", Pseudonym = "basebase", ConnectionSettings = "settings", UserId = 1 }
+            new() { Id = 1, ImageId= 1, CategoryId = 1, Title = "My database", Type = "type", Server = "my server", Port = 1234, Database = "My database", Name = "Database1", Password = "database1", SID = "90900890", Pseudonym = "basebase", ConnectionSettings = "settings", UserId = 1
+        };
+
+        public static readonly BankAccount[] BankAccounts =
+        {
+            new() { Id = 1, Title = "My bank account", UserId = 1, CategoryId = 1, Name = "Name account", OwnerName = "Name owner", Type = "My type", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "XXXXXXX", IBAN = "XX000000000XX", PIN = "0000" }
+
         };
     }
 }
