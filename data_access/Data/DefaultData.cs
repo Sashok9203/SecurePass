@@ -51,9 +51,9 @@ namespace data_access.Data
             new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
         };
 
-        public static readonly BankAccount[] bankAccounts =
+        public static readonly BankAccount[] BankAccounts =
         {
-            new() { Id = 1, Title = "My bank account", UserId = 1, CategoryId = 1 Name = "Name account", OwnerName = "Name owner", Type = "My type", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "XXXXXXX", IBAN = "XX000000000XX", PIN = "0000" }
+            new() { Id = 1, Title = "My bank account", UserId = 1, CategoryId = 1, Name = "Name account", OwnerName = "Name owner", Type = "My type", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "XXXXXXX", IBAN = "XX000000000XX", PIN = "0000" }
         };
     }
 }
