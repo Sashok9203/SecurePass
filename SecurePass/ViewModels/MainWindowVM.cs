@@ -97,8 +97,8 @@ namespace SecurePass.ViewModels
             UserLogin = tryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
         }
-        
-        // First program start flag
+
+        // First start program  flag
         public bool IsFirstStart
         {
             get => isFirstStart;
@@ -109,7 +109,7 @@ namespace SecurePass.ViewModels
             }
         }
 
-        // Switch main window - registration/authorization window
+        // Switch main window <-> registration/authorization window
         public bool IsMainWindowEnabled
         {
             get => isMainWindowEnabled;
@@ -131,10 +131,10 @@ namespace SecurePass.ViewModels
             }
         }
 
-        // Colection of the user SecureOblects
+        // Сollection of user  SecureOblects
         public ObservableCollection<SecureObject> SecureObjects { get; set; } = new();
 
-        // Colection of the user Categories
+        // Сollection of user Categories
         public ObservableCollection<CategoryVM> UserCategories { get; set; } = new();
 
         // User login value 
