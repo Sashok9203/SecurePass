@@ -8,7 +8,7 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<Wifi> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.CategoryId);
+            builder.Property(x => x.Title).HasMaxLength(128);
             builder.Property(x => x.BaseStation).HasMaxLength(64);
             builder.Property(x => x.Password).HasMaxLength(64);
             builder.Property(x => x.IP);
@@ -16,7 +16,7 @@ namespace data_access.Entities.Configs
             builder.Property(t => t.NetworkName).HasMaxLength(56);
             builder.Property(x => x.WirelessSecurity).HasMaxLength(64);
             builder.Property(x => x.WirelessPassword).HasMaxLength(64);
-            builder.Property(x => x.UserId).HasMaxLength(64);
+            builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
         }
     }
 }

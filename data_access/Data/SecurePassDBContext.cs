@@ -36,5 +36,6 @@ namespace data_access.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Universal> Universals { get; set; }
         public DbSet<Server> Servers { get; set; }
+        public DbSet<WiFi> WiFis {  get; set; }
     }
 }
