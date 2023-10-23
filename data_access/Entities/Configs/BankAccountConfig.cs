@@ -26,9 +26,6 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.PIN).HasMaxLength(128);
             builder.Property(x => x.Title).HasMaxLength(128);
             builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
-
-            throw new NotImplementedException();
         }
-
     }
 }
