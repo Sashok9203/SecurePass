@@ -9,7 +9,6 @@ namespace data_access.Entities
 {
     internal class DataBase:SecureObject
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
         public string Server { get; set; }
