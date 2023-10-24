@@ -8,7 +8,7 @@ namespace data_access.Data
     {
         public SecurePassDBContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -27,7 +27,8 @@ namespace data_access.Data
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
             modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
-            
+            modelBuilder.ApplyConfiguration<DataBase>(new DataBaseConfig());
+ 
             DefaultData.Initialize(modelBuilder);
         }
         
@@ -38,5 +39,6 @@ namespace data_access.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Universal> Universals { get; set; }
         public DbSet<Server> Servers { get; set; }
+        public DbSet<DataBase> DataBases { get; set; }
     }
 }
