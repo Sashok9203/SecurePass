@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    internal class DataBase:SecureObject
+    public class DataBase:SecureObject
     {
         public string Title { get; set; }
         public string Type { get; set; }
