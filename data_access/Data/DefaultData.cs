@@ -59,7 +59,6 @@ namespace data_access.Data
         public static readonly BankAccount[] BankAccounts =
         {
             new() { Id = 1, Title = "My bank account", UserId = 1, CategoryId = 1, Name = "Name account", OwnerName = "Name owner", Type = "My type", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "XXXXXXX", IBAN = "XX000000000XX", PIN = "0000" }
-
         };
     }
 }
