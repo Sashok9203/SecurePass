@@ -14,9 +14,58 @@
 
     <Grid>
         <!--Main window-->
-        <Border Background="Green" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
+        <Border Background="#262626" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#262626"></Border>
+                <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DockPanel>
+                        <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All categories</Button>
+                        <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
+                    </DockPanel>
 
+                    <Border Grid.Row="1" Height="300" Margin="10,10,10,0" Background="White"></Border>
+                    <DockPanel Grid.Column="1">
+                        <Button Width="100" Height="25" Margin="20,0,0,0">Category</Button>
+                        <Button Width="100" Height="25">Edit</Button>
+                    </DockPanel>
+                    <Border Grid.Row="1" Grid.Column="1" Height="300" Margin="10,10,10,0" Background="Gray"></Border>
+
+
+                </Grid>
+                <DockPanel Grid.ColumnSpan="2" Grid.Column="1">
+                    <TextBox Grid.Column="1" Text="Search" VerticalAlignment="Center" Height="25" Width="250"></TextBox>
+                    <Button Content="Add New" Grid.Column="2" Height="25" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"></Button>
+                </DockPanel>
+
+                <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,7,0,0" Foreground="White"></TextBlock>
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <DockPanel Margin="0,10,0,10">
+                        <Image  Height="40" Width="40" HorizontalAlignment="Left" Margin="20,0,0,0" Source="/Images/avatar_147144.png"></Image>
+                        <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
+                        <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
+                    </DockPanel>
+                    <Border Height="300" Margin="10,10,10,0" Background="White"></Border>
+                </StackPanel>
+            </Grid>
         </Border>
+
 
         <!--Authorization window-->
         <Border Background ="#2e2e2e" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
