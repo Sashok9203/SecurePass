@@ -29,36 +29,67 @@ namespace data_access.Data
              new(){ Id = 2, ImageId = 4, Name = "Emails" },
              new(){ Id = 3, ImageId = 3, Name = "Sites" },
              new(){ Id = 4, ImageId = 4, Name = "Servers"},
+
+             new(){ Id = 5, ImageId = 3, Name = "Logins" },
+             new(){ Id = 6, ImageId = 4, Name = "Cards" },
+             new(){ Id = 7, ImageId = 3, Name = "Games" },
+             new(){ Id = 8, ImageId = 4, Name = "Private"},
+
+             new(){ Id = 9, ImageId = 3, Name = "Operating Systems" },
+             new(){ Id = 10, ImageId = 4, Name = "DataBases" },
+             new(){ Id = 11, ImageId = 3, Name = "Temporary" },
+             new(){ Id = 12, ImageId = 4, Name = "BankAccounts"},
         };
 
         public static readonly Universal[] Universals =
         {
-            new(){ Id = 1,ImageId = 2,  CategoryId = 1, Label = "Door pass", Title = "Password", UserId = 1, Value  ="24523" }
+            new(){ Id = 1,ImageId = 2,  CategoryId = 1, Label = "Door pass", Title = "Password132", UserId = 1, Value  ="24523" },
+            new(){ Id = 2,ImageId = 4,  CategoryId = 1, Label = "KeyKey", Title = "PasswordY", UserId = 1, Value  ="23key32" },
+            new(){ Id = 3,ImageId = 3,  CategoryId = 3, Label = "luke22", Title = "Wordpress", UserId = 1, Value  ="Hd783.Sv89x" },
+            //1
+            new(){ Id = 4,ImageId = 3,  CategoryId = 7, Label = "vera228", Title = "Steam", UserId = 2, Value  ="gg7schu." },
+            //2
         };
 
         public static readonly CreditCard[] CreditCards =
         {
-            new() { Id = 1, ImageId = 1, CategoryId = 2,Title = "My credit card", OwnerName = "John Doe", Type = "Type1", StartDate = new DateTime(2010, 10, 10) , Number ="00000000", UserId =1, Validity = new DateTime(2030, 10, 10), VerificationCode ="0000" }
+            new() { Id = 1, ImageId = 1, CategoryId = 6,Title = "card \"PrivateBank\"", OwnerName = "Veronika Malets", Type = "Type1", StartDate = new DateTime(2010, 10, 10) , Number ="00000000", UserId =2, Validity = new DateTime(2030, 10, 10), VerificationCode ="0030" },
+            new() { Id = 2, ImageId = 2, CategoryId = 6,Title = "card \"OshadBank\"", OwnerName = "Veronika Malets", Type = "Type1", StartDate = new DateTime(2017, 8, 12) , Number ="00000000", UserId =2, Validity = new DateTime(2037, 8, 12), VerificationCode ="1230" },
+            new() { Id = 3, ImageId = 4, CategoryId = 8,Title = "card \"Monobank\"", OwnerName = "Veronika Malets", Type = "Type1", StartDate = new DateTime(2020, 8, 11) , Number ="00000000", UserId =2, Validity = new DateTime(2040, 8, 11), VerificationCode ="1990" },
+            //2
         };
 
         public static readonly Email[] emails =
         {
-            new(){Id = 1, ImageId = 1, AuthenticationMethod ="Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 1, Type = "gmail", UserId = 1, Title = "Email1", Safety = "SafetyExample" }
+            new(){Id = 1, ImageId = 1, AuthenticationMethod ="Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 144, Type = "gmail", UserId = 1, Title = "Email1", Safety = "SafetyExample" },
+            new(){Id = 2, ImageId = 2, AuthenticationMethod ="Method", CategoryId = 2, Name ="fagot88@ukrnet.com", Password = "qwerty88", Server = "Server2", Port = 123, Type = "ukr.net", UserId = 1, Title = "UkrNet", Safety = "SafetyExample" },
+            //1
+            new(){Id = 3, ImageId = 2, AuthenticationMethod ="Method", CategoryId = 5, Name ="vera234@gmail.com", Password = "vera0N1ka", Server = "Server3", Port = 11144, Type = "gmail", UserId = 2, Title = "Email", Safety = "SafetyExample" },
+            //2
+
         };
 
         public static readonly Server[] Servers =
         {
-            new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
+            new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 },
+            //1
+            new() { Id = 2, ImageId= 4, CategoryId = 7, Title = "FactorioServer", Name = "factorio_team", URL = "hamachi.www", Password = "f123f123", UserId = 2 },
+            //2
         };
 
         public static readonly DataBase[] DataBases=
         {
-            new() { Id = 1, ImageId= 1, CategoryId = 1, Title = "My database", Type = "type", Server = "my server", Port = 1234, Database = "My database", Name = "Database1", Password = "database1", SID = "90900890", Pseudonym = "basebase", ConnectionSettings = "settings", UserId = 1 }
+            new() { Id = 1, ImageId= 1, CategoryId = 3, Title = "My database", Type = "type1", Server = "my server", Port = 1234, Database = "My database", Name = "MyDatabase", Password = "database1", SID = "90900890", Pseudonym = "basebase", ConnectionSettings = "settings", UserId = 1 },
+            new() { Id = 2, ImageId= 2, CategoryId = 4, Title = "My database", Type = "type2", Server = "HubSpot", Port = 1889, Database = "HubSpot", Name = "HubSpot", Password = "hubSpotPass1", SID = "9090064890", Pseudonym = "hubspot", ConnectionSettings = "admin1", UserId = 1 },
+            //1
+            new() { Id = 3, ImageId= 1, CategoryId = 8, Title = "Database67", Type = "type3", Server = "server", Port = 1339, Database = "database", Name = "database_67", Password = "data67base", SID = "96733064890", Pseudonym = "database", ConnectionSettings = "admin89", UserId = 2 },
+            //2
         };
 
         public static readonly BankAccount[] BankAccounts =
         {
-            new() { Id = 1, Title = "My bank account", UserId = 1, CategoryId = 1, Name = "Name account", OwnerName = "Name owner", Type = "My type", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "XXXXXXX", IBAN = "XX000000000XX", PIN = "0000" }
+            new() { Id = 1, Title = "My bank account", UserId = 2, CategoryId = 5, Name = "Monobank", OwnerName = "Veronika", Type = "type1", DepartmentNumber = 1, BankAccountNumber = "1234567", SWIFT = "ASDGSDVHHD", IBAN = "UA475734379878953987UA", PIN = "3342" },
+            //2
         };
     }
 }
