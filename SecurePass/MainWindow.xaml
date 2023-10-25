@@ -83,11 +83,9 @@
                     <Border Height="300" Margin="10,10,10,0" Background="White"></Border>
                 </StackPanel>
             </Grid>
-        </Border>
-
-        <!--Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}" -->
+        </Border> 
         <!--Authorization window-->
-        <Border Background ="#2e2e2e" Visibility="Hidden">
+        <Border Background ="#2e2e2e" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
