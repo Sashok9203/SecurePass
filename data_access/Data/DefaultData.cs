@@ -59,9 +59,9 @@ namespace data_access.Data
 
         public static readonly Email[] emails =
         {
-            new(){Id = 1, ImageId = 1, AuthenticationMethod ="Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 144, Type = "gmail", UserId = 1, Title = "Email1", Safety = "SafetyExample" },
-            new(){Id = 2, ImageId = 2, AuthenticationMethod ="Method", CategoryId = 2, Name ="fagot88@ukrnet.com", Password = "qwerty88", Server = "Server2", Port = 123, Type = "ukr.net", UserId = 1, Title = "UkrNet", Safety = "SafetyExample" },
-            new(){Id = 3, ImageId = 2, AuthenticationMethod ="Method", CategoryId = 5, Name ="vera234@gmail.com", Password = "vera0N1ka", Server = "Server3", Port = 11144, Type = "gmail", UserId = 2, Title = "Email", Safety = "SafetyExample" },
+            new(){Id = 1, ImageId = 1, AuthenticationMethod = "Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 144, Type = "gmail", UserId = 1, Title = "Email1", Safety = "SafetyExample" },
+            new(){Id = 2, ImageId = 2, AuthenticationMethod = "Method", CategoryId = 2, Name ="fagot88@ukrnet.com", Password = "qwerty88", Server = "Server2", Port = 123, Type = "ukr.net", UserId = 1, Title = "UkrNet", Safety = "SafetyExample" },
+            new(){Id = 3, ImageId = 2, AuthenticationMethod = "Method", CategoryId = 5, Name ="vera234@gmail.com", Password = "vera0N1ka", Server = "Server3", Port = 11144, Type = "gmail", UserId = 2, Title = "Email", Safety = "SafetyExample" },
         };
 
         public static readonly Server[] Servers =
