@@ -27,6 +27,7 @@ namespace data_access.Data
             modelBuilder.ApplyConfiguration<Universal>(new UniversalConfig());
             modelBuilder.ApplyConfiguration<Server>(new ServerConfig());
             modelBuilder.ApplyConfiguration<WiFi>(new WiFiConfig());
+            modelBuilder.ApplyConfiguration<Contact>(new ContactConfig());
 
             DefaultData.Initialize(modelBuilder);
         }
@@ -37,5 +38,7 @@ namespace data_access.Data
         public DbSet<Universal> Universals { get; set; }
         public DbSet<Server> Servers { get; set; }
         public DbSet<WiFi> WiFis {  get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+
     }
 }
