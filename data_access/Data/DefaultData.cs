@@ -41,11 +41,11 @@ namespace data_access.Data
 
         public static readonly Universal[] Universals =
         {
-            new(){ Id = 1,ImageId = 2,  CategoryId = 1, Label = "Door pass", Title = "Password132", UserId = 1, Value  ="24523" },
-            new(){ Id = 2,ImageId = 4,  CategoryId = 1, Label = "KeyKey", Title = "PasswordY", UserId = 1, Value  ="23key32" },
-            new(){ Id = 3,ImageId = 3,  CategoryId = 3, Label = "luke22", Title = "Wordpress", UserId = 1, Value  ="Hd783.Sv89x" },
-            new(){ Id = 4,ImageId = 3,  CategoryId = 7, Label = "vera228", Title = "Steam", UserId = 2, Value  ="gg7schu." },
-            new(){ Id = 5,ImageId = 3,  CategoryId = 11, Label = "alexTmp@gmail.com", Title = "TempMail", UserId = 3, Value  ="11223344" },
+            new(){ Id = 1,ImageId = 2,  CategoryId = 1, Label = "Door pass", Title = "Password132", UserId = 1, Value ="24523" },
+            new(){ Id = 2,ImageId = 4,  CategoryId = 1, Label = "KeyKey", Title = "PasswordY", UserId = 1, Value ="23key32" },
+            new(){ Id = 3,ImageId = 3,  CategoryId = 3, Label = "luke22", Title = "Wordpress", UserId = 1, Value ="Hd783.Sv89x" },
+            new(){ Id = 4,ImageId = 3,  CategoryId = 7, Label = "vera228", Title = "Steam", UserId = 2, Value ="gg7schu." },
+            new(){ Id = 5,ImageId = 3,  CategoryId = 11, Label = "alexTmp@gmail.com", Title = "TempMail", UserId = 3, Value ="11223344" },
 
         };
 
