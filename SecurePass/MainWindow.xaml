@@ -69,8 +69,15 @@
 
                 <!--Searching and adding new element-->
                 <DockPanel Grid.ColumnSpan="2" Grid.Column="2">
-                    <TextBox  Grid.Column="1" Text="Search" VerticalAlignment="Center" Height="25" Width="250"></TextBox>
-                    <Button Style="{StaticResource RoundedButtonStyle}" Content="+ Add New" Grid.Column="2" Height="20" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"></Button>
+                    <Border Grid.Column="2" Height="23" CornerRadius="5" Background="#1b1b1b" BorderThickness="1" BorderBrush="#373737"  Margin="5,5,5,5">
+                        <DockPanel LastChildFill="True" >
+                            <Image DockPanel.Dock="Left" Source="/Images/search_icon.png" Width="15" Margin="7,0,5,0"/>
+                            <TextBox Text="{Binding FindString ,UpdateSourceTrigger=PropertyChanged}" Width="200" 
+                  Background="Transparent" Foreground="White" FontSize="14" 
+                  CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Border>
+                    <Button Style="{StaticResource RoundedButtonStyle}" Background="#0570eb" Content="+ Add New" Grid.Column="2" Height="20" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"></Button>
                 </DockPanel>
                 <!--SecurePass label-->
                 <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,7,0,0" Foreground="White"></TextBlock>
@@ -96,7 +103,8 @@
             </Grid>
         </Border> 
         <!--Authorization window-->
-        <Border Background ="#2e2e2e" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
+        <!--Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}" -->
+        <Border Background ="#2e2e2e" Visibility="Hidden">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
