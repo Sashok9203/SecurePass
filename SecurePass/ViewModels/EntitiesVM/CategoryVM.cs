@@ -11,10 +11,19 @@ namespace SecurePass.ViewModels.EntitiesVM
     {
         private bool isSelected;
         private string name;
+        private int elementsCount;
 
-        public CategoryVM(Category category) : base(category.Id,category.ImageId)
+        public CategoryVM(Category category) : base(category.Id, category.ImageId)
         {
-            this.name = category.Name; 
+            this.name = category.Name;
+            elementsCount = category.CreditCards.Count
+                           + category.Universals.Count
+                           + category.Emails.Count
+                           + category.Servers.Count
+                           + category.Contacts.Count
+                           + category.WiFis.Count
+                           + category.DataBases.Count
+                           + category.BankAccounts.Count;
         }
 
         public string Name
@@ -23,6 +32,16 @@ namespace SecurePass.ViewModels.EntitiesVM
             set
             {
                 name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int ElementsCount
+        {
+            get => elementsCount;
+            set
+            {
+                elementsCount = value;
                 OnPropertyChanged();
             }
         }

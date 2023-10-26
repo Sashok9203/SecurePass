@@ -10,5 +10,7 @@
         public ICollection<Server> Servers { get; set; } = new HashSet<Server>();
         public ICollection<DataBase> DataBases { get; set; } = new HashSet<DataBase>();
         public ICollection<BankAccount> BankAccounts { get; set; } = new HashSet<BankAccount>();
+        public ICollection<WiFi> WiFis { get; set; } = new HashSet<WiFi>();
+        public ICollection<Contact> Contacts { get; set; } = new HashSet<Contact>();
     }
 }

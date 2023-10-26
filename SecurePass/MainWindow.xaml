@@ -7,7 +7,7 @@
         xmlns:vmf="clr-namespace:SecurePass.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vmf:MainWindowVM}"
-        Title="SecurePass" Height="450" Width="800" Icon="/Images/preview.png" >
+        Title="SecurePass" Height="600" Width="900" Icon="/Images/preview.png" Name="mainWindow" >
     <Window.DataContext>
         <vmf:MainWindowVM/>
     </Window.DataContext>
@@ -18,27 +18,27 @@
             <!--Main Grid -->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="1"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MinWidth="200" Width="1*" MaxWidth="600" ></ColumnDefinition>
+                    <ColumnDefinition Width="3"></ColumnDefinition>
+                    <ColumnDefinition MinWidth="400" Width="2*"></ColumnDefinition>
+                    
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--Black border between sections-->
-                <Border Grid.Column="1" Grid.RowSpan="2" Background="Black"></Border>
+                <GridSplitter  Grid.RowSpan="2" Grid.Column ="1"/>
                 <!--Main Background-->
                 <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#262626"></Border>
 
 
                 <!--Additional Window Grid-->
-                <Grid Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="1"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="200" Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="300" Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1"></RowDefinition>
@@ -47,7 +47,7 @@
                     </Grid.RowDefinitions>
                     <!--Black borders between sections-->
                     <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Black"></Border>
-                    <Border Grid.Column="1" Grid.RowSpan="3" Background="Black"></Border>
+                    <GridSplitter  Grid.RowSpan="3" Grid.Column ="1"/>
                     <!--List of categories and filter -->
                     <DockPanel Grid.Column="0" Grid.Row="1">
                         <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All categories</Button>
@@ -73,15 +73,24 @@
                 <!--SecurePass label-->
                 <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,7,0,0" Foreground="White"></TextBlock>
                 <!--User panel-->
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
-                    <DockPanel Margin="0,10,0,10">
+                <DockPanel LastChildFill ="True"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <DockPanel DockPanel.Dock="Top"  Margin="0,10,0,10">
                         <Image Height="40" Width="40" HorizontalAlignment="Left" Margin="20,0,0,0" Source="/Images/avatar_147144.png"></Image>
                         <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
                         <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
                     </DockPanel>
                     <!--List of elemets-->
-                    <Border Height="300" Margin="10,10,10,0" Background="White"></Border>
-                </StackPanel>
+                    <ScrollViewer Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DockPanel Margin="25,0,0,0">
+                            <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding StaticCategoryButtons}" ItemTemplate="{StaticResource categoryButtonTemplate }"/>
+                            <Expander  Margin="0,0,5,0" Grid.Row="1"  Header="Categories" FontSize="14"  Foreground="White" Style="{DynamicResource CategoryExpanderStyle}" >
+                                <Expander.Content>
+                                    <ItemsControl Name="userCategories" ItemsSource="{Binding UserCategories}" ItemTemplate="{StaticResource categoryButtonTemplateContextMenu }"/>
+                                </Expander.Content>
+                            </Expander>
+                        </DockPanel>
+                    </ScrollViewer>
+                </DockPanel>
             </Grid>
         </Border> 
         <!--Authorization window-->
