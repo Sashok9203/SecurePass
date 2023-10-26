@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Resources/Colors.xaml"/>
                 <ResourceDictionary Source="/Resources/DataContexts.xaml"/>
                 <ResourceDictionary Source="/Resources/ScrollBar.xaml"/>
+                <ResourceDictionary Source="/Resources/GridSplitterStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
