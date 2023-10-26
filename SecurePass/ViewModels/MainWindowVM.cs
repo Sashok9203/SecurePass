@@ -24,6 +24,7 @@ namespace SecurePass.ViewModels
         private string findString;
         private CategoryVM? selectedCategory;
         private List<SecureObjectVM> secureObjects = new();
+        private SecureObjectVM? selectedSecureObject;
 
         private CategoryVM[] staticCategoryButtons =
         {
@@ -31,6 +32,17 @@ namespace SecurePass.ViewModels
             new(new(){ Name = "Favorit",Id = -2})
         };
 
+
+        private void secureObjectSelected(object o)
+        {
+            if (o is SecureObjectVM secureObject)
+            {
+                if (SelectedSecureObject != null)
+                    SelectedSecureObject.IsSelected = false;
+                SelectedSecureObject = secureObject;
+                SelectedSecureObject.IsSelected = true;
+            }
+        }
 
         private void categorySelected(object o)
         {
@@ -161,7 +173,17 @@ namespace SecurePass.ViewModels
             }
         }
 
-        
+        // Object was user select
+        public SecureObjectVM? SelectedSecureObject
+        {
+            get => selectedSecureObject;
+            set
+            {
+                selectedSecureObject = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsSelected
         {
             get => isSelected;
@@ -213,5 +235,6 @@ namespace SecurePass.ViewModels
         public RelayCommand LoginButtonClick => new(async(o) => await LoginClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick(),(o)=>isUserLoginInfoExist());
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
+        public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
     }
 }

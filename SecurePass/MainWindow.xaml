@@ -24,7 +24,7 @@
                     
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition Height="45"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--Black border between sections-->
@@ -36,13 +36,13 @@
                 <!--Additional Window Grid-->
                 <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="200" Width="1*"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="200" Width="1.5*"></ColumnDefinition>
                         <ColumnDefinition Width="3"></ColumnDefinition>
                         <ColumnDefinition MinWidth="300" Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1"></RowDefinition>
-                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--Black borders between sections-->
@@ -54,7 +54,9 @@
                         <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
                     </DockPanel>
                     <!--List of items-->
-                    <Border Grid.Column="0" Grid.Row="2" Height="300" Margin="10,10,10,0" Background="White"></Border>
+                    <ScrollViewer Margin="20" Grid.Column="0" Grid.Row="2" Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ItemsControl   ItemsSource="{Binding SecureObjects}" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource secureObjectButtonTemplateContext}"/>
+                    </ScrollViewer>
                     <!--Editing-->
                     <DockPanel Grid.Column="2" Grid.Row="1">
                         <Button Width="100" Height="25" Margin="20,0,0,0">Category</Button>
@@ -79,7 +81,7 @@
                         <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
                         <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
                     </DockPanel>
-                    <!--List of elemets-->
+                    <!--List of categories-->
                     <ScrollViewer Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <DockPanel Margin="25,0,0,0">
                             <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding StaticCategoryButtons}" ItemTemplate="{StaticResource categoryButtonTemplate }"/>
@@ -134,7 +136,7 @@
                             <Image HorizontalAlignment="Left" Height="60" Width="60"  x:Name="Avatar_LoginWindow"  Margin="0,0,0,12"  Source="/Images/avatar_147144.png" Opacity="100"/>
                             <TextBlock Text="{Binding UserLogin}" VerticalAlignment="Center" Foreground ="#FFCCCCCC" FontSize="20" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
                         </DockPanel>
-                        <Border BorderBrush="#FF5A74B5" BorderThickness="3" Background="#FF171729"  CornerRadius="10" Width="240" Height="40">
+                        <Border BorderBrush="#FF5A74B5" BorderThickness="2" Background="#FF171729"  CornerRadius="10" Width="240" Height="40">
                             <DockPanel>
                                 <TextBox Text="{Binding UserPassword,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,0,0" Background="Transparent" Width="175" Height="30" BorderThickness="0" 
                                          BorderBrush="Transparent" Foreground="White" CaretBrush="AliceBlue"
