@@ -18,9 +18,37 @@ namespace SecurePass.ViewModels
     {
         private const string keyLoginRegistryPath = @"Software\SecurePass\";
         private const string userLoginValueName = "SecurePassUserLogin";
-        private bool isMainWindowEnabled, isFirstStart;
+        private bool isMainWindowEnabled, isFirstStart,isSelected;
         private readonly SecurePassDBContext dbContext;
         private User? currentUser;
+        private string findString;
+        private CategoryVM? selectedCategory;
+        private List<SecureObjectVM> secureObjects = new();
+
+        private CategoryVM[] staticCategoryButtons =
+        {
+            new(new(){ Name = "AllElements",Id = -1}){ IsSelected = true  },
+            new(new(){ Name = "Favorit",Id = -2})
+        };
+
+
+        private void categorySelected(object o)
+        {
+            if (o is CategoryVM category)
+            {
+                if (SelectedCategory != null)
+                    SelectedCategory.IsSelected = false;
+                SelectedCategory = category;
+                SelectedCategory.IsSelected = true;
+            }
+        }
+
+        private bool secureElementFilter(SecureObjectVM so)
+        {
+            bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
+            if (SelectedCategory?.Id == -1 && strFindCondition) return true;
+            else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition;
+        }
 
         private string tryGetLogin()
         {
@@ -77,14 +105,15 @@ namespace SecurePass.ViewModels
                     await dbContext.CreditCards.Where(p => p.Id == CurrentUser.Id).LoadAsync();
                     await dbContext.Universals.Where(p => p.Id == CurrentUser.Id).LoadAsync();
                     await dbContext.Servers.Where(p => p.Id == CurrentUser.Id).LoadAsync();
-                    List<SecureObject> temp = new();
-                    temp.AddRange(dbContext.Emails.Include(x => x.Category));
-                    temp.AddRange(dbContext.CreditCards.Include(x => x.Category));
-                    temp.AddRange(dbContext.Universals.Include(x => x.Category));
-                    temp.AddRange(dbContext.Servers.Include(x => x.Category));
-                    foreach (var item in temp)
-                        SecureObjects.Add(item);
-                    foreach (var item in temp.Select(x => x.Category).Distinct())
+                    secureObjects.AddRange(dbContext.Emails.Include(x => x.Category).Select(x => new EmailVM(x)));
+                    secureObjects.AddRange(dbContext.CreditCards.Include(x => x.Category).Select(x => new CreditCardVM(x)));
+                    secureObjects.AddRange(dbContext.Universals.Include(x => x.Category).Select(x => new UniversalVM(x)));
+                    secureObjects.AddRange(dbContext.Servers.Include(x => x.Category).Select(x => new ServerVM(x)));
+                    SelectedCategory = staticCategoryButtons[0];
+                    SelectedCategory.ElementsCount = secureObjects.Count;
+                    var categoriesId = secureObjects.Select(x => x.CategoryId).Distinct();
+                    var categories = dbContext.Categories.Where(x => categoriesId.Any(y => y == x.Id));
+                    foreach (var item in categories)
                         UserCategories.Add(new(item));
                     addRegistryKey();
                     IsMainWindowEnabled = true;
@@ -97,6 +126,17 @@ namespace SecurePass.ViewModels
             dbContext = new();
             UserLogin = tryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
+        }
+
+       // Filter string
+        public string FindString
+        {
+            get => findString;
+            set
+            {
+                findString = value;
+                OnPropertyChanged(nameof(SecureObjects));
+            }
         }
 
         // First start program  flag
@@ -121,6 +161,29 @@ namespace SecurePass.ViewModels
             }
         }
 
+        
+        public bool IsSelected
+        {
+            get => isSelected;
+            set
+            {
+                isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Category was user select
+        public CategoryVM? SelectedCategory
+        {
+            get => selectedCategory;
+            set
+            {
+                selectedCategory = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SecureObjects));
+            }
+        }
+
         // Authorized user
         public User? CurrentUser
         {
@@ -132,8 +195,11 @@ namespace SecurePass.ViewModels
             }
         }
 
+        // Static category buttons
+        public IEnumerable<CategoryVM> StaticCategoryButtons => staticCategoryButtons;
+
         // Сollection of user  SecureOblects
-        public ObservableCollection<SecureObject> SecureObjects { get; set; } = new();
+        public IEnumerable<SecureObjectVM> SecureObjects  => secureObjects.Where(x=> secureElementFilter(x)).ToArray();
 
         // Сollection of user Categories
         public ObservableCollection<CategoryVM> UserCategories { get; set; } = new();
@@ -146,5 +212,6 @@ namespace SecurePass.ViewModels
 
         public RelayCommand LoginButtonClick => new(async(o) => await LoginClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick(),(o)=>isUserLoginInfoExist());
+        public RelayCommand CategorySelected => new((o) => categorySelected(o));
     }
 }

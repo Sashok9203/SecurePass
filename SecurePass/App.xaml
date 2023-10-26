@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="/Resources/DataContexts.xaml"/>
                 <ResourceDictionary Source="/Resources/ScrollBar.xaml"/>
                 <ResourceDictionary Source="/Resources/GridSplitterStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/CategoryExpanderStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/CategoryButtonDataTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

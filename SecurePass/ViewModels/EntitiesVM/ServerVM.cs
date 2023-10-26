@@ -1,4 +1,5 @@
-﻿using System;
+﻿using data_access.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,11 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private string password;
 
-        public ServerVM(ServerVM server) : base(server.Id,server.ImageId,server.CategoryId,server.UserId,server.Title)
+        public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.UserId,server.Title)
         {
-            url = server.url;
-            name = server.name;
-            password = server.password;
+            url = server.URL;
+            name = server.Name;
+            password = server.Password;
         }
 
         public string URL 
