@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace data_access.Entities.Configs
 {
-    internal class WifiConfig : IEntityTypeConfiguration<Wifi>
+    internal class WiFiConfig : IEntityTypeConfiguration<WiFi>
     {
-        public void Configure(EntityTypeBuilder<Wifi> builder)
+        public void Configure(EntityTypeBuilder<WiFi> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).HasMaxLength(128);
