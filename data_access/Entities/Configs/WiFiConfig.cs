@@ -11,7 +11,6 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.Title).HasMaxLength(128);
             builder.Property(x => x.BaseStation).HasMaxLength(64);
             builder.Property(x => x.Password).HasMaxLength(64);
-            builder.HasOne(x => x.User).WithMany(x => x.WiFis);
             builder.HasOne(x => x.Category).WithMany(x => x.WiFis);
             builder.Property(x => x.IP);
             builder.Property(x => x.AirPortId);

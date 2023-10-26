@@ -25,6 +25,7 @@
             </Border.InputBindings>
             <Border.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Add to favorit"/>
                     <MenuItem Header="Edit"/>
                     <MenuItem Header="Delete"/>
                 </ContextMenu>

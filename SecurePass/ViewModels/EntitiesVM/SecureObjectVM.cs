@@ -11,10 +11,11 @@ namespace SecurePass.ViewModels.EntitiesVM
     {
         private int categoryId;
         private string title, info;
-        private bool isSelected;
+        private bool isSelected,isFavorit;
 
-        public SecureObjectVM(int id, int imageId, int categoryId, int userId, string title, string info) : base(id, imageId)
+        public SecureObjectVM(int id, int imageId, int categoryId, int userId, string title, string info,bool isFavorit) : base(id, imageId)
         {
+            this.isFavorit = isFavorit;
             this.info = info;
             this.title = title;
             this.UserId = userId;
@@ -47,6 +48,16 @@ namespace SecurePass.ViewModels.EntitiesVM
             set
             {
                 isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsFavorit
+        {
+            get => isFavorit;
+            set
+            {
+                isFavorit = value;
                 OnPropertyChanged();
             }
         }

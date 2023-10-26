@@ -84,7 +84,7 @@
                                      CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Border>
-                    <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Style="{StaticResource RoundedButtonStyle}" Background="#0570eb" Content="+ Add New" Grid.Column="2" Height="20" Width="150" Margin="10,0,0,0"></Button>
+                    <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Style="{StaticResource RoundedButtonStyle}" Background="#0570eb" Content="+ Add New" Grid.Column="2" Height="25" Width="150" Margin="10,0,0,0"></Button>
                 </DockPanel>
                 
                 <!--SecurePass label-->

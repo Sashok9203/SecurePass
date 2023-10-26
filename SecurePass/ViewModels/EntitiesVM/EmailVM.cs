@@ -17,7 +17,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string safety;
         private string authenticationMethod;
 
-        public EmailVM(Email email): base(email.Id,email.ImageId,email.CategoryId,email.UserId,email.Title,email.Name)
+        public EmailVM(Email email): base(email.Id,email.ImageId,email.CategoryId,email.UserId,email.Title,email.Name, email.IsFavorit)
         {
             type = email.Type;
             name = email.Name;

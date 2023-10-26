@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string company;
         private string position;
 
-        public ContactWM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.UserId,contact.Title,contact.Name)
+        public ContactWM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.UserId,contact.Title,contact.Name, contact.IsFavorit)
         {
             title = contact.Title;
             name = contact.Name;
