@@ -14,6 +14,8 @@ namespace data_access.Data
             modelBuilder.Entity<CreditCard>().HasData(CreditCards);
             modelBuilder.Entity<Server>().HasData(Servers);
             modelBuilder.Entity<BankAccount>().HasData(BankAccounts);
+            modelBuilder.Entity<Email>().HasData(Emails);
+            modelBuilder.Entity<DataBase>().HasData(DataBases);
         }
 
         public static readonly User[] Users =
@@ -57,7 +59,7 @@ namespace data_access.Data
             new() { Id = 4, ImageId = 1, CategoryId = 9,Title = "card for pade \"Microsoft Store\"", OwnerName = "Alex Vini", Type = "Type1", StartDate = new DateTime(2020, 8, 11) , Number ="00000000", Validity = new DateTime(2040, 8, 11), VerificationCode ="1922" },
         };
 
-        public static readonly Email[] emails =
+        public static readonly Email[] Emails =
         {
             new(){Id = 1, ImageId = 1, AuthenticationMethod = "Method", CategoryId = 2, Name ="someone@gmail.com", Password = "qwer1234", Server = "Server1", Port = 144, Type = "gmail", Title = "Email1", Safety = "SafetyExample" },
             new(){Id = 2, ImageId = 2, AuthenticationMethod = "Method", CategoryId = 2, Name ="fagot88@ukrnet.com", Password = "qwerty88", Server = "Server2", Port = 123, Type = "ukr.net",  Title = "UkrNet", Safety = "SafetyExample" },
