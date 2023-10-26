@@ -16,7 +16,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private DateTime validity;
         private DateTime startDate;
 
-        public CreditCardVM(CreditCard creditCard) : base(creditCard.Id,creditCard.ImageId,creditCard.CategoryId,creditCard.UserId,creditCard.Title,creditCard.OwnerName)
+        public CreditCardVM(CreditCard creditCard) : base(creditCard.Id,creditCard.ImageId,creditCard.CategoryId,creditCard.Title,creditCard.OwnerName, creditCard.IsFavorit)
         {
             ownerName = creditCard.OwnerName;
             type = creditCard.Type;

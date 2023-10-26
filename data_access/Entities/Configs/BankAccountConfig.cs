@@ -14,6 +14,7 @@ namespace data_access.Entities.Configs
         public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasOne(x => x.Category).WithMany(x=>x.BankAccounts);
             builder.Property(x => x.Name).HasMaxLength(128);
             builder.ToTable(t => t.HasCheckConstraint("Name_check", "[Name] <> ''"));
             builder.Property(a => a.OwnerName).HasMaxLength(128);

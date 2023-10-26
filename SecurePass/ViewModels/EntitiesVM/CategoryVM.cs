@@ -13,9 +13,12 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private int elementsCount;
 
+        public CategoryVM(): base(0, 0) { name = string.Empty;  }
+
         public CategoryVM(Category category) : base(category.Id, category.ImageId)
         {
             this.name = category.Name;
+            UserId = category.UserId;
             elementsCount = category.CreditCards.Count
                            + category.Universals.Count
                            + category.Emails.Count
@@ -55,5 +58,7 @@ namespace SecurePass.ViewModels.EntitiesVM
                 OnPropertyChanged();
             }
         }
+
+        public int UserId { get; private set; }
     }
 }

@@ -15,7 +15,7 @@
 
     <Grid>
         <!--Main window-->
-        <Border Background="#203040" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
+        <Border Background="#203040" IsEnabled="{Binding IsAddEditCategoryWindowEnabled , Converter={StaticResource BoolInvertConverter}}" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
             <!--Main Grid -->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -27,9 +27,11 @@
                     <RowDefinition Height="45"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
+                
                 <!--Black border between sections-->
                 <Border Grid.Column="1" Grid.RowSpan="2" Background="Black"></Border>
                 <GridSplitter  Grid.RowSpan="2" Grid.Column ="1"/>
+                
                 <!--Main Background-->
                 <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#262626"></Border>
 
@@ -45,24 +47,29 @@
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
+                    
                     <!--Black borders between sections-->
                     <Border Grid.Column="0" Grid.ColumnSpan="3" Background="Black"></Border>
                     <Border Grid.Column="1" Grid.RowSpan="3" Background="Black"></Border>
                     <GridSplitter  Grid.RowSpan="3" Grid.Column ="1"/>
+                    
                     <!--List of categories and filter -->
                     <DockPanel Grid.Column="0" Grid.Row="1">
-                        <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All categories</Button>
+                        <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All types</Button>
                         <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
                     </DockPanel>
+                    
                     <!--List of items-->
                     <ScrollViewer Margin="20,20,5,20" Grid.Column="0" Grid.Row="2" Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <ItemsControl   ItemsSource="{Binding SecureObjects}" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource secureObjectButtonTemplateContext}"/>
                     </ScrollViewer>
+                    
                     <!--Editing-->
                     <DockPanel Grid.Column="2" Grid.Row="1">
                         <Button Width="100" Height="25" Margin="20,0,0,0">Category</Button>
                         <Button Width="100" Height="25">Edit</Button>
                     </DockPanel>
+                    
                     <!--Need to be another xaml-->
                     <Border Grid.Row="2" Grid.Column="2" Height="300" Margin="10,10,10,0" Background="Gray"></Border>
                 </Grid>
@@ -77,10 +84,12 @@
                                      CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Border>
-                    <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Style="{StaticResource RoundedButtonStyle}" Background="#0570eb" Content="+ Add New" Grid.Column="2" Height="20" Width="150" Margin="10,0,0,0"></Button>
+                    <Button HorizontalAlignment="Right" DockPanel.Dock="Right" Style="{StaticResource RoundedButtonStyle}" Background="#0570eb" Content="+ Add New" Grid.Column="2" Height="25" Width="150" Margin="10,0,0,0"></Button>
                 </DockPanel>
+                
                 <!--SecurePass label-->
                 <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,7,0,0" Foreground="White"></TextBlock>
+                
                 <!--User panel-->
                 <DockPanel LastChildFill ="True"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
                     <DockPanel DockPanel.Dock="Top"  Margin="0,10,0,10">
@@ -88,6 +97,7 @@
                         <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
                         <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
                     </DockPanel>
+                    
                     <!--List of categories-->
                     <ScrollViewer  Margin="20,0,5,0" Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <DockPanel>
@@ -101,7 +111,51 @@
                     </ScrollViewer>
                 </DockPanel>
             </Grid>
-        </Border> 
+            <Border.Effect>
+                <BlurEffect Radius="{Binding IsAddEditCategoryWindowEnabled ,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToIntConverter}}"/>
+            </Border.Effect>
+        </Border>
+        
+        <!--Add/Edit category window-->
+        <Border  Height="260" Width="300" CornerRadius="10"
+                 Visibility="{Binding IsAddEditCategoryWindowEnabled , Converter={StaticResource BoolToHidenConverter}}"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3A3A3A" BorderBrush="#FF100F0F" BorderThickness="1">
+            <StackPanel Width="250" Margin ="0,20,0,0"  Orientation="Vertical">
+                <Image Source="/Images/preview.png" Width="60" HorizontalAlignment="Center">
+                    <Image.Effect>
+                        <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
+                    </Image.Effect>
+                </Image>
+                <TextBlock Text="Change image" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
+                <TextBlock Text="Category name" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
+                <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
+                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewCategory.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                     Background="Transparent" Foreground="White" FontSize="14" 
+                     CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
+                    </Border.Effect>
+                </Border>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,40,0,0">
+                    <Button  Background="#333333" Width="70" Content="Save" Margin="0,0,15,0" Height="30" Style="{StaticResource RoundedButtonStyle}" 
+                     Foreground="LightGray" BorderBrush="#FF3C3C3C" Command="{Binding SaveCategory}">
+                        <Button.Effect>
+                            <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button BorderBrush="#FF3C3C3C" Background="#333333" Width="70" Content="Cancel" Height="30" Style="{StaticResource RoundedButtonStyle}"  Foreground="LightGray"
+                    Command="{Binding Cancle}" IsCancel="True">
+                        <Button.Effect>
+                            <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10"  ShadowDepth="20" Opacity=".5" />
+            </Border.Effect>
+        </Border>
+        
         <!--Authorization window-->
         <Border Background ="#2e2e2e" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
             <Grid>
@@ -143,14 +197,14 @@
                             <Image HorizontalAlignment="Left" Height="60" Width="60"  x:Name="Avatar_LoginWindow"  Margin="0,0,0,12"  Source="/Images/avatar_147144.png" Opacity="100"/>
                             <TextBlock Text="{Binding UserLogin}" VerticalAlignment="Center" Foreground ="#FFCCCCCC" FontSize="20" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
                         </DockPanel>
-                        <Border BorderBrush="#FF5A74B5" BorderThickness="2" Background="#FF171729"  CornerRadius="10" Width="240" Height="40">
+                        <Border BorderBrush="#FF5A74B5" BorderThickness="2" Background="#FF171729"  CornerRadius="10" Width="260" Height="35">
                             <DockPanel>
-                                <TextBox Text="{Binding UserPassword,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,0,0" Background="Transparent" Width="175" Height="30" BorderThickness="0" 
+                                <TextBox Text="{Binding UserPassword,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0" Background="Transparent" Width="195" Height="30" BorderThickness="0" 
                                          BorderBrush="Transparent" Foreground="White" CaretBrush="AliceBlue"
                                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17" FontWeight="Thin">
                                 </TextBox>
                                 <Rectangle Width="1" Fill="#7996df" Margin="0,3,0,3"></Rectangle>
-                                <Image Width="25" VerticalAlignment="Center" Source="/Images/blue_arrow.png" >
+                                <Image Width="20" VerticalAlignment="Center" Source="/Images/right-arrow_3031735.png" >
                                     <Image.InputBindings>
                                         <MouseBinding Gesture="LeftClick" Command="{Binding LoginButtonClick}"/>
                                     </Image.InputBindings>

@@ -2,10 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <ContextMenu x:Key="categoryButtonContextMenu">
-        <MenuItem Header="Edit"/>
-        <MenuItem Header="Delete"/>
-    </ContextMenu>
+    
 
     <Style x:Key="categoryButtonBorderStyle" TargetType="Border">
         <Setter Property="Margin" Value="0,1,5,1"/>
@@ -20,11 +17,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="categoryButtonBorderStyleMenu" TargetType="Border" BasedOn="{StaticResource categoryButtonBorderStyle}">
-        <Setter Property="ContextMenu" Value="{StaticResource categoryButtonContextMenu}" />
-    </Style>
-
-    <DataTemplate x:Key ="categoryButtonTemplate">
+   <DataTemplate x:Key ="categoryButtonTemplate">
         <Border Name ="buttonBorder"  Style="{StaticResource categoryButtonBorderStyle}">
             <StackPanel Margin="15,0,15,0" Orientation="Horizontal">
                 <Image Source="/Images/preview.png" Width="20" Margin="0,0,5,0"/>
@@ -38,7 +31,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key ="categoryButtonTemplateContextMenu" >
-        <Border Name ="buttonBorder"  Style="{StaticResource categoryButtonBorderStyleMenu}">
+        <Border Name ="buttonBorder"  Style="{StaticResource categoryButtonBorderStyle}" Tag="{Binding DataContext ,ElementName=mainWindow}">
             <StackPanel Margin="15,0,15,0" Orientation="Horizontal">
                 <Image Source="/Images/preview.png" Width="20" Margin="0,0,5,0"/>
                 <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="White" Text="{Binding Name}"/>
@@ -47,6 +40,12 @@
             <Border.InputBindings>
                 <MouseBinding Gesture ="LeftClick"  Command="{Binding DataContext.CategorySelected ,ElementName=mainWindow}" CommandParameter="{Binding}"/>
             </Border.InputBindings>
+            <Border.ContextMenu>
+                <ContextMenu Name="menu" Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                    <MenuItem Header="Edit" Command="{Binding Path = Tag.AddNewCategory ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete" Command="{Binding Path = Tag.DeleteObject ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
+                </ContextMenu>
+            </Border.ContextMenu>
         </Border>
     </DataTemplate>
 

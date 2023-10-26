@@ -7,5 +7,8 @@
     <cf:BoolToHidenInverConverter x:Key="BoolToHidenInverConverter"/>
     <cf:BoolToColorConverter x:Key="BoolToColorConverter"/>
     <cf:IntZeroHideConverter x:Key="IntZeroHideConverter"/>
+    <cf:BoolToIntConverter   x:Key="BoolToIntConverter"/>
+    <cf:BoolInvertConverter  x:Key="BoolInvertConverter"/>
+ 
 
 </ResourceDictionary>

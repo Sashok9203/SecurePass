@@ -1,6 +1,7 @@
 ﻿using data_access.Data;
 using data_access.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Win32;
 using SecurePass.Common;
 using SecurePass.ViewModels.EntitiesVM;
@@ -18,20 +19,72 @@ namespace SecurePass.ViewModels
     {
         private const string keyLoginRegistryPath = @"Software\SecurePass\";
         private const string userLoginValueName = "SecurePassUserLogin";
-        private bool isMainWindowEnabled, isFirstStart,isSelected;
+        private bool isMainWindowEnabled, isFirstStart, isSelected,isAddEditCategoryWindowEnabled;
         private readonly SecurePassDBContext dbContext;
         private User? currentUser;
-        private string findString;
-        private CategoryVM? selectedCategory;
+        private string findString, newCategoryName;
+        private CategoryVM? selectedCategory,createdCategory;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject;
+        private List<int> categoriesId = new();
+        private object? objectForEdit;
+
+        private async Task setEntityVMToDataBase(BaseEntityVM vm,object? objectForEdit)
+        {
+            switch (vm)
+            {
+                case UserVM userVM:
+                    break;
+                case CategoryVM categoryVM:
+                    if (objectForEdit == null)
+                    {
+                        await  dbContext.Categories.AddAsync( new Category()
+                        {
+                            ImageId = categoryVM.Id,
+                            Name = categoryVM.Name,
+                            UserId = CurrentUser.Id
+                        });
+                        await dbContext.SaveChangesAsync();
+                        var newCategory = dbContext.Categories.Where(x =>x.UserId == CurrentUser.Id && !categoriesId.Any(y => y == x.Id)).First();
+                        categoriesId.Add(newCategory.Id);
+                        UserCategories.Add(new(newCategory));
+                    }
+                    else 
+                    {
+                        CategoryVM editable = objectForEdit as CategoryVM;
+                        Category? category = dbContext.Categories.Find(editable.Id);
+                        category.Name = categoryVM.Name;
+                        category.ImageId = categoryVM.Id;
+                        editable.Name = categoryVM.Name;
+                        editable.ImageId = categoryVM.ImageId;
+                    }
+                    break;
+                case WiFiVM wifiVM:
+                    break;
+                case UniversalVM universalVM:
+                    break;
+                case ServerVM serverlVM:
+                    break;
+                case EmailVM emailVM:
+                    break;
+                case DataBaseVM dataBaseVM:
+                    break;
+                case CreditCardVM crediCardVM:
+                    break;
+                case ContactVM crediCardVM:
+                    break;
+                case BankAccountVM bankAccountVM:
+                    break;
+            }
+
+           await dbContext.SaveChangesAsync();
+        }
 
         private CategoryVM[] staticCategoryButtons =
         {
             new(new(){ Name = "AllElements",Id = -1}){ IsSelected = true  },
             new(new(){ Name = "Favorit",Id = -2})
         };
-
 
         private void secureObjectSelected(object o)
         {
@@ -42,6 +95,57 @@ namespace SecurePass.ViewModels
                 SelectedSecureObject = secureObject;
                 SelectedSecureObject.IsSelected = true;
             }
+        }
+
+        private async Task deleteObjectFromDataBase(object o)
+        {
+            switch (o)
+            {
+                case CategoryVM categoryVM:
+                    dbContext.Categories.Remove(await dbContext.Categories.FindAsync(categoryVM.Id));
+                    var toDelete = secureObjects.Where(x => x.CategoryId == categoryVM.Id).ToArray();
+                    foreach (var item in toDelete)
+                        secureObjects.Remove(item);
+                    UserCategories.Remove(categoryVM);
+                    break;
+                case WiFiVM wifiVM:
+                    break;
+                case UniversalVM universalVM:
+                    break;
+                case ServerVM serverlVM:
+                    break;
+                case EmailVM emailVM:
+                    break;
+                case DataBaseVM dataBaseVM:
+                    break;
+                case CreditCardVM crediCardVM:
+                    break;
+                case ContactVM crediCardVM:
+                    break;
+                case BankAccountVM bankAccountVM:
+                    break;
+            }
+            dbContext.SaveChanges();
+            OnPropertyChanged(nameof(SecureObjects));
+        }
+
+        private void newCategory(object? o)
+        {
+            objectForEdit = o;
+            NewCategory = new()
+            {
+                Name = (o as CategoryVM)?.Name ?? string.Empty,
+                ImageId = (o as CategoryVM)?.ImageId ?? 0
+            };
+            IsAddEditCategoryWindowEnabled = true;
+        }
+
+        private async Task saveNewCategory()
+        {
+            await setEntityVMToDataBase(NewCategory, objectForEdit);
+            IsAddEditCategoryWindowEnabled = false;
+            NewCategory = null;
+            objectForEdit = null;
         }
 
         private void categorySelected(object o)
@@ -113,20 +217,20 @@ namespace SecurePass.ViewModels
                     MessageBox.Show("Invalid password...", "Server information");
                 else
                 {
-                    await dbContext.Emails.Where(p => p.Id == CurrentUser.Id).LoadAsync();
-                    await dbContext.CreditCards.Where(p => p.Id == CurrentUser.Id).LoadAsync();
-                    await dbContext.Universals.Where(p => p.Id == CurrentUser.Id).LoadAsync();
-                    await dbContext.Servers.Where(p => p.Id == CurrentUser.Id).LoadAsync();
-                    secureObjects.AddRange(dbContext.Emails.Include(x => x.Category).Select(x => new EmailVM(x)));
-                    secureObjects.AddRange(dbContext.CreditCards.Include(x => x.Category).Select(x => new CreditCardVM(x)));
-                    secureObjects.AddRange(dbContext.Universals.Include(x => x.Category).Select(x => new UniversalVM(x)));
-                    secureObjects.AddRange(dbContext.Servers.Include(x => x.Category).Select(x => new ServerVM(x)));
-                    SelectedCategory = staticCategoryButtons[0];
-                    SelectedCategory.ElementsCount = secureObjects.Count;
-                    var categoriesId = secureObjects.Select(x => x.CategoryId).Distinct();
-                    var categories = dbContext.Categories.Where(x => categoriesId.Any(y => y == x.Id));
+                    var categories = dbContext.Categories.Where(x =>x.UserId == CurrentUser.Id).ToArray();
                     foreach (var item in categories)
                         UserCategories.Add(new(item));
+                    categoriesId.AddRange(UserCategories.Select(x => x.Id));
+                    secureObjects.AddRange(dbContext.Emails.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new EmailVM(x)));
+                    secureObjects.AddRange(dbContext.WiFis.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new WiFiVM(x)));
+                    secureObjects.AddRange(dbContext.Universals.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new UniversalVM(x)));
+                    secureObjects.AddRange(dbContext.Servers.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ServerVM(x)));
+                    secureObjects.AddRange(dbContext.CreditCards.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new CreditCardVM(x)));
+                    secureObjects.AddRange(dbContext.Contacts.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ContactVM(x)));
+                    secureObjects.AddRange(dbContext.BankAccount.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new BankAccountVM(x)));
+                    secureObjects.AddRange(dbContext.DataBases.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new DataBaseVM(x)));
+                    SelectedCategory = staticCategoryButtons[0];
+                    SelectedCategory.ElementsCount = secureObjects.Count;
                     addRegistryKey();
                     IsMainWindowEnabled = true;
                 }
@@ -158,6 +262,17 @@ namespace SecurePass.ViewModels
             set
             {
                 isFirstStart = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Show/Hide add/edit category window
+        public bool IsAddEditCategoryWindowEnabled
+        {
+            get => isAddEditCategoryWindowEnabled;
+            set
+            {
+                isAddEditCategoryWindowEnabled = value;
                 OnPropertyChanged();
             }
         }
@@ -206,6 +321,17 @@ namespace SecurePass.ViewModels
             }
         }
 
+        // Created category 
+        public CategoryVM? NewCategory
+        {
+            get => createdCategory;
+            set
+            {
+                createdCategory = value;
+                OnPropertyChanged();
+            }
+        }
+
         // Authorized user
         public User? CurrentUser
         {
@@ -236,5 +362,9 @@ namespace SecurePass.ViewModels
         public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick(),(o)=>isUserLoginInfoExist());
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
+        public RelayCommand Cancle => new((o) => IsAddEditCategoryWindowEnabled = false);
+        public RelayCommand SaveCategory => new(async (o) => await saveNewCategory());
+        public RelayCommand AddNewCategory => new((o) => newCategory(o));
+        public RelayCommand DeleteObject => new(async(o) => await deleteObjectFromDataBase(o));
     }
 }
