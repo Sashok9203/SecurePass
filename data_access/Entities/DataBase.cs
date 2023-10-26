@@ -9,7 +9,6 @@ namespace data_access.Entities
 {
     public class DataBase:SecureObject
     {
-        public string Title { get; set; }
         public string Type { get; set; }
         public string Server { get; set; }
         public int Port { get; set; }

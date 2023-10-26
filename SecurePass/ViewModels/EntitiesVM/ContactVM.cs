@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecurePass.ViewModels.EntitiesVM
 {
-    internal class ContactWM :  SecureObjectVM
+    internal class ContactVM :  SecureObjectVM
     {
         private string title;
         private string name;
@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string company;
         private string position;
 
-        public ContactWM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.UserId,contact.Title,contact.Name, contact.IsFavorit)
+        public ContactVM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.Title,contact.Name, contact.IsFavorit)
         {
             title = contact.Title;
             name = contact.Name;

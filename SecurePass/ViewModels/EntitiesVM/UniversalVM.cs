@@ -12,7 +12,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string value;
         private string label;
 
-        public UniversalVM(Universal universal):base(universal.Id,universal.ImageId,universal.CategoryId,universal.ImageId,universal.Title,universal.Label, universal.IsFavorit)
+        public UniversalVM(Universal universal):base(universal.Id,universal.ImageId,universal.CategoryId,universal.Title,universal.Label, universal.IsFavorit)
         {
             value = universal.Value;
             label = universal.Label;

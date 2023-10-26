@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string wirelessPassword;
         private string connectedStoragePasswords;
 
-        public WiFiVM(WiFi wifi) : base(wifi.Id,wifi.ImageId,wifi.CategoryId,wifi.UserId,wifi.Title,wifi.NetworkName,wifi.IsFavorit)
+        public WiFiVM(WiFi wifi) : base(wifi.Id,wifi.ImageId,wifi.CategoryId,wifi.Title,wifi.NetworkName,wifi.IsFavorit)
         {
             baseStation = wifi.BaseStation;
             password = wifi.Password;

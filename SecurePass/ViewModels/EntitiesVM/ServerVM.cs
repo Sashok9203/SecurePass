@@ -13,7 +13,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private string password;
 
-        public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.UserId,server.Title, server.Name, server.IsFavorit)
+        public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.Title, server.Name, server.IsFavorit)
         {
             url = server.URL;
             name = server.Name;

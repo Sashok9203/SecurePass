@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecurePass.ViewModels.EntitiesVM
 {
-    internal class UserVM:BaseEntityVM
+    internal class UserVM : BaseEntityVM
     {
         public UserVM(User user):base(user.Id,user.ImageId)
         {

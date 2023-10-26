@@ -13,12 +13,11 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string title, info;
         private bool isSelected,isFavorit;
 
-        public SecureObjectVM(int id, int imageId, int categoryId, int userId, string title, string info,bool isFavorit) : base(id, imageId)
+        public SecureObjectVM(int id, int imageId, int categoryId, string title, string info,bool isFavorit) : base(id, imageId)
         {
             this.isFavorit = isFavorit;
             this.info = info;
             this.title = title;
-            this.UserId = userId;
             this.categoryId = categoryId;
         }
 
@@ -63,7 +62,5 @@ namespace SecurePass.ViewModels.EntitiesVM
         }
 
         public string Info => info;
-
-        public int UserId { get; set; }
     }
 }

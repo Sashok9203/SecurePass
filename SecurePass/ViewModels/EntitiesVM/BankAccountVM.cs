@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string iban;
         private string pin;
 
-        public BankAccountVM(BankAccount bankAccount) : base(bankAccount.Id,bankAccount.ImageId,bankAccount.CategoryId,bankAccount.UserId,bankAccount.Title, bankAccount.Name,bankAccount.IsFavorit)
+        public BankAccountVM(BankAccount bankAccount) : base(bankAccount.Id,bankAccount.ImageId,bankAccount.CategoryId,bankAccount.Title, bankAccount.Name,bankAccount.IsFavorit)
         {
             name = bankAccount.Name;    
             ownerName = bankAccount.OwnerName;
