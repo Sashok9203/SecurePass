@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="/Resources/GridSplitterStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/CategoryExpanderStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/CategoryButtonDataTemplate.xaml"/>
+                <ResourceDictionary Source="/Resources/ScureObjectButtonDataTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
