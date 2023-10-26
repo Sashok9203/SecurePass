@@ -18,10 +18,10 @@ namespace SecurePass.ViewModels
     {
         private const string keyLoginRegistryPath = @"Software\SecurePass\";
         private const string userLoginValueName = "SecurePassUserLogin";
-        private bool isMainWindowEnabled, isFirstStart,isSelected;
+        private bool isMainWindowEnabled, isFirstStart, isSelected,isAddEditCategoryWindowEnabled;
         private readonly SecurePassDBContext dbContext;
         private User? currentUser;
-        private string findString;
+        private string findString, newCategoryName;
         private CategoryVM? selectedCategory;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject;
@@ -42,6 +42,16 @@ namespace SecurePass.ViewModels
                 SelectedSecureObject = secureObject;
                 SelectedSecureObject.IsSelected = true;
             }
+        }
+
+        private void newCategory()
+        {
+            IsAddEditCategoryWindowEnabled = true;
+        }
+
+        private void saveCategory(object o)
+        {
+
         }
 
         private void categorySelected(object o)
@@ -162,6 +172,17 @@ namespace SecurePass.ViewModels
             }
         }
 
+        // Show/Hide add/edit category window
+        public bool IsAddEditCategoryWindowEnabled
+        {
+            get => isAddEditCategoryWindowEnabled;
+            set
+            {
+                isAddEditCategoryWindowEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         // Switch main window <-> registration/authorization window
         public bool IsMainWindowEnabled
         {
@@ -206,6 +227,17 @@ namespace SecurePass.ViewModels
             }
         }
 
+        // Created category name
+        public string NewCategoryName
+        {
+            get => newCategoryName;
+            set
+            {
+                newCategoryName = value;
+                OnPropertyChanged(nameof(SecureObjects));
+            }
+        }
+
         // Authorized user
         public User? CurrentUser
         {
@@ -236,5 +268,8 @@ namespace SecurePass.ViewModels
         public RelayCommand CreateNewAccButtonClick => new(async(o) => await CreateNewAccClick(),(o)=>isUserLoginInfoExist());
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
+        public RelayCommand Cancle => new((o) => IsAddEditCategoryWindowEnabled = false);
+        public RelayCommand SaveCategory => new((o) => saveCategory(o));
+        public RelayCommand AddNewCategory => new((o) => newCategory());
     }
 }
