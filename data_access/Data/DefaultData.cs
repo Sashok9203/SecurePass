@@ -49,5 +49,15 @@ namespace data_access.Data
         {
             new() { Id = 1, ImageId= 3, CategoryId = 4, Title = "My server", Name = "Server1", URL = "url.www", Password = "urlpass", UserId = 1 }
         };
+
+        public static readonly WiFi[] WiFis =
+        {
+            new WiFi { Id = 1, ImageId = 2, CategoryId = 1, BaseStation = "BaseStation1", Password = "WiFiPassword1", IP = "192.168.1.1", AirPortId = "Airport123", NetworkName = "MyNetwork1", WirelessSecurity = "WPA2", WirelessPassword = "WiFiPassword1", ConnectedStoragePasswords = "StoragePassword1" }
+        };
+
+        public static readonly Contact[] ContactsData =
+        {
+            new Contact { Id = 1, ImageId = 2, CategoryId = 1, Title = "Mr.", Name = "John", Surname = "Doe", Gender = "Male", Birthday = new DateTime(1985, 5, 15), WorkPlace = "Tech Company", Company = "ABC Corp", Position = "Senior Developer" }
+        };
     }
 }
