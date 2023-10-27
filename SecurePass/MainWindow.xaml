@@ -11,17 +11,155 @@
     <Window.DataContext>
         <vmf:MainWindowVM/>
     </Window.DataContext>
-    
-    <Grid>
-          <!--Main window-->
-        <Border Background="Green" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
-            
-        </Border>
-          
-        <!--Authorization window-->
-        <Border Background="Red" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
 
+    <Grid>
+        <!--Main window-->
+        <Border Background="#203040" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource BoolToHidenConverter}}">
+            <!--Main Grid -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="1"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Black border between sections-->
+                <Border Grid.Column="1" Grid.RowSpan="2" Background="Black"></Border>
+                <!--Main Background-->
+                <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#262626"></Border>
+
+
+                <!--Additional Window Grid-->
+                <Grid Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--Black borders between sections-->
+                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Black"></Border>
+                    <Border Grid.Column="1" Grid.RowSpan="3" Background="Black"></Border>
+                    <!--List of categories and filter -->
+                    <DockPanel Grid.Column="0" Grid.Row="1">
+                        <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All categories</Button>
+                        <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
+                    </DockPanel>
+                    <!--List of items-->
+                    <Border Grid.Column="0" Grid.Row="2" Height="300" Margin="10,10,10,0" Background="White"></Border>
+                    <!--Editing-->
+                    <DockPanel Grid.Column="2" Grid.Row="1">
+                        <Button Width="100" Height="25" Margin="20,0,0,0">Category</Button>
+                        <Button Width="100" Height="25">Edit</Button>
+                    </DockPanel>
+                    <!--Need to be another xaml-->
+                    <Border Grid.Row="2" Grid.Column="2" Height="300" Margin="10,10,10,0" Background="Gray"></Border>
+                </Grid>
+
+
+                <!--Searching and adding new element-->
+                <DockPanel Grid.ColumnSpan="2" Grid.Column="2">
+                    <TextBox  Grid.Column="1" Text="Search" VerticalAlignment="Center" Height="25" Width="250"></TextBox>
+                    <Button Style="{StaticResource RoundedButtonStyle}" Content="+ Add New" Grid.Column="2" Height="20" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"></Button>
+                </DockPanel>
+                <!--SecurePass label-->
+                <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,7,0,0" Foreground="White"></TextBlock>
+                <!--User panel-->
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
+                    <DockPanel Margin="0,10,0,10">
+                        <Image Height="40" Width="40" HorizontalAlignment="Left" Margin="20,0,0,0" Source="/Images/avatar_147144.png"></Image>
+                        <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
+                        <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
+                    </DockPanel>
+                    <!--List of elemets-->
+                    <Border Height="300" Margin="10,10,10,0" Background="White"></Border>
+                </StackPanel>
+            </Grid>
+        </Border> 
+        <!--Authorization window-->
+        <Border Background ="#2e2e2e" Visibility="{Binding IsMainWindowEnabled , Converter={StaticResource  BoolToHidenInverConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Column="2"  Grid.RowSpan="4">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <TransformGroup>
+                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                    <RotateTransform Angle="270" CenterX="0.5" CenterY="0.5"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF2E2E2E" Offset="0.374"/>
+                            <GradientStop Color="#FF232323" Offset="0.998"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Border Background="#333333" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4"></Border>
+                <!--Login Control-->
+                <Border Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenInverConverter}}">
+                    <StackPanel Margin="50,0,0,0">
+                        <DockPanel>
+                            <Image HorizontalAlignment="Left" Height="60" Width="60"  x:Name="Avatar_LoginWindow"  Margin="0,0,0,12"  Source="/Images/avatar_147144.png" Opacity="100"/>
+                            <TextBlock Text="{Binding UserLogin}" VerticalAlignment="Center" Foreground ="#FFCCCCCC" FontSize="20" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
+                        </DockPanel>
+                        <Border BorderBrush="#FF5A74B5" BorderThickness="3" Background="#FF171729"  CornerRadius="10" Width="240" Height="40">
+                            <DockPanel>
+                                <TextBox Text="{Binding UserPassword,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,0,0" Background="Transparent" Width="175" Height="30" BorderThickness="0" 
+                                         BorderBrush="Transparent" Foreground="White" CaretBrush="AliceBlue"
+                                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="19" FontWeight="Thin">
+                                </TextBox>
+                                <Rectangle Width="1" Fill="#7996df" Margin="0,3,0,3"></Rectangle>
+                                <Image Width="25" VerticalAlignment="Center" Source="/Images/blue_arrow.png" >
+                                    <Image.InputBindings>
+                                        <MouseBinding Gesture="LeftClick" Command="{Binding LoginButtonClick}"/>
+                                    </Image.InputBindings>
+                                </Image>
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <!--Authorization Control-->
+                <!--<Border Grid.Column="4" Background="#333333" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenConverter}}">
+                    <Border>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
+                            <TextBlock  Width ="240" Margin="8" FontSize="20" Text=" Welcome to SecurePass" FontWeight="Bold" Foreground ="#FFCCCCCC"></TextBlock>
+                            <TextBlock Margin="30,0,0,4" HorizontalAlignment="Left" Text="Login" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
+                            <TextBox Text="{Binding UserLogin ,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" CaretBrush="White" FontSize="15" VerticalContentAlignment="Center"  Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7"></TextBox>
+                            <TextBlock Margin="30,3,0,4" HorizontalAlignment="Left" Text="Password" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
+                            <TextBox Text="{Binding UserPassword , UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" FontSize="15"  CaretBrush="White"  VerticalContentAlignment="Center" Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7" ></TextBox>
+                            <Button Command ="{Binding LoginButtonClick}" Style="{StaticResource RoundedButtonStyle}" Height="35" Width ="200" Margin="7" Background="#2150f5">Login</Button>
+                            <Button Command="{Binding CreateNewAccButtonClick}"  Style="{StaticResource RoundedButtonStyle}" Background="Gray" Height="35" Width ="200" Margin="7">Create new account</Button>
+                        </StackPanel>
+                    </Border>
+                </Border>-->
+                <!--SecurePassImage-->
+                <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="7" Source="/Images/preview.png"></Image>
+            </Grid>
         </Border>
+
 
     </Grid>
 </Window>
