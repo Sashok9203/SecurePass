@@ -94,7 +94,7 @@
                 <DockPanel LastChildFill ="True"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
                     <DockPanel DockPanel.Dock="Top"  Margin="0,10,0,10">
                         <Image Height="40" Width="40" HorizontalAlignment="Left" Margin="20,0,0,0" Source="/Images/avatar_147144.png"></Image>
-                        <TextBlock Text="Login" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
+                        <TextBlock Text="{Binding CurrentUser.NikName}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="17" Foreground="White" FontWeight="DemiBold"></TextBlock>
                         <Button Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">V</Button>
                     </DockPanel>
                     
@@ -214,7 +214,7 @@
                     </StackPanel>
                 </Border>
                 <!--Authorization Control-->
-                <!--<Border Grid.Column="4" Background="#333333" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenConverter}}">
+                <Border Grid.Column="4" Background="#333333" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="{Binding IsFirstStart ,Converter={StaticResource  BoolToHidenConverter}}">
                     <Border>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
                             <TextBlock  Width ="240" Margin="8" FontSize="20" Text=" Welcome to SecurePass" FontWeight="Bold" Foreground ="#FFCCCCCC"></TextBlock>
@@ -226,7 +226,7 @@
                             <Button Command="{Binding CreateNewAccButtonClick}"  Style="{StaticResource RoundedButtonStyle}" Background="Gray" Height="35" Width ="200" Margin="7">Create new account</Button>
                         </StackPanel>
                     </Border>
-                </Border>-->
+                </Border>
                 <!--SecurePassImage-->
                 <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Margin="7" Source="/Images/preview.png"></Image>
             </Grid>

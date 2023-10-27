@@ -13,7 +13,7 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.Surname).HasMaxLength(64);
             builder.HasOne(x => x.Category).WithMany(x => x.Contacts);
             builder.Property(x => x.Birthday);
-            builder.Property(x => x.WorkPLace).HasMaxLength(64);
+            builder.Property(x => x.WorkPlace).HasMaxLength(64);
             builder.Property(x => x.Company).HasMaxLength(64);
             builder.Property(x => x.Position).HasMaxLength(64);
             builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));

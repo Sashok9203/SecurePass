@@ -16,6 +16,8 @@ namespace data_access.Data
             modelBuilder.Entity<BankAccount>().HasData(BankAccounts);
             modelBuilder.Entity<Email>().HasData(Emails);
             modelBuilder.Entity<DataBase>().HasData(DataBases);
+            modelBuilder.Entity<Contact>().HasData(ContactsData);
+            modelBuilder.Entity<WiFi>().HasData(WiFis);
         }
 
         public static readonly User[] Users =
@@ -39,6 +41,12 @@ namespace data_access.Data
              new(){ Id = 10, ImageId = 4, Name = "DataBases" , UserId = 3},
              new(){ Id = 11, ImageId = 3, Name = "Temporary", UserId = 3},
              new(){ Id = 12, ImageId = 4, Name = "BankAccounts", UserId = 3},
+             new(){ Id = 13, ImageId = 3, Name = "MyWIFI" , UserId = 1},
+             new(){ Id = 14, ImageId = 4, Name = "WiFi" , UserId = 2},
+             new(){ Id = 15, ImageId = 3, Name = "WiFi settings", UserId = 3},
+             new(){ Id = 16, ImageId = 3, Name = "Peoples" , UserId = 1},
+             new(){ Id = 17, ImageId = 4, Name = "Contacts" , UserId = 2},
+             new(){ Id = 18, ImageId = 3, Name = "My contacts", UserId = 3},
         };
 
         public static readonly Universal[] Universals =
@@ -48,7 +56,6 @@ namespace data_access.Data
             new(){ Id = 3,ImageId = 3,  CategoryId = 3, Label = "luke22", Title = "Wordpress", Value ="Hd783.Sv89x" },
             new(){ Id = 4,ImageId = 3,  CategoryId = 7, Label = "vera228", Title = "Steam",Value ="gg7schu." },
             new(){ Id = 5,ImageId = 3,  CategoryId = 11, Label = "alexTmp@gmail.com", Title = "TempMail", Value ="11223344" },
-
         };
 
         public static readonly CreditCard[] CreditCards =
@@ -92,20 +99,20 @@ namespace data_access.Data
 
         public static readonly WiFi[] WiFis =
         {
-            new WiFi { Id = 4, ImageId = 5, CategoryId = 2, BaseStation = "BaseStation4", Password = "WiFiPassword4", IP = "192.168.1.4", AirPortId = "AirportXYZ", NetworkName = "GuestNetwork", WirelessSecurity = "Open", WirelessPassword = "NoPassword", ConnectedStoragePasswords = "StorageNoPass" },
-            new WiFi { Id = 6, ImageId = 7, CategoryId = 1, BaseStation = "BaseStation6", Password = "WiFiPassword6", IP = "192.168.1.6", AirPortId = "Airport456", NetworkName = "HomeNetwork3", WirelessSecurity = "WEP", WirelessPassword = "OldWEPKey", ConnectedStoragePasswords = "StorageOldWEP" },
-            new WiFi { Id = 7, ImageId = 8, CategoryId = 2, BaseStation = "BaseStation7", Password = "WiFiPassword7", IP = "192.168.1.7", AirPortId = "Airport789", NetworkName = "GuestNetwork2", WirelessSecurity = "Open", WirelessPassword = "NoPassword2", ConnectedStoragePasswords = "StorageNoPass2" },
-            new WiFi { Id = 5, ImageId = 6, CategoryId = 3, BaseStation = "BaseStation5", Password = "WiFiPassword5", IP = "192.168.1.5", AirPortId = "Airport789", NetworkName = "CafeNetwork", WirelessSecurity = "WPA3", WirelessPassword = "SecureWiFi123", ConnectedStoragePasswords = "StorageSecure123" },
-            new WiFi { Id = 8, ImageId = 9, CategoryId = 3, BaseStation = "BaseStation8", Password = "WiFiPassword8", IP = "192.168.1.8", AirPortId = "AirportXYZ", NetworkName = "CompanyNetwork", WirelessSecurity = "WPA2", WirelessPassword = "SecureNetwork789", ConnectedStoragePasswords = "StorageSecure789" }
+            new WiFi { Id = 4, ImageId = 5, CategoryId = 13, Title = "HomeWIFI", BaseStation = "BaseStation4", Password = "WiFiPassword4", IP = "192.168.1.4", AirPortId = "AirportXYZ", NetworkName = "GuestNetwork", WirelessSecurity = "Open", WirelessPassword = "NoPassword", ConnectedStoragePasswords = "StorageNoPass" },
+            new WiFi { Id = 6, ImageId = 7, CategoryId = 15, Title = "Office", BaseStation = "BaseStation6", Password = "WiFiPassword6", IP = "192.168.1.6", AirPortId = "Airport456", NetworkName = "HomeNetwork3", WirelessSecurity = "WEP", WirelessPassword = "OldWEPKey", ConnectedStoragePasswords = "StorageOldWEP" },
+            new WiFi { Id = 7, ImageId = 8, CategoryId = 13, Title = "StarLink", BaseStation = "BaseStation7", Password = "WiFiPassword7", IP = "192.168.1.7", AirPortId = "Airport789", NetworkName = "GuestNetwork2", WirelessSecurity = "Open", WirelessPassword = "NoPassword2", ConnectedStoragePasswords = "StorageNoPass2" },
+            new WiFi { Id = 5, ImageId = 6, CategoryId = 14, Title = "Room 23", BaseStation = "BaseStation5", Password = "WiFiPassword5", IP = "192.168.1.5", AirPortId = "Airport789", NetworkName = "CafeNetwork", WirelessSecurity = "WPA3", WirelessPassword = "SecureWiFi123", ConnectedStoragePasswords = "StorageSecure123" },
+            new WiFi { Id = 8, ImageId = 9, CategoryId = 15, Title = "Wifi", BaseStation = "BaseStation8", Password = "WiFiPassword8", IP = "192.168.1.8", AirPortId = "AirportXYZ", NetworkName = "CompanyNetwork", WirelessSecurity = "WPA2", WirelessPassword = "SecureNetwork789", ConnectedStoragePasswords = "StorageSecure789" }
         };
 
         public static readonly Contact[] ContactsData =
         {
-            new Contact { Id = 4, ImageId = 5, CategoryId = 1, Title = "Mr.", Name = "Michael", Surname = "Anderson", Gender = "Male", Birthday = new DateTime(1982, 11, 5), WorkPlace = "Law Firm", Company = "Anderson & Associates", Position = "Attorney" },
-            new Contact { Id = 5, ImageId = 6, CategoryId = 3, Title = "Mrs.", Name = "Sarah", Surname = "Williams", Gender = "Female", Birthday = new DateTime(1988, 7, 14), WorkPlace = "Financial Services", Company = "Elite Finance Group", Position = "Financial Advisor" },
-            new Contact { Id = 6, ImageId = 7, CategoryId = 2, Title = "Dr.", Name = "Laura", Surname = "Clark", Gender = "Female", Birthday = new DateTime(1975, 4, 22), WorkPlace = "University", Company = "Central University", Position = "Professor" },
-            new Contact { Id = 7, ImageId = 8, CategoryId = 1, Title = "Mr.", Name = "Robert", Surname = "Taylor", Gender = "Male", Birthday = new DateTime(1995, 9, 30), WorkPlace = "IT Company", Company = "Tech Innovators", Position = "Software Engineer" },
-            new Contact { Id = 8, ImageId = 9, CategoryId = 3, Title = "Ms.", Name = "Sophia", Surname = "Brown", Gender = "Female", Birthday = new DateTime(1991, 3, 8), WorkPlace = "Art Gallery", Company = "Modern Art Gallery", Position = "Curator" }
+            new Contact { Id = 4, ImageId = 5, CategoryId = 16, Title = "Mr.", Name = "Michael", Surname = "Anderson", Gender = "Male", Birthday = new DateTime(1982, 11, 5), WorkPlace = "Law Firm", Company = "Anderson & Associates", Position = "Attorney" },
+            new Contact { Id = 5, ImageId = 6, CategoryId = 17, Title = "Mrs.", Name = "Sarah", Surname = "Williams", Gender = "Female", Birthday = new DateTime(1988, 7, 14), WorkPlace = "Financial Services", Company = "Elite Finance Group", Position = "Financial Advisor" },
+            new Contact { Id = 6, ImageId = 7, CategoryId = 17, Title = "Dr.", Name = "Laura", Surname = "Clark", Gender = "Female", Birthday = new DateTime(1975, 4, 22), WorkPlace = "University", Company = "Central University", Position = "Professor" },
+            new Contact { Id = 7, ImageId = 8, CategoryId = 16, Title = "Mr.", Name = "Robert", Surname = "Taylor", Gender = "Male", Birthday = new DateTime(1995, 9, 30), WorkPlace = "IT Company", Company = "Tech Innovators", Position = "Software Engineer" },
+            new Contact { Id = 8, ImageId = 9, CategoryId = 18, Title = "Ms.", Name = "Sophia", Surname = "Brown", Gender = "Female", Birthday = new DateTime(1991, 3, 8), WorkPlace = "Art Gallery", Company = "Modern Art Gallery", Position = "Curator" }
         };
     }
 }

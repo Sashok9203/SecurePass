@@ -25,7 +25,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             surname = contact.Surname;
             gender = contact.Gender;
             birthday = contact.Birthday;
-            workPLace = contact.WorkPLace;
+            workPLace = contact.WorkPlace;
             company = contact.Company;
             position = contact.Position;
         }
