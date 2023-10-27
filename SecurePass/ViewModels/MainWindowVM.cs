@@ -176,8 +176,6 @@ namespace SecurePass.ViewModels
 
         private bool isUserLoginInfoExist() => !string.IsNullOrWhiteSpace(UserLogin) && !string.IsNullOrWhiteSpace(UserPassword);
 
-
-
         private void addRegistryKey()
         {
             RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath);
@@ -363,7 +361,7 @@ namespace SecurePass.ViewModels
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
         public RelayCommand Cancle => new((o) => IsAddEditCategoryWindowEnabled = false);
-        public RelayCommand SaveCategory => new(async (o) => await saveNewCategory());
+        public RelayCommand SaveCategory => new(async (o) => await saveNewCategory(),(o) => !string.IsNullOrWhiteSpace(NewCategory?.Name));
         public RelayCommand AddNewCategory => new((o) => newCategory(o));
         public RelayCommand DeleteObject => new(async(o) => await deleteObjectFromDataBase(o));
     }
