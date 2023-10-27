@@ -89,5 +89,23 @@ namespace data_access.Data
             new() { Id = 2, Title = "My bank private bank account", CategoryId = 12, Name = "Monobank", OwnerName = "Alex Vivo", Type = "type1", DepartmentNumber = 1, BankAccountNumber = "1234599067", SWIFT = "ASDGSDPPOPOVHHD", IBAN = "UA4757345345878953987UA", PIN = "2232" },
             new() { Id = 3, Title = "My FOP account",  CategoryId = 12, Name = "Monobank", OwnerName = "Alex Vivo", Type = "type4", DepartmentNumber = 2, BankAccountNumber = "123452344367", SWIFT = "ASDGHKJJHSDVHHD", IBAN = "UA4757334534578953987UA", PIN = "1142" },
         };
+
+        public static readonly WiFi[] WiFis =
+        {
+            new WiFi { Id = 4, ImageId = 5, CategoryId = 2, BaseStation = "BaseStation4", Password = "WiFiPassword4", IP = "192.168.1.4", AirPortId = "AirportXYZ", NetworkName = "GuestNetwork", WirelessSecurity = "Open", WirelessPassword = "NoPassword", ConnectedStoragePasswords = "StorageNoPass" },
+            new WiFi { Id = 6, ImageId = 7, CategoryId = 1, BaseStation = "BaseStation6", Password = "WiFiPassword6", IP = "192.168.1.6", AirPortId = "Airport456", NetworkName = "HomeNetwork3", WirelessSecurity = "WEP", WirelessPassword = "OldWEPKey", ConnectedStoragePasswords = "StorageOldWEP" },
+            new WiFi { Id = 7, ImageId = 8, CategoryId = 2, BaseStation = "BaseStation7", Password = "WiFiPassword7", IP = "192.168.1.7", AirPortId = "Airport789", NetworkName = "GuestNetwork2", WirelessSecurity = "Open", WirelessPassword = "NoPassword2", ConnectedStoragePasswords = "StorageNoPass2" },
+            new WiFi { Id = 5, ImageId = 6, CategoryId = 3, BaseStation = "BaseStation5", Password = "WiFiPassword5", IP = "192.168.1.5", AirPortId = "Airport789", NetworkName = "CafeNetwork", WirelessSecurity = "WPA3", WirelessPassword = "SecureWiFi123", ConnectedStoragePasswords = "StorageSecure123" },
+            new WiFi { Id = 8, ImageId = 9, CategoryId = 3, BaseStation = "BaseStation8", Password = "WiFiPassword8", IP = "192.168.1.8", AirPortId = "AirportXYZ", NetworkName = "CompanyNetwork", WirelessSecurity = "WPA2", WirelessPassword = "SecureNetwork789", ConnectedStoragePasswords = "StorageSecure789" }
+        };
+
+        public static readonly Contact[] ContactsData =
+        {
+            new Contact { Id = 4, ImageId = 5, CategoryId = 1, Title = "Mr.", Name = "Michael", Surname = "Anderson", Gender = "Male", Birthday = new DateTime(1982, 11, 5), WorkPlace = "Law Firm", Company = "Anderson & Associates", Position = "Attorney" },
+            new Contact { Id = 5, ImageId = 6, CategoryId = 3, Title = "Mrs.", Name = "Sarah", Surname = "Williams", Gender = "Female", Birthday = new DateTime(1988, 7, 14), WorkPlace = "Financial Services", Company = "Elite Finance Group", Position = "Financial Advisor" },
+            new Contact { Id = 6, ImageId = 7, CategoryId = 2, Title = "Dr.", Name = "Laura", Surname = "Clark", Gender = "Female", Birthday = new DateTime(1975, 4, 22), WorkPlace = "University", Company = "Central University", Position = "Professor" },
+            new Contact { Id = 7, ImageId = 8, CategoryId = 1, Title = "Mr.", Name = "Robert", Surname = "Taylor", Gender = "Male", Birthday = new DateTime(1995, 9, 30), WorkPlace = "IT Company", Company = "Tech Innovators", Position = "Software Engineer" },
+            new Contact { Id = 8, ImageId = 9, CategoryId = 3, Title = "Ms.", Name = "Sophia", Surname = "Brown", Gender = "Female", Birthday = new DateTime(1991, 3, 8), WorkPlace = "Art Gallery", Company = "Modern Art Gallery", Position = "Curator" }
+        };
     }
 }
