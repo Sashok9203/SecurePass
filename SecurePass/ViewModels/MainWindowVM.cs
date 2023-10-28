@@ -1,5 +1,6 @@
 ﻿using data_access.Data;
 using data_access.Entities;
+using data_access.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Win32;
@@ -18,7 +19,7 @@ namespace SecurePass.ViewModels
     internal class MainWindowVM : BaseViewModel
     {
         private bool isMainWindowEnabled, isFirstStart, isSelected, isAddEditCategoryWindowEnabled;
-        private readonly SecurePassDBContext dbContext;
+        private readonly UnitOfWork repository;
         private UserVM? currentUser;
         private string findString;
         private CategoryVM? selectedCategory;
@@ -41,8 +42,9 @@ namespace SecurePass.ViewModels
             findString = string.Empty;
         }
 
-        private async Task setEntityVMToDataBase(object vm)
+        private async Task setEntityVMToDataBase(object? vm)
         {
+            if (vm == null) return; 
             switch (vm)
             {
                 case UserVM userVM:
@@ -50,14 +52,14 @@ namespace SecurePass.ViewModels
                     {
                         User? user = new();
                         userVM.CopyToEntity(user);
-                        await dbContext.Users.AddAsync(user);
-                        await dbContext.SaveChangesAsync();
-                        user = dbContext.Users.First(x => x.NikName == userVM.NikName);
-                        CurrentUser = new(user);
+                        await repository.Users.InsertAsync(user);
+                        await repository.SaveAsync();
+                        user = repository.Users.FirstOrDefault(x => x.NikName == userVM.NikName);
+                        CurrentUser = user != null ? new(user) : null;
                     }
                     else
                     {
-                        User? user = dbContext.Users.Find(userVM.Id);
+                        User? user = await repository.Users.GetByIDAsync(userVM.Id);
                         userVM.CopyToEntity(user);
                     }
                     break;
@@ -66,15 +68,15 @@ namespace SecurePass.ViewModels
                     {
                         var category = new Category();
                         categoryVM.CopyToEntity(category);
-                        await dbContext.Categories.AddAsync(category);
-                        await dbContext.SaveChangesAsync();
-                        var newCategory = dbContext.Categories.Where(x => x.UserId == CurrentUser.Id && !categoriesId.Any(y => y == x.Id)).First();
+                        await repository.Categories.InsertAsync(category);
+                        await repository.SaveAsync();
+                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !categoriesId.Any(y => y == x.Id)).First();
                         categoriesId.Add(newCategory.Id);
                         UserCategories.Add(new(newCategory));
                     }
                     else
                     {
-                        Category? category = dbContext.Categories.Find(categoryVM.Id);
+                        Category? category = await repository.Categories.GetByIDAsync(categoryVM.Id);
                         categoryVM.CopyToEntity(category);
                     }
                     break;
@@ -85,7 +87,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        WiFi? wifi = dbContext.WiFis.Find(wifiVM.Id);
+                        WiFi? wifi = await repository.WiFis.GetByIDAsync(wifiVM.Id);
                         wifiVM.CopyToEntity(wifi);
                     }
                     break;
@@ -96,7 +98,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        Universal? universal = dbContext.Universals.Find(universalVM.Id);
+                        Universal? universal = await repository.Universals.GetByIDAsync(universalVM.Id);
                         universalVM.CopyToEntity(universal);
                     }
                     break;
@@ -107,7 +109,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        Server? server = dbContext.Servers.Find(serverlVM.Id);
+                        Server? server = await repository.Servers.GetByIDAsync(serverlVM.Id);
                         serverlVM.CopyToEntity(server);
                     }
                     break;
@@ -118,7 +120,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        Email? email = dbContext.Emails.Find(emailVM.Id);
+                        Email? email = await repository.Emails.GetByIDAsync(emailVM.Id);
                         emailVM.CopyToEntity(email);
                     }
                     break;
@@ -129,7 +131,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        DataBase? dataBase = dbContext.DataBases.Find(dataBaseVM.Id);
+                        DataBase? dataBase = await repository.DataBases.GetByIDAsync(dataBaseVM.Id);
                         dataBaseVM.CopyToEntity(dataBase);
                     }
                     break;
@@ -140,7 +142,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        CreditCard? dataBase = dbContext.CreditCards.Find(creditCardVM.Id);
+                        CreditCard? dataBase = await repository.CreditCards.GetByIDAsync(creditCardVM.Id);
                         creditCardVM.CopyToEntity(dataBase);
                     }
                     break;
@@ -151,7 +153,7 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        Contact? contact = dbContext.Contacts.Find(contactVM.Id);
+                        Contact? contact = await repository.Contacts.GetByIDAsync(contactVM.Id);
                         contactVM.CopyToEntity(contact);
                     }
                     break;
@@ -162,13 +164,12 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        BankAccount? bankAccount = dbContext.BankAccounts.Find(bankAccountVM.Id);
+                        BankAccount? bankAccount = await repository.BankAccounts.GetByIDAsync(bankAccountVM.Id);
                         bankAccountVM.CopyToEntity(bankAccount);
                     }
                     break;
             }
-
-            await dbContext.SaveChangesAsync();
+            await repository.SaveAsync();
         }
 
         private CategoryVM[] staticCategoryButtons =
@@ -193,43 +194,43 @@ namespace SecurePass.ViewModels
             switch (o)
             {
                 case UserVM userVM:
-                    dbContext.Users.Remove(await dbContext.Users.FindAsync(userVM.Id));
+                    repository.Users.Delete(userVM.Id);
                     RegistryUtility.DeleteInfoFromRegistry();
                     clearData();
                     break;
                 case CategoryVM categoryVM:
-                    dbContext.Categories.Remove(await dbContext.Categories.FindAsync(categoryVM.Id));
+                    repository.Categories.Delete(categoryVM.Id);
                     var toDelete = secureObjects.Where(x => x.CategoryId == categoryVM.Id).ToArray();
                     foreach (var item in toDelete)
                         secureObjects.Remove(item);
                     UserCategories.Remove(categoryVM);
                     break;
                 case WiFiVM wifiVM:
-                    dbContext.WiFis.Remove(await dbContext.WiFis.FindAsync(wifiVM.Id));
+                    repository.WiFis.Delete(wifiVM.Id);
                     break;
                 case UniversalVM universalVM:
-                    dbContext.Universals.Remove(await dbContext.Universals.FindAsync(universalVM.Id));
+                    repository.Universals.Delete(universalVM.Id);
                     break;
                 case ServerVM serverlVM:
-                    dbContext.Servers.Remove(await dbContext.Servers.FindAsync(serverlVM.Id));
+                    repository.Servers.Delete(serverlVM.Id);
                     break;
                 case EmailVM emailVM:
-                    dbContext.Emails.Remove(await dbContext.Emails.FindAsync(emailVM.Id));
+                    repository.Emails.Delete(emailVM.Id);
                     break;
                 case DataBaseVM dataBaseVM:
-                    dbContext.DataBases.Remove(await dbContext.DataBases.FindAsync(dataBaseVM.Id));
+                    repository.DataBases.Delete(dataBaseVM.Id);
                     break;
                 case CreditCardVM creditCardVM:
-                    dbContext.CreditCards.Remove(await dbContext.CreditCards.FindAsync(creditCardVM.Id));
+                    repository.CreditCards.Delete(creditCardVM.Id);
                     break;
                 case ContactVM contacVM:
-                    dbContext.Contacts.Remove(await dbContext.Contacts.FindAsync(contacVM.Id));
+                    repository.Contacts.Delete(contacVM.Id);
                     break;
                 case BankAccountVM bankAccountVM:
-                    dbContext.BankAccounts.Remove(await dbContext.BankAccounts.FindAsync(bankAccountVM.Id));
+                    repository.BankAccounts.Delete(bankAccountVM.Id);
                     break;
             }
-            dbContext.SaveChanges();
+            await repository.SaveAsync();
             OnPropertyChanged(nameof(SecureObjects));
         }
 
@@ -243,7 +244,7 @@ namespace SecurePass.ViewModels
                 case CategoryVM categoryVM:
                     if (categoryVM.Id == 0)
                     {
-                        categoryVM.UserId = CurrentUser.Id;
+                        categoryVM.UserId = CurrentUser?.Id ?? 0;
                         NewEditObject = categoryVM;
                     }
                     else NewEditObject = categoryVM.Clone() as CategoryVM;
@@ -292,7 +293,7 @@ namespace SecurePass.ViewModels
             }
         }
 
-        private void saveObject()
+        private async Task saveObject()
         {
             switch (NewEditObject)
             {
@@ -335,7 +336,7 @@ namespace SecurePass.ViewModels
 
                     break;
             }
-            setEntityVMToDataBase(NewEditObject);
+            await setEntityVMToDataBase(NewEditObject);
             NewEditObject = null;
         }
 
@@ -401,7 +402,7 @@ namespace SecurePass.ViewModels
         // Create new account logic
         private async Task CreateNewAccClick()
         {
-            if (dbContext.Users.Any(x => x.NikName == UserLogin))
+            if (repository.Users.Any(x => x.NikName == UserLogin))
                 MessageBox.Show("This login is already in use...", "Server information");
             else
             {
@@ -411,7 +412,7 @@ namespace SecurePass.ViewModels
                     PasswordHash = Utility.GetHash(UserPassword)
                 };
                 await setEntityVMToDataBase(CurrentUser);
-                dbContext.SaveChanges();
+                await repository.SaveAsync();
                 RegistryUtility.SetLoginToRegistry(UserLogin);
                 IsMainWindowEnabled = true;
                 var test = Resource.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentUICulture, true, true);
@@ -422,7 +423,7 @@ namespace SecurePass.ViewModels
         // Login logic
         private async Task LoginClick()
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.NikName == UserLogin);
+            var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == UserLogin);
             if (user != null) CurrentUser = new(user);
             if (CurrentUser == null)
                 MessageBox.Show("User with this login is not registered...", "Server information");
@@ -432,18 +433,18 @@ namespace SecurePass.ViewModels
                     MessageBox.Show("Invalid password...", "Server information");
                 else
                 {
-                    var categories = dbContext.Categories.Where(x => x.UserId == CurrentUser.Id).ToArray();
+                    var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id);
                     foreach (var item in categories)
                         UserCategories.Add(new(item));
                     categoriesId.AddRange(UserCategories.Select(x => x.Id));
-                    secureObjects.AddRange(dbContext.Emails.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new EmailVM(x)));
-                    secureObjects.AddRange(dbContext.WiFis.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new WiFiVM(x)));
-                    secureObjects.AddRange(dbContext.Universals.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new UniversalVM(x)));
-                    secureObjects.AddRange(dbContext.Servers.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ServerVM(x)));
-                    secureObjects.AddRange(dbContext.CreditCards.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new CreditCardVM(x)));
-                    secureObjects.AddRange(dbContext.Contacts.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ContactVM(x)));
-                    secureObjects.AddRange(dbContext.BankAccounts.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new BankAccountVM(x)));
-                    secureObjects.AddRange(dbContext.DataBases.Where(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new DataBaseVM(x)));
+                    secureObjects.AddRange(repository.Emails.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new EmailVM(x)));
+                    secureObjects.AddRange(repository.WiFis.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new WiFiVM(x)));
+                    secureObjects.AddRange(repository.Universals.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new UniversalVM(x)));
+                    secureObjects.AddRange(repository.Servers.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ServerVM(x)));
+                    secureObjects.AddRange(repository.CreditCards.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new CreditCardVM(x)));
+                    secureObjects.AddRange(repository.Contacts.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ContactVM(x)));
+                    secureObjects.AddRange(repository.BankAccounts.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new BankAccountVM(x)));
+                    secureObjects.AddRange(repository.DataBases.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new DataBaseVM(x)));
                     SelectedCategory = staticCategoryButtons[0];
                     SelectedCategory.ElementsCount = secureObjects.Count;
                     RegistryUtility.SetLoginToRegistry(UserLogin);
@@ -454,7 +455,7 @@ namespace SecurePass.ViewModels
 
         public MainWindowVM()
         {
-            dbContext = new();
+            repository = new();
             UserLogin = RegistryUtility.TryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
         }
@@ -578,7 +579,7 @@ namespace SecurePass.ViewModels
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
         public RelayCommand Cancel => new((o) => cancel());
-        public RelayCommand SaveObject => new((o) => saveObject(), (o) => !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name));
+        public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name));
         public RelayCommand AddEditObject => new((o) => createEditObject(o));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o));
     }

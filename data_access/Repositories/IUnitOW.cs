@@ -18,7 +18,10 @@ namespace data_access.Repositories
         IRepository<SecureObject> SecureObjects { get; }
         IRepository<Server> Servers { get; }
         IRepository<Universal> Universals { get; }
-        IRepository<User> Users { get; }        
+        IRepository<User> Users { get; }
+        IRepository<WiFi> WiFis { get; }
+        IRepository<Contact> Contacts { get; }
         void Save();
+        Task SaveAsync();
     }
 }

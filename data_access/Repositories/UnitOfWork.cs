@@ -22,6 +22,8 @@ namespace data_access.Repositories
         private Repository<Server>? servers;
         private Repository<Universal>? universals;
         private Repository<User>? users;
+        private Repository<WiFi>? wifis;
+        private Repository<Contact>? contacts;
         private bool disposed = false;
 
         public IRepository<BankAccount> BankAccounts => bankAccounts ??= new Repository<BankAccount>(context);
@@ -34,9 +36,17 @@ namespace data_access.Repositories
         public IRepository<Server> Servers => servers ??= new Repository<Server>(context);
         public IRepository<Universal> Universals => universals ??= new Repository<Universal>(context);
         public IRepository<User> Users => users ??= new Repository<User>(context);
+        public IRepository<WiFi> WiFis => wifis ??= new Repository<WiFi>(context);
+        public IRepository<Contact> Contacts => contacts ??= new Repository<Contact>(context);
+
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+           await context.SaveChangesAsync();
         }
 
         protected virtual void Dispose(bool disposing)

@@ -22,6 +22,7 @@ namespace data_access.Repositories
             this.dbSet = context.Set<TEntity>();
         }
 
+        
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -50,14 +51,24 @@ namespace data_access.Repositories
             }
         }
 
+        public async virtual Task<TEntity?> GetByIDAsync(object id)
+        {
+           return await dbSet.FindAsync(id);
+        }
+
         public virtual TEntity? GetByID(object id)
         {
-            return dbSet.Find(id);
+            return  dbSet.Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);
+        }
+
+        public virtual async Task InsertAsync(TEntity entity)
+        {
+           await dbSet.AddAsync(entity);
         }
 
         public virtual void Delete(object id)
@@ -79,6 +90,38 @@ namespace data_access.Repositories
         {
             dbSet.Attach(entityToUpdate);
             if (context != null) context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        TEntity? IRepository<TEntity>.GetByID(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity? FirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (filter != null)
+                return query.FirstOrDefault(filter);
+            else 
+            return query.FirstOrDefault(); 
+        }
+
+        public bool Any(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (filter != null)
+                return query.Any(filter);
+            else
+                return query.Any();
+        }
+
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> filter = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (filter != null)
+                return await query.FirstOrDefaultAsync(filter);
+            else
+                return await query.FirstOrDefaultAsync();
         }
     }
 }
