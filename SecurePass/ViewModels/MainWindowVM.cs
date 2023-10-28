@@ -42,7 +42,7 @@ namespace SecurePass.ViewModels
             findString = string.Empty;
         }
 
-        private async Task setEntityVMToDataBase(object? vm)
+        private async Task setEntityVMToDataBase(BaseEntityVM? vm)
         {
             if (vm == null) return; 
             switch (vm)
@@ -189,8 +189,9 @@ namespace SecurePass.ViewModels
             }
         }
 
-        private async Task deleteObjectFromDataBase(object o)
+        private async Task deleteObjectFromDataBase(BaseEntityVM? o)
         {
+            if (o == null) return;
             switch (o)
             {
                 case UserVM userVM:
@@ -234,8 +235,9 @@ namespace SecurePass.ViewModels
             OnPropertyChanged(nameof(SecureObjects));
         }
 
-        private void createEditObject(object? o)
+        private void createEditObject(BaseEntityVM? o)
         {
+            if (o == null) return;
             switch (o)
             {
                 case UserVM userVM:
@@ -579,7 +581,7 @@ namespace SecurePass.ViewModels
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
         public RelayCommand Cancel => new((o) => cancel());
         public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name));
-        public RelayCommand AddEditObject => new((o) => createEditObject(o));
-        public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o));
+        public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
+        public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
     }
 }
