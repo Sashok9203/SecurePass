@@ -21,12 +21,12 @@ namespace SecurePass.ViewModels
         private bool isMainWindowEnabled, isFirstStart, isSelected, isAddEditCategoryWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
-        private string findString;
+        private string? findString;
         private CategoryVM? selectedCategory;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject;
         private List<int> categoriesId = new();
-        private BaseEntityVM createdObject;
+        private BaseEntityVM? createdObject;
 
         private void clearData()
         {
@@ -377,7 +377,6 @@ namespace SecurePass.ViewModels
             }
             NewEditObject = null;
         }
-
 
         private void categorySelected(object o)
         {
