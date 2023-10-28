@@ -129,7 +129,7 @@
                 <TextBlock Text="Change image" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
                 <TextBlock Text="Category name" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
                 <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
-                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewCategory.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                      Background="Transparent" Foreground="White" FontSize="14" 
                      CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                     <Border.Effect>
@@ -138,13 +138,13 @@
                 </Border>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,40,0,0">
                     <Button  Background="#333333" Width="70" Content="Save" Margin="0,0,15,0" Height="30" Style="{StaticResource RoundedButtonStyle}" 
-                     Foreground="LightGray" BorderBrush="#FF3C3C3C" Command="{Binding SaveCategory}">
+                     Foreground="LightGray" BorderBrush="#FF3C3C3C" Command="{Binding SaveObject}">
                         <Button.Effect>
                             <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
                         </Button.Effect>
                     </Button>
                     <Button BorderBrush="#FF3C3C3C" Background="#333333" Width="70" Content="Cancel" Height="30" Style="{StaticResource RoundedButtonStyle}"  Foreground="LightGray"
-                    Command="{Binding Cancle}" IsCancel="True">
+                    Command="{Binding Cancel}" IsCancel="True">
                         <Button.Effect>
                             <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
                         </Button.Effect>

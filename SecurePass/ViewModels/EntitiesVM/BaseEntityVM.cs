@@ -1,4 +1,5 @@
-﻿using System;
+﻿using data_access.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecurePass.ViewModels.EntitiesVM
 {
-    internal class BaseEntityVM : BaseViewModel
+    internal class BaseEntityVM : BaseViewModel ,ICloneable
     {
 		private int imageId;
 
@@ -27,5 +28,9 @@ namespace SecurePass.ViewModels.EntitiesVM
 		}
 
 		public int Id { get; private set; }
-	}
+
+        public object Clone() => MemberwiseClone();
+
+        public virtual void CopyToEntity(BaseEntity entity) { entity.ImageId = ImageId; }
+    }
 }

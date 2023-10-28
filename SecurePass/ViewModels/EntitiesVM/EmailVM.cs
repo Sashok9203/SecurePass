@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,16 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string password;
         private string safety;
         private string authenticationMethod;
+
+        public EmailVM() : base(0, -1, 0, "", "", false)
+        {
+            type = string.Empty;
+            name = string.Empty;
+            server = string.Empty;
+            password = string.Empty;
+            safety = string.Empty;
+            authenticationMethod = string.Empty;
+        }
 
         public EmailVM(Email email): base(email.Id,email.ImageId,email.CategoryId,email.Title,email.Name, email.IsFavorit)
         {
@@ -96,6 +107,19 @@ namespace SecurePass.ViewModels.EntitiesVM
                 authenticationMethod = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (Email)entity;
+            temp.Type = type;
+            temp.Name = name;
+            temp.Server = server;
+            temp.Port = port;
+            temp.Password = password;
+            temp.Safety = safety;
+            temp.AuthenticationMethod = authenticationMethod;
         }
     }
 }

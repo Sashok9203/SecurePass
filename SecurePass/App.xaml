@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Resources/CategoryExpanderStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/CategoryButtonDataTemplate.xaml"/>
                 <ResourceDictionary Source="/Resources/ScureObjectButtonDataTemplate.xaml"/>
+                <ResourceDictionary Source="/Resources/VMObjects.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

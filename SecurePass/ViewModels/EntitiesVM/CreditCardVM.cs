@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SecurePass.ViewModels.EntitiesVM
 {
@@ -15,6 +17,14 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string verificationCode;
         private DateTime validity;
         private DateTime startDate;
+
+        public CreditCardVM() : base(0, -1, 0, "", "", false)
+        {
+            ownerName = string.Empty;
+            type = string.Empty;
+            number = string.Empty;
+            verificationCode = string.Empty;
+        }
 
         public CreditCardVM(CreditCard creditCard) : base(creditCard.Id,creditCard.ImageId,creditCard.CategoryId,creditCard.Title,creditCard.OwnerName, creditCard.IsFavorit)
         {
@@ -84,6 +94,18 @@ namespace SecurePass.ViewModels.EntitiesVM
                 startDate = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (CreditCard)entity;
+            temp.OwnerName = ownerName;
+            temp.Type = type;
+            temp.Number = number;
+            temp.VerificationCode = verificationCode;
+            temp.Validity = validity;
+            temp.StartDate = startDate;
         }
     }
 }

@@ -59,6 +59,14 @@ namespace SecurePass.ViewModels.EntitiesVM
             }
         }
 
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (Category)entity;
+            temp.Name = name;
+            temp.UserId = UserId;
+        }
     }
 }

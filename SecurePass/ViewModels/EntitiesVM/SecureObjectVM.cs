@@ -1,4 +1,5 @@
-﻿using System;
+﻿using data_access.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.RightsManagement;
@@ -62,5 +63,14 @@ namespace SecurePass.ViewModels.EntitiesVM
         }
 
         public string Info => info;
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (SecureObject)entity;
+            temp.Title = title;
+            temp.CategoryId = categoryId;
+            temp.IsFavorit = isFavorit;
+        }
     }
 }
