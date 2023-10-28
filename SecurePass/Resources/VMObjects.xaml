@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vmf="clr-namespace:SecurePass.ViewModels.EntitiesVM">
+
+
+    <vmf:CategoryVM x:Key="CategoryVM"/>
+    <vmf:BankAccountVM x:Key="BankAccountVM"/>
+    <vmf:UserVM x:Key="UserVM"/>
+    <vmf:ContactVM x:Key="ContactVM"/>
+    <vmf:CreditCardVM x:Key="CreditCardVM"/>
+    <vmf:DataBaseVM x:Key="DataBaseVM"/>
+    <vmf:EmailVM x:Key="EmailVM"/>
+    <vmf:ServerVM x:Key="ServerVM"/>
+    <vmf:UniversalVM x:Key="UniversalVM"/>
+    <vmf:WiFiVM x:Key="WiFiVM"/>
+
+
+</ResourceDictionary>

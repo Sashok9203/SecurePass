@@ -12,6 +12,12 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string value;
         private string label;
 
+        public UniversalVM() : base(0, -1, 0, "", "", false)
+        {
+            value = string.Empty;
+            label = string.Empty;
+        }
+
         public UniversalVM(Universal universal):base(universal.Id,universal.ImageId,universal.CategoryId,universal.Title,universal.Label, universal.IsFavorit)
         {
             value = universal.Value;
@@ -36,6 +42,14 @@ namespace SecurePass.ViewModels.EntitiesVM
                 this.value = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (Universal)entity;
+            temp.Value = value;
+            temp.Label = label;
         }
     }
 }

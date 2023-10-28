@@ -18,6 +18,16 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string company;
         private string position;
 
+        public ContactVM() : base(0, -1, 0, "", "", false)
+        {
+            name = string.Empty;
+            surname = string.Empty;
+            gender = string.Empty;
+            workPLace = string.Empty;
+            company = string.Empty;
+            position = string.Empty;
+        }
+
         public ContactVM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.Title,contact.Name, contact.IsFavorit)
         {
             title = contact.Title;
@@ -108,6 +118,19 @@ namespace SecurePass.ViewModels.EntitiesVM
                 position = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (Contact)entity;
+            temp.Name = name;
+            temp.Surname = surname;
+            temp.Gender = gender;
+            temp.Birthday = birthday;
+            temp.WorkPlace = workPLace;
+            temp.Company = company;
+            temp.Position = position;
         }
     }
 }

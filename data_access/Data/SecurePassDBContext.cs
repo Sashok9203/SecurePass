@@ -33,7 +33,7 @@ namespace data_access.Data
             DefaultData.Initialize(modelBuilder);
         }
         
-        public DbSet<BankAccount> BankAccount{ get; set; }
+        public DbSet<BankAccount> BankAccounts{ get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<Email> Emails { get; set; }
         public DbSet<User> Users { get; set; }

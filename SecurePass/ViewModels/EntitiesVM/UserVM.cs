@@ -9,12 +9,28 @@ namespace SecurePass.ViewModels.EntitiesVM
 {
     internal class UserVM : BaseEntityVM
     {
+        public UserVM() : base(0, -1)
+        {
+            NikName = string.Empty;
+            PasswordHash = string.Empty;
+        }
+
         public UserVM(User user):base(user.Id,user.ImageId)
         {
-            NickName = user.NikName;
+            NikName = user.NikName;
             PasswordHash = user.PasswordHash;
         }
-        public string NickName { get; private set; }
-        public string PasswordHash { get; private set; } 
+
+        public string NikName { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (User)entity;
+            temp.NikName = NikName;
+            temp.PasswordHash = PasswordHash;
+        }
     }
 }

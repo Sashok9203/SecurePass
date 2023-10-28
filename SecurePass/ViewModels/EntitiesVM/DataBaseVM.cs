@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SecurePass.ViewModels.EntitiesVM
 {
@@ -19,6 +20,18 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string sid;
         private string pseudonym;
         private string connectionSettings;
+
+        public DataBaseVM() : base(0, -1, 0, "", "", false)
+        {
+            type = string.Empty;
+            server = string.Empty;
+            database = string.Empty;
+            name = string.Empty;
+            password = string.Empty;
+            sid = string.Empty;
+            pseudonym = string.Empty;
+            connectionSettings = string.Empty;
+        }
 
         public DataBaseVM( DataBase dataBase) : base(dataBase.Id,dataBase.ImageId,dataBase.CategoryId,dataBase.Title,dataBase.Name,dataBase.IsFavorit)
         {
@@ -121,6 +134,21 @@ namespace SecurePass.ViewModels.EntitiesVM
                 connectionSettings = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (DataBase)entity;
+            temp.Type = type;
+            temp.Server = server;
+            temp.Port = port;
+            temp.Database = database;
+            temp.Name = name;
+            temp.Password = password;
+            temp.SID = sid;
+            temp.Pseudonym = pseudonym;
+            temp.ConnectionSettings = connectionSettings;
         }
     }
 }

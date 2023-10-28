@@ -18,6 +18,17 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string iban;
         private string pin;
 
+        public BankAccountVM() : base(0, -1, 0, "", "", false)
+        {
+            name = string.Empty;
+            ownerName = string.Empty;
+            type = string.Empty;
+            bankAccountNumber = string.Empty;
+            swift = string.Empty;
+            iban = string.Empty;
+            pin = string.Empty;
+        }
+
         public BankAccountVM(BankAccount bankAccount) : base(bankAccount.Id,bankAccount.ImageId,bankAccount.CategoryId,bankAccount.Title, bankAccount.Name,bankAccount.IsFavorit)
         {
             name = bankAccount.Name;    
@@ -108,6 +119,20 @@ namespace SecurePass.ViewModels.EntitiesVM
                 pin = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (BankAccount)entity;
+            temp.Name = name;
+            temp.OwnerName = ownerName;
+            temp.Type = type;
+            temp.DepartmentNumber = departmentNumber;
+            temp.BankAccountNumber = bankAccountNumber;
+            temp.SWIFT = swift;
+            temp.IBAN = iban;
+            temp.PIN = pin;
         }
     }
 }

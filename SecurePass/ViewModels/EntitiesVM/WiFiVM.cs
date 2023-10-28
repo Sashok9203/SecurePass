@@ -18,6 +18,18 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string wirelessPassword;
         private string connectedStoragePasswords;
 
+        public WiFiVM() : base(0, -1, 0, "", "", false)
+        {
+            baseStation = string.Empty;
+            password = string.Empty;
+            ip = string.Empty;
+            airPortId = string.Empty;
+            networkName = string.Empty;
+            wirelessSecurity = string.Empty;
+            wirelessPassword = string.Empty;
+            connectedStoragePasswords = string.Empty;
+        }
+
         public WiFiVM(WiFi wifi) : base(wifi.Id,wifi.ImageId,wifi.CategoryId,wifi.Title,wifi.NetworkName,wifi.IsFavorit)
         {
             baseStation = wifi.BaseStation;
@@ -108,6 +120,20 @@ namespace SecurePass.ViewModels.EntitiesVM
                 connectedStoragePasswords = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (WiFi)entity;
+            temp.BaseStation = baseStation;
+            temp.Password = password;
+            temp.IP = ip;
+            temp.AirPortId = airPortId;
+            temp.NetworkName = networkName; ;
+            temp.WirelessSecurity = wirelessSecurity;
+            temp.WirelessPassword = wirelessPassword;
+            temp.ConnectedStoragePasswords = connectedStoragePasswords;
         }
 
     }

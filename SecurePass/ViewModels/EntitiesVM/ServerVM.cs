@@ -13,6 +13,13 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private string password;
 
+        public ServerVM() : base(0, -1, 0, "", "", false)
+        {
+            url = string.Empty;
+            name = string.Empty;
+            password = string.Empty;
+        }
+
         public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.Title, server.Name, server.IsFavorit)
         {
             url = server.URL;
@@ -48,6 +55,15 @@ namespace SecurePass.ViewModels.EntitiesVM
                 password = value;
                 OnPropertyChanged();
             }
+        }
+
+        public override void CopyToEntity(BaseEntity entity)
+        {
+            base.CopyToEntity(entity);
+            var temp = (Server)entity;
+            temp.URL = url;
+            temp.Name = name;
+            temp.Password = password;
         }
     }
 }

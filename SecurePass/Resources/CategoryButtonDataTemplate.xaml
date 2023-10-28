@@ -42,7 +42,7 @@
             </Border.InputBindings>
             <Border.ContextMenu>
                 <ContextMenu Name="menu" Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
-                    <MenuItem Header="Edit" Command="{Binding Path = Tag.AddNewCategory ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
+                    <MenuItem Header="Edit" Command="{Binding Path = Tag.AddEditObject ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
                     <MenuItem Header="Delete" Command="{Binding Path = Tag.DeleteObject ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
                 </ContextMenu>
             </Border.ContextMenu>
