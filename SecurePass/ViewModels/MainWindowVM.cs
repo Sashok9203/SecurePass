@@ -178,17 +178,6 @@ namespace SecurePass.ViewModels
             new(new(){ Name = "Favorit",Id = -2})
         };
 
-        private void secureObjectSelected(object o)
-        {
-            if (o is SecureObjectVM secureObject)
-            {
-                if (SelectedSecureObject != null)
-                    SelectedSecureObject.IsSelected = false;
-                SelectedSecureObject = secureObject;
-                SelectedSecureObject.IsSelected = true;
-            }
-        }
-
         private async Task deleteObjectFromDataBase(BaseEntityVM? o)
         {
             if (o == null) return;
@@ -388,6 +377,22 @@ namespace SecurePass.ViewModels
                     SelectedCategory.IsSelected = false;
                 SelectedCategory = category;
                 SelectedCategory.IsSelected = true;
+                if (SelectedSecureObject != null)
+                {
+                    SelectedSecureObject.IsSelected = false;
+                    SelectedSecureObject = null;
+                }
+            }
+        }
+
+        private void secureObjectSelected(object o)
+        {
+            if (o is SecureObjectVM secureObject)
+            {
+                if (SelectedSecureObject != null)
+                    SelectedSecureObject.IsSelected = false;
+                SelectedSecureObject = secureObject;
+                SelectedSecureObject.IsSelected = true;
             }
         }
 
