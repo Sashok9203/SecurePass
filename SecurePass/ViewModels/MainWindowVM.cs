@@ -317,6 +317,7 @@ namespace SecurePass.ViewModels
                         if ((secureObjects[i].GetType() == secureObjectVM.GetType()) && (secureObjects[i].Id == secureObjectVM.Id))
                         {
                             secureObjects[i] = secureObjectVM;
+                            SelectedSecureObject = secureObjectVM;
                             break;
                         }
                     }
@@ -339,9 +340,9 @@ namespace SecurePass.ViewModels
                     break;
                 case SecureObjectVM secureObjectVM:
                     secureObjectVM.IsEditable = false;
-                   break;
+                    SecureObjectEdit = SelectedSecureObject;
+                    break;
             }
-            SecureObjectEdit = SelectedSecureObject;
             NewEditObject = null;
         }
 
