@@ -10,6 +10,9 @@
   <ItemGroup>
     <None Remove="Images\avatar_147144.png" />
     <None Remove="Images\icons8-plus-48.png" />
+    <None Remove="Images\icons\base_icons_for_entities\login.png" />
+    <None Remove="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
+    <None Remove="Images\lock_background.png" />
     <None Remove="Images\preview.png" />
     <None Remove="Images\right-arrow_3031735.png" />
     <None Remove="Images\search_icon.png" />
@@ -38,6 +41,9 @@
   <ItemGroup>
     <Resource Include="Images\avatar_147144.png" />
     <Resource Include="Images\icons8-plus-48.png" />
+    <Resource Include="Images\icons\base_icons_for_entities\login.png" />
+    <Resource Include="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
+    <Resource Include="Images\lock_background.png" />
     <Resource Include="Images\preview.png" />
     <Resource Include="Images\right-arrow_3031735.png" />
     <Resource Include="Images\search_icon.png" />

@@ -24,12 +24,13 @@ namespace SecurePass.ViewModels
         private string? findString;
         private CategoryVM? selectedCategory;
         private List<SecureObjectVM> secureObjects = new();
-        private SecureObjectVM? selectedSecureObject;
+        private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private List<int> categoriesId = new();
         private BaseEntityVM? createdObject;
 
         private void clearData()
         {
+            createdObject = null;
             isMainWindowEnabled = false;
             isFirstStart = false;
             secureObjects.Clear();
@@ -40,6 +41,7 @@ namespace SecurePass.ViewModels
             SelectedCategory = null;
             SelectedSecureObject = null;
             findString = string.Empty;
+            RegistryUtility.DeleteInfoFromRegistry();
         }
 
         private async Task setEntityVMToDataBase(BaseEntityVM? vm)
@@ -239,6 +241,7 @@ namespace SecurePass.ViewModels
                         NewEditObject = categoryVM;
                     }
                     else NewEditObject = categoryVM.Clone() as CategoryVM;
+                    secureObjectSelectionClear();
                     IsAddEditCategoryWindowEnabled = true;
                     break;
                 case WiFiVM wifiVM:
@@ -282,6 +285,11 @@ namespace SecurePass.ViewModels
                     else NewEditObject = bankAccountVM.Clone() as BankAccountVM;
                     break;
             }
+            if (o is SecureObjectVM)
+            {
+                SecureObjectEdit = NewEditObject as SecureObjectVM;
+                SecureObjectEdit.IsEditable = true;
+            }
         }
 
         private async Task saveObject()
@@ -302,29 +310,17 @@ namespace SecurePass.ViewModels
                     }
                     IsAddEditCategoryWindowEnabled = false;
                     break;
-                case WiFiVM wifiVM:
-
-                    break;
-                case UniversalVM universalVM:
-
-                    break;
-                case ServerVM serverlVM:
-
-                    break;
-                case EmailVM emailVM:
-
-                    break;
-                case DataBaseVM dataBaseVM:
-
-                    break;
-                case CreditCardVM crediCardVM:
-
-                    break;
-                case ContactVM contacVM:
-
-                    break;
-                case BankAccountVM bankAccountVM:
-
+                case SecureObjectVM secureObjectVM:
+                    secureObjectVM.IsEditable = false;
+                    for (int i = 0; i < secureObjects.Count; i++)
+                    {
+                        if ((secureObjects[i].GetType() == secureObjectVM.GetType()) && (secureObjects[i].Id == secureObjectVM.Id))
+                        {
+                            secureObjects[i] = secureObjectVM;
+                            break;
+                        }
+                    }
+                    OnPropertyChanged(nameof(SecureObjects));
                     break;
             }
             await setEntityVMToDataBase(NewEditObject);
@@ -341,31 +337,11 @@ namespace SecurePass.ViewModels
                 case CategoryVM categoryVM:
                     IsAddEditCategoryWindowEnabled = false;
                     break;
-                case WiFiVM wifiVM:
-
-                    break;
-                case UniversalVM universalVM:
-
-                    break;
-                case ServerVM serverlVM:
-
-                    break;
-                case EmailVM emailVM:
-
-                    break;
-                case DataBaseVM dataBaseVM:
-
-                    break;
-                case CreditCardVM crediCardVM:
-
-                    break;
-                case ContactVM contacVM:
-
-                    break;
-                case BankAccountVM bankAccountVM:
-
-                    break;
+                case SecureObjectVM secureObjectVM:
+                    secureObjectVM.IsEditable = false;
+                   break;
             }
+            SecureObjectEdit = SelectedSecureObject;
             NewEditObject = null;
         }
 
@@ -377,11 +353,17 @@ namespace SecurePass.ViewModels
                     SelectedCategory.IsSelected = false;
                 SelectedCategory = category;
                 SelectedCategory.IsSelected = true;
-                if (SelectedSecureObject != null)
-                {
-                    SelectedSecureObject.IsSelected = false;
-                    SelectedSecureObject = null;
-                }
+                secureObjectSelectionClear();
+            }
+        }
+
+        private void secureObjectSelectionClear()
+        {
+            if (SelectedSecureObject != null)
+            {
+                SelectedSecureObject.IsSelected = false;
+                SelectedSecureObject = null;
+                SecureObjectEdit = null;
             }
         }
 
@@ -389,13 +371,14 @@ namespace SecurePass.ViewModels
         {
             if (o is SecureObjectVM secureObject)
             {
-                if (SelectedSecureObject != null)
+                if (SelectedSecureObject != null )
                     SelectedSecureObject.IsSelected = false;
                 SelectedSecureObject = secureObject;
                 SelectedSecureObject.IsSelected = true;
+                SecureObjectEdit = SelectedSecureObject;
             }
         }
-
+        
         private bool secureElementFilter(SecureObjectVM so)
         {
             bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
@@ -473,6 +456,7 @@ namespace SecurePass.ViewModels
             set
             {
                 findString = value;
+                secureObjectSelectionClear();
                 OnPropertyChanged(nameof(SecureObjects));
             }
         }
@@ -517,6 +501,16 @@ namespace SecurePass.ViewModels
             set
             {
                 selectedSecureObject = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SecureObjectVM? SecureObjectEdit
+        {
+            get => secureObjectEdit;
+            set
+            {
+                secureObjectEdit = value;
                 OnPropertyChanged();
             }
         }
@@ -585,8 +579,15 @@ namespace SecurePass.ViewModels
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
         public RelayCommand Cancel => new((o) => cancel());
-        public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name));
+        public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => saveButtonEnabler());
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
+
+        private bool saveButtonEnabler()
+        {
+            if (NewEditObject is CategoryVM) return !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name);
+            if (NewEditObject is SecureObjectVM) return (NewEditObject as SecureObjectVM).IsEditable;
+            return false;
+        }
     }
 }

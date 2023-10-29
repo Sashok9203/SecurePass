@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="/Resources/CategoryButtonDataTemplate.xaml"/>
                 <ResourceDictionary Source="/Resources/ScureObjectButtonDataTemplate.xaml"/>
                 <ResourceDictionary Source="/Resources/VMObjects.xaml"/>
+                <ResourceDictionary Source="/Resources/ObjectInfoStyles.xaml"/>
+                <ResourceDictionary Source="/Resources/ObjectInfoComboBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

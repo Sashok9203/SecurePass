@@ -2,5 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="ControlBackgroundColor" Color="#FF1A3B8A"/>
+    <SolidColorBrush x:Key="objectInfoBorderBrush" Color="Gray"/>
+    <SolidColorBrush x:Key="objectInfoTextBlockColor" Color="Gray"/>
+    <SolidColorBrush x:Key="objectInfoTextBoxBorderColor" Color="#FF4C4C4C"/>
 
 </ResourceDictionary>
