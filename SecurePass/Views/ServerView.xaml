@@ -20,7 +20,6 @@
 
             <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Password"/>
             <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
-        </StackPanel>
+         </StackPanel>
     </Border>
 </UserControl>
