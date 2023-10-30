@@ -8,7 +8,42 @@
              d:DataContext="{d:DesignInstance Type= evmf:DataBaseVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Text="Type" Style ="{StaticResource objectInfoTextBlockStyle}"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}"  Text="{Binding Type,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Server" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Server,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Port" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="DataBase" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Database,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Name" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Password" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="SID" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding SID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
             
-    </Grid>
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Pseudonym" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Pseudonym,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+            
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Connection Settings" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding ConnectionSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+    </Border>
 </UserControl>
