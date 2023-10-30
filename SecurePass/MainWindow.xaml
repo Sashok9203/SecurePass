@@ -74,13 +74,13 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewerRight}">
                             <DockPanel  Grid.Column="2" Grid.Row="1">
                                 <DockPanel DockPanel.Dock="Top">
-                                    <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"  DockPanel.Dock ="Left"  Width="150" Height="25" Margin="20,0,0,0" 
+                                    <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"  DockPanel.Dock ="Left"  Width="150" Height="30" Margin="20,0,0,0" 
                                               IsEnabled="{Binding SecureObjectEdit.IsEditable}" SelectedItem="{Binding CategoryInObjectView,Mode=TwoWay}"
-                                              ItemsSource="{Binding UserCategories}" Foreground="White" FontSize="14">
+                                              ItemsSource="{Binding UserCategories}" Foreground="White" FontSize="16">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel  Orientation="Horizontal">
-                                                    <Image Width="16" Source="/Images/icons/icons_in_circle_for_categories/bird_ico.png"/>
+                                                    <Image Width="20" Source="/Images/icons/icons_in_circle_for_categories/bird_ico.png"/>
                                                     <TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
                                                 </StackPanel>
                                             </DataTemplate>
