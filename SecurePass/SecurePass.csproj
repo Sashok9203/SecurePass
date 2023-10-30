@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Images\avatar_147144.png" />
+    <None Remove="Images\gear_icon.png" />
     <None Remove="Images\icons8-plus-48.png" />
     <None Remove="Images\icons\base_icons_for_entities\login.png" />
     <None Remove="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
@@ -40,6 +41,7 @@
 
   <ItemGroup>
     <Resource Include="Images\avatar_147144.png" />
+    <Resource Include="Images\gear_icon.png" />
     <Resource Include="Images\icons8-plus-48.png" />
     <Resource Include="Images\icons\base_icons_for_entities\login.png" />
     <Resource Include="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
