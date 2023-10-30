@@ -350,6 +350,7 @@ namespace SecurePass.ViewModels
                 case SecureObjectVM secureObjectVM:
                     secureObjectVM.IsEditable = false;
                     SecureObjectEdit = SelectedSecureObject;
+                    CategoryInObjectView = UserCategories.First(x=>x.Id == SelectedSecureObject.CategoryId);
                     break;
             }
             NewEditObject = null;
