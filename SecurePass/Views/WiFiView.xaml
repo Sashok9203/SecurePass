@@ -8,7 +8,38 @@
              d:DataContext="{d:DesignInstance Type= evmf:WiFiVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Text="Base Station" Style ="{StaticResource objectInfoTextBlockStyle}"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}"  Text="{Binding BaseStation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Password" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="IP"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding IP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="AirPortId" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding AirPortId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Network name" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding NetworkName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Wireless security" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding WirelessSecurity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Wireless password" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding WirelessPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Connected storage passwords" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding ConnectedStoragePasswords,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+    </Border>
 </UserControl>
