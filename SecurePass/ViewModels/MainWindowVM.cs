@@ -28,6 +28,13 @@ namespace SecurePass.ViewModels
         private List<int> categoriesId = new();
         private BaseEntityVM? createdObject;
 
+        private bool saveButtonEnabler()
+        {
+            if (NewEditObject is CategoryVM) return !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name);
+            if (NewEditObject is SecureObjectVM) return (NewEditObject as SecureObjectVM).IsEditable;
+            return false;
+        }
+
         private void clearData()
         {
             createdObject = null;
@@ -44,7 +51,7 @@ namespace SecurePass.ViewModels
             RegistryUtility.DeleteInfoFromRegistry();
         }
 
-        private async Task setEntityVMToDataBase(BaseEntityVM? vm)
+        private async Task setObjectToDataBase(BaseEntityVM? vm)
         {
             if (vm == null) return; 
             switch (vm)
@@ -324,7 +331,7 @@ namespace SecurePass.ViewModels
                     OnPropertyChanged(nameof(SecureObjects));
                     break;
             }
-            await setEntityVMToDataBase(NewEditObject);
+            await setObjectToDataBase(NewEditObject);
             NewEditObject = null;
         }
 
@@ -401,7 +408,7 @@ namespace SecurePass.ViewModels
                     NikName = UserLogin,
                     PasswordHash = Utility.GetHash(UserPassword)
                 };
-                await setEntityVMToDataBase(CurrentUser);
+                await setObjectToDataBase(CurrentUser);
                 await repository.SaveAsync();
                 RegistryUtility.SetLoginToRegistry(UserLogin);
                 IsMainWindowEnabled = true;
@@ -583,12 +590,6 @@ namespace SecurePass.ViewModels
         public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => saveButtonEnabler());
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
-
-        private bool saveButtonEnabler()
-        {
-            if (NewEditObject is CategoryVM) return !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name);
-            if (NewEditObject is SecureObjectVM) return (NewEditObject as SecureObjectVM).IsEditable;
-            return false;
-        }
+       
     }
 }
