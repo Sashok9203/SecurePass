@@ -1,8 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:evmf="clr-namespace:SecurePass.ViewModels.EntitiesVM"
+                    xmlns:cvf="clr-namespace:SecurePass.Views">
 
-    <!--<DataTemplate DataType="{x:Type vmf:MailListControlVM}">
-        <cvf:MailListControl/>
-    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type evmf:BankAccountVM}">
+        <cvf:BackAccountView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:ContactVM}">
+        <cvf:ContactView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:CreditCardVM}">
+        <cvf:CreditCardView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:DataBaseVM}">
+        <cvf:DataBaseView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:EmailVM}">
+        <cvf:EmailView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:ServerVM}">
+        <cvf:ServerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:UniversalVM}">
+        <cvf:UniversalView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type evmf:WiFiVM}">
+        <cvf:WiFiView/>
+    </DataTemplate>
 
 </ResourceDictionary>

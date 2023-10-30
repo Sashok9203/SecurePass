@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="SecurePass.Views.EmailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SecurePass.Views"
+             xmlns:evmf="clr-namespace:SecurePass.ViewModels.EntitiesVM"
+             d:DataContext="{d:DesignInstance Type= evmf:EmailVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    
+    <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
+        <StackPanel Orientation="Vertical">
+            <TextBlock  Text="Type" Style ="{StaticResource objectInfoTextBlockStyle}"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}"  Text="{Binding Type,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Name" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Server"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Server,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Port" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Password" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Safety" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Safety,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
+
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Authentication method" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding AuthenticationMethod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+         </StackPanel>
+    </Border>
+</UserControl>

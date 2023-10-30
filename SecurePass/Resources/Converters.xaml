@@ -5,10 +5,15 @@
     
     <cf:BoolToHidenConverter x:Key="BoolToHidenConverter"/>
     <cf:BoolToHidenInverConverter x:Key="BoolToHidenInverConverter"/>
+    <cf:BoolToCallapseInvertConverter x:Key="BoolToCallapseInvertConverter"/>
+    <cf:BoolToCallapseConverter x:Key="BoolToCallapseConverter"/>
     <cf:BoolToColorConverter x:Key="BoolToColorConverter"/>
     <cf:IntZeroHideConverter x:Key="IntZeroHideConverter"/>
+    <cf:BoolToInt5Converter   x:Key="BoolToInt5Converter"/>
     <cf:BoolToIntConverter   x:Key="BoolToIntConverter"/>
     <cf:BoolInvertConverter  x:Key="BoolInvertConverter"/>
+    <cf:NullToVisibilityConverter  x:Key="NullToVisibilityConverter"/>
+    <cf:NullToVisibilityInvertedConverter  x:Key="NullToVisibilityInvertedConverter"/>
  
 
 </ResourceDictionary>

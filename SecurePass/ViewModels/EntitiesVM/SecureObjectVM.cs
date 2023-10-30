@@ -12,7 +12,7 @@ namespace SecurePass.ViewModels.EntitiesVM
     {
         private int categoryId;
         private string title, info;
-        private bool isSelected,isFavorit;
+        private bool isSelected,isFavorit,isEditable;
 
         public SecureObjectVM(int id, int imageId, int categoryId, string title, string info,bool isFavorit) : base(id, imageId)
         {
@@ -38,6 +38,16 @@ namespace SecurePass.ViewModels.EntitiesVM
             set
             {
                 categoryId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEditable
+        {
+            get => isEditable;
+            set
+            {
+                isEditable = value;
                 OnPropertyChanged();
             }
         }

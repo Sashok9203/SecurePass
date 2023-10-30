@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vmf:MainWindowVM}"
         Title="SecurePass" Height="600" Width="900" Icon="/Images/preview.png" Name="mainWindow">
-    
+        
     <Window.DataContext>
         <vmf:MainWindowVM/>
     </Window.DataContext>
@@ -63,15 +63,50 @@
                     <ScrollViewer Margin="20,20,5,20" Grid.Column="0" Grid.Row="2" Style="{StaticResource FavsScrollViewerRight}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <ItemsControl   ItemsSource="{Binding SecureObjects}" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource secureObjectButtonTemplateContext}"/>
                     </ScrollViewer>
-                    
-                    <!--Editing-->
-                    <DockPanel Grid.Column="2" Grid.Row="1">
-                        <Button Width="100" Height="25" Margin="20,0,0,0">Category</Button>
-                        <Button Width="100" Height="25">Edit</Button>
-                    </DockPanel>
-                    
-                    <!--Need to be another xaml-->
-                    <Border Grid.Row="2" Grid.Column="2" Height="300" Margin="10,10,10,0" Background="Gray"></Border>
+                                                    
+                    <!--Object info-->
+                    <Image Grid.Row="1" Margin="30" Grid.Column="2" Grid.RowSpan="2" Source="/Images/lock_background.png" Opacity=".5" Visibility="{Binding SecureObjectEdit , Converter={StaticResource NullToVisibilityInvertedConverter}}">
+                        <Image.Effect>
+                            <BlurEffect Radius="3"/>
+                        </Image.Effect>
+                    </Image>
+                    <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Margin="20" Visibility="{Binding SecureObjectEdit , Converter={StaticResource NullToVisibilityConverter}}">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewerRight}">
+                            <DockPanel  Grid.Column="2" Grid.Row="1">
+                                <DockPanel DockPanel.Dock="Top">
+                                    <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"  DockPanel.Dock ="Left"  Width="150" Height="25" Margin="20,0,0,0" 
+                                              IsEnabled="{Binding SecureObjectEdit.IsEditable}"
+                                              ItemsSource="{Binding UserCategories}" Foreground="White" FontSize="14">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <Image Width="16" Source="/Images/icons/icons_in_circle_for_categories/bird_ico.png"/>
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Button Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock ="Right" 
+                                            HorizontalAlignment="Right" Width="100" Height="25" 
+                                            Visibility="{Binding SecureObjectEdit.IsEditable,Converter={StaticResource  BoolToCallapseInvertConverter}}"
+                                            Command="{Binding AddEditObject}" CommandParameter="{Binding SecureObjectEdit}">Edit</Button>
+                                    <Button Margin="25,0,0,0" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock ="Right" HorizontalAlignment="Right" Width="100" Height="25" 
+                                            Visibility="{Binding SecureObjectEdit.IsEditable,Converter={StaticResource  BoolToCallapseConverter}}" Command="{Binding Cancel}" >Cancel</Button>
+                                    <Button Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock ="Right" HorizontalAlignment="Right" Width="100" Height="25" 
+                                            Visibility="{Binding SecureObjectEdit.IsEditable,Converter={StaticResource  BoolToCallapseConverter}}" Command="{Binding SaveObject}" >Save</Button>
+                                </DockPanel>
+                                <StackPanel Margin="25,20,0,20" DockPanel.Dock="Top" Orientation="Horizontal">
+                                    <Image Source="/Images/icons/base_icons_for_entities/login.png" Width="60" />
+                                    <TextBox Width="220" Margin="20,0,0,0" Text="{Binding SecureObjectEdit.Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                             Foreground="White" BorderThickness="{Binding SecureObjectEdit.IsEditable,Converter={StaticResource BoolToIntConverter}}" Background="Transparent" 
+                                             FontSize="20" FontWeight="Bold" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CaretBrush="White"
+                                             VerticalAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="{Binding SecureObjectEdit.IsEditable,Converter={StaticResource BoolInvertConverter} }"
+                                             BorderBrush="{StaticResource objectInfoTextBoxBorderColor}"/>
+                                </StackPanel>
+                                <ContentControl Content="{Binding SecureObjectEdit}"/>
+                            </DockPanel>
+                        </ScrollViewer>
+                    </Border>
                 </Grid>
 
                 <!--Searching and adding new element-->
@@ -112,7 +147,7 @@
                 </DockPanel>
             </Grid>
             <Border.Effect>
-                <BlurEffect Radius="{Binding IsAddEditCategoryWindowEnabled ,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToIntConverter}}"/>
+                <BlurEffect Radius="{Binding IsAddEditCategoryWindowEnabled ,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToInt5Converter}}"/>
             </Border.Effect>
         </Border>
         
