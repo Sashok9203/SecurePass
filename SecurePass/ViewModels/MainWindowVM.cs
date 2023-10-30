@@ -22,7 +22,7 @@ namespace SecurePass.ViewModels
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
         private string? findString;
-        private CategoryVM? selectedCategory;
+        private CategoryVM? selectedCategory,categoryInObjectView;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private List<int> categoriesId = new();
@@ -296,6 +296,8 @@ namespace SecurePass.ViewModels
             {
                 SecureObjectEdit = NewEditObject as SecureObjectVM;
                 SecureObjectEdit.IsEditable = true;
+                if (SecureObjectEdit.CategoryId == 0)
+                    SecureObjectEdit.CategoryId = 1;
             }
         }
 
@@ -384,6 +386,7 @@ namespace SecurePass.ViewModels
                 SelectedSecureObject = secureObject;
                 SelectedSecureObject.IsSelected = true;
                 SecureObjectEdit = SelectedSecureObject;
+                CategoryInObjectView = UserCategories.First(x => x.Id == SecureObjectEdit.CategoryId);
             }
         }
         
@@ -545,6 +548,21 @@ namespace SecurePass.ViewModels
             }
         }
 
+        public CategoryVM? CategoryInObjectView
+        {
+            get => categoryInObjectView;
+            set
+            {
+                categoryInObjectView = value;
+                OnPropertyChanged();
+                if (SecureObjectEdit.IsEditable)
+                {
+                    SecureObjectEdit.CategoryId = value.Id;
+                    OnPropertyChanged(nameof(SecureObjects));
+                }
+            }
+        }
+        
         // Created category 
         public BaseEntityVM? NewEditObject
         {
