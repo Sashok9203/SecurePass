@@ -436,7 +436,7 @@ namespace SecurePass.ViewModels
                     break;
                 case SecureObjectVM secureObjectVM:
                     secureObjectVM.IsEditable = false;
-                    SecureObjectEdit = SelectedSecureObject;
+                    SecureObjectEdit = secureObjectVM.Id == 0 ? null : SelectedSecureObject;
                     if(secureObjectVM.Id != 0) 
                         CategoryInObjectView = UserCategories.First(x=>x.Id == SelectedSecureObject?.CategoryId);
                     break;
@@ -475,7 +475,8 @@ namespace SecurePass.ViewModels
                 SelectedSecureObject = secureObject;
                 SelectedSecureObject.IsSelected = true;
                 SecureObjectEdit = SelectedSecureObject;
-                CategoryInObjectView = UserCategories.First(x => x.Id == SecureObjectEdit.CategoryId);
+                CategoryInObjectView = UserCategories.FirstOrDefault(x => x.Id == SecureObjectEdit.CategoryId);
+                CategoryInObjectView ??= UserCategories[0];
             }
         }
         
