@@ -9,10 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
-    
+       
     <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
         <StackPanel Orientation="Vertical">
             <TextBlock  Text="Name" Style ="{StaticResource objectInfoTextBlockStyle}"/>
