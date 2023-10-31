@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="/Resources/VMObjects.xaml"/>
                 <ResourceDictionary Source="/Resources/ObjectInfoStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/ObjectInfoComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/AddObjectWindowElementsStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

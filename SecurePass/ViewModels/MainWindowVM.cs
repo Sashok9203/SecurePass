@@ -18,7 +18,11 @@ namespace SecurePass.ViewModels
 {
     internal class MainWindowVM : BaseViewModel
     {
-        private bool isMainWindowEnabled, isFirstStart, isSelected, isAddEditCategoryWindowEnabled;
+        private bool isMainWindowEnabled, 
+            isFirstStart, 
+            isSelected, 
+            isAddEditCategoryWindowEnabled,
+            isAddObjectWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
         private string? findString;
@@ -64,7 +68,8 @@ namespace SecurePass.ViewModels
                         await repository.Users.InsertAsync(user);
                         await repository.SaveAsync();
                         user = repository.Users.FirstOrDefault(x => x.NikName == userVM.NikName);
-                        CurrentUser = user != null ? new(user) : null;
+                        if(user != null)
+                             userVM = new(user);
                     }
                     else
                     {
@@ -92,7 +97,14 @@ namespace SecurePass.ViewModels
                 case WiFiVM wifiVM:
                     if (wifiVM.Id == 0)
                     {
-
+                        var wifi = new WiFi();
+                        wifiVM.CopyToEntity(wifi);
+                        await repository.WiFis.InsertAsync(wifi);
+                        await repository.SaveAsync();
+                        var localWifisId = secureObjects.OfType<WiFiVM>()
+                                                                       .Where(x => x.CategoryId == wifiVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        wifiVM.Id = repository.WiFis.Get(x => x.CategoryId == wifiVM.CategoryId).First(y => !localWifisId.Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -103,7 +115,14 @@ namespace SecurePass.ViewModels
                 case UniversalVM universalVM:
                     if (universalVM.Id == 0)
                     {
-
+                        var universal = new Universal();
+                        universalVM.CopyToEntity(universal);
+                        await repository.Universals.InsertAsync(universal);
+                        await repository.SaveAsync();
+                        var localUniversalsId = secureObjects.OfType<UniversalVM>()
+                                                                       .Where(x => x.CategoryId == universalVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        universalVM.Id = repository.Universals.Get(x => x.CategoryId == universalVM.CategoryId).First(y => !localUniversalsId.Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -111,21 +130,35 @@ namespace SecurePass.ViewModels
                         universalVM.CopyToEntity(universal);
                     }
                     break;
-                case ServerVM serverlVM:
-                    if (serverlVM.Id == 0)
+                case ServerVM serverVM:
+                    if (serverVM.Id == 0)
                     {
-
+                        var server = new Server();
+                        serverVM.CopyToEntity(server);
+                        await repository.Servers.InsertAsync(server);
+                        await repository.SaveAsync();
+                        var localServersId = secureObjects.OfType<ServerVM>()
+                                                                       .Where(x => x.CategoryId == serverVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        serverVM.Id = repository.Servers.Get(x => x.CategoryId == serverVM.CategoryId).First(y => !localServersId.Any(x => x == y.Id)).Id;
                     }
                     else
                     {
-                        Server? server = await repository.Servers.GetByIDAsync(serverlVM.Id);
-                        serverlVM.CopyToEntity(server);
+                        Server? server = await repository.Servers.GetByIDAsync(serverVM.Id);
+                        serverVM.CopyToEntity(server);
                     }
                     break;
                 case EmailVM emailVM:
                     if (emailVM.Id == 0)
                     {
-
+                        var email = new Email();
+                        emailVM.CopyToEntity(email);
+                        await repository.Emails.InsertAsync(email);
+                        await repository.SaveAsync();
+                        var localEmailsId = secureObjects.OfType<EmailVM>()
+                                                                       .Where(x => x.CategoryId == emailVM.CategoryId)
+                                                                       .Select(x=>x.Id);
+                        emailVM.Id = repository.Emails.Get(x => x.CategoryId == emailVM.CategoryId).First(y => !localEmailsId.Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -136,7 +169,16 @@ namespace SecurePass.ViewModels
                 case DataBaseVM dataBaseVM:
                     if (dataBaseVM.Id == 0)
                     {
-
+                        var dataBase = new DataBase();
+                        dataBaseVM.CopyToEntity(dataBase);
+                        await repository.DataBases.InsertAsync(dataBase);
+                        await repository.SaveAsync();
+                        var localDataBasesId = secureObjects.OfType<DataBaseVM>()
+                                                                       .Where(x => x.CategoryId == dataBaseVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        dataBaseVM.Id = repository.DataBases.Get(x => x.CategoryId == dataBaseVM.CategoryId)
+                                                            .First(y => !localDataBasesId
+                                                            .Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -147,7 +189,16 @@ namespace SecurePass.ViewModels
                 case CreditCardVM creditCardVM:
                     if (creditCardVM.Id == 0)
                     {
-
+                        var creditCard = new CreditCard();
+                        creditCardVM.CopyToEntity(creditCard);
+                        await repository.CreditCards.InsertAsync(creditCard);
+                        await repository.SaveAsync();
+                        var localCreditCardsId = secureObjects.OfType<CreditCardVM>()
+                                                                       .Where(x => x.CategoryId == creditCardVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        creditCardVM.Id = repository.CreditCards.Get(x => x.CategoryId == creditCardVM.CategoryId)
+                                                            .First(y => !localCreditCardsId
+                                                            .Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -158,7 +209,16 @@ namespace SecurePass.ViewModels
                 case ContactVM contactVM:
                     if (contactVM.Id == 0)
                     {
-
+                        var contact = new Contact();
+                        contactVM.CopyToEntity(contact);
+                        await repository.Contacts.InsertAsync(contact);
+                        await repository.SaveAsync();
+                        var localContactsId = secureObjects.OfType<ContactVM>()
+                                                                       .Where(x => x.CategoryId == contactVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        contactVM.Id = repository.Contacts.Get(x => x.CategoryId == contactVM.CategoryId)
+                                                            .First(y => !localContactsId
+                                                            .Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -169,7 +229,16 @@ namespace SecurePass.ViewModels
                 case BankAccountVM bankAccountVM:
                     if (bankAccountVM.Id == 0)
                     {
-
+                        var bankAccount = new BankAccount();
+                        bankAccountVM.CopyToEntity(bankAccount);
+                        await repository.BankAccounts.InsertAsync(bankAccount);
+                        await repository.SaveAsync();
+                        var localBankAccountsId = secureObjects.OfType<BankAccountVM>()
+                                                                       .Where(x => x.CategoryId == bankAccountVM.CategoryId)
+                                                                       .Select(x => x.Id);
+                        bankAccountVM.Id = repository.Contacts.Get(x => x.CategoryId == bankAccountVM.CategoryId)
+                                                            .First(y => !localBankAccountsId
+                                                            .Any(x => x == y.Id)).Id;
                     }
                     else
                     {
@@ -243,52 +312,49 @@ namespace SecurePass.ViewModels
                     break;
                 case CategoryVM categoryVM:
                     if (categoryVM.Id == 0)
-                    {
-                        categoryVM.UserId = CurrentUser?.Id ?? 0;
-                        NewEditObject = categoryVM;
-                    }
+                        NewEditObject = new CategoryVM() {UserId = CurrentUser?.Id ?? 0 ,Name = categoryVM.Name};
                     else NewEditObject = categoryVM.Clone() as CategoryVM;
                     secureObjectSelectionClear();
                     IsAddEditCategoryWindowEnabled = true;
                     break;
                 case WiFiVM wifiVM:
                     if (wifiVM.Id == 0)
-                        NewEditObject = wifiVM;
+                        NewEditObject = new WiFiVM() { Title = wifiVM.Title};
                     else NewEditObject = wifiVM.Clone() as WiFiVM;
                     break;
                 case UniversalVM universalVM:
                     if (universalVM.Id == 0)
-                        NewEditObject = universalVM;
+                        NewEditObject = new UniversalVM() { Title = universalVM.Title,TypeId = universalVM.TypeId };
                     else NewEditObject = universalVM.Clone() as UniversalVM;
                     break;
-                case ServerVM serverlVM:
-                    if (serverlVM.Id == 0)
-                        NewEditObject = serverlVM;
-                    else NewEditObject = serverlVM.Clone() as ServerVM;
+                case ServerVM serverVM:
+                    if (serverVM.Id == 0)
+                        NewEditObject = new ServerVM() { Title = serverVM.Title }; 
+                    else NewEditObject = serverVM.Clone() as ServerVM;
                     break;
                 case EmailVM emailVM:
                     if (emailVM.Id == 0)
-                        NewEditObject = emailVM;
+                        NewEditObject = new EmailVM() { Title = emailVM.Title };
                     else NewEditObject = emailVM.Clone() as EmailVM;
                     break;
                 case DataBaseVM dataBaseVM:
                     if (dataBaseVM.Id == 0)
-                        NewEditObject = dataBaseVM;
+                        NewEditObject = new DataBaseVM() { Title = dataBaseVM.Title };
                     else NewEditObject = dataBaseVM.Clone() as DataBaseVM;
                     break;
-                case CreditCardVM crediCardVM:
-                    if (crediCardVM.Id == 0)
-                        NewEditObject = crediCardVM;
-                    else NewEditObject = crediCardVM.Clone() as CreditCardVM;
+                case CreditCardVM creditCardVM:
+                    if (creditCardVM.Id == 0)
+                        NewEditObject =new CreditCardVM() { Title = creditCardVM.Title };
+                    else NewEditObject = creditCardVM.Clone() as CreditCardVM;
                     break;
-                case ContactVM contacVM:
-                    if (contacVM.Id == 0)
-                        NewEditObject = contacVM;
-                    else NewEditObject = contacVM.Clone() as ContactVM;
+                case ContactVM contactVM:
+                    if (contactVM.Id == 0)
+                        NewEditObject = new ContactVM() { Title = contactVM.Title };
+                    else NewEditObject = contactVM.Clone() as ContactVM;
                     break;
                 case BankAccountVM bankAccountVM:
                     if (bankAccountVM.Id == 0)
-                        NewEditObject = bankAccountVM;
+                        NewEditObject = new BankAccountVM() { Title = bankAccountVM.Title };
                     else NewEditObject = bankAccountVM.Clone() as BankAccountVM;
                     break;
             }
@@ -296,13 +362,18 @@ namespace SecurePass.ViewModels
             {
                 SecureObjectEdit = NewEditObject as SecureObjectVM;
                 SecureObjectEdit.IsEditable = true;
-                if (SecureObjectEdit.CategoryId == 0)
+                if (SecureObjectEdit.Id == 0)
+                {
                     SecureObjectEdit.CategoryId = 1;
+                    CategoryInObjectView = UserCategories[0];
+                    IsAddObjectWindowEnabled = false;
+                }
             }
         }
 
         private async Task saveObject()
         {
+            await setObjectToDataBase(NewEditObject);
             switch (NewEditObject)
             {
                 case UserVM userVM:
@@ -321,19 +392,27 @@ namespace SecurePass.ViewModels
                     break;
                 case SecureObjectVM secureObjectVM:
                     secureObjectVM.IsEditable = false;
-                    for (int i = 0; i < secureObjects.Count; i++)
+                    var newObject = secureObjects.FirstOrDefault(x => x.GetType() == secureObjectVM.GetType() && x.Id == secureObjectVM.Id);
+                    if (newObject != null)
                     {
-                        if ((secureObjects[i].GetType() == secureObjectVM.GetType()) && (secureObjects[i].Id == secureObjectVM.Id))
+                        for (int i = 0; i < secureObjects.Count; i++)
                         {
-                            secureObjects[i] = secureObjectVM;
-                            SelectedSecureObject = secureObjectVM;
-                            break;
+                            if (secureObjects[i] == newObject)
+                            {
+                                secureObjects[i] = secureObjectVM;
+                                SelectedSecureObject = secureObjectVM;
+                                break;
+                            }
                         }
+                    }
+                    else
+                    {
+                        secureObjects.Add(secureObjectVM);
+                        secureObjectSelected(secureObjectVM);
                     }
                     OnPropertyChanged(nameof(SecureObjects));
                     break;
             }
-            await setObjectToDataBase(NewEditObject);
             NewEditObject = null;
         }
 
@@ -350,7 +429,8 @@ namespace SecurePass.ViewModels
                 case SecureObjectVM secureObjectVM:
                     secureObjectVM.IsEditable = false;
                     SecureObjectEdit = SelectedSecureObject;
-                    CategoryInObjectView = UserCategories.First(x=>x.Id == SelectedSecureObject.CategoryId);
+                    if(secureObjectVM.Id != 0) 
+                        CategoryInObjectView = UserCategories.First(x=>x.Id == SelectedSecureObject?.CategoryId);
                     break;
             }
             NewEditObject = null;
@@ -492,6 +572,7 @@ namespace SecurePass.ViewModels
             {
                 isAddEditCategoryWindowEnabled = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(MainWindowBlocked));
             }
         }
 
@@ -503,6 +584,17 @@ namespace SecurePass.ViewModels
             {
                 isMainWindowEnabled = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public bool IsAddObjectWindowEnabled
+        {
+            get => isAddObjectWindowEnabled;
+            set
+            {
+                isAddObjectWindowEnabled = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(MainWindowBlocked));
             }
         }
 
@@ -537,6 +629,8 @@ namespace SecurePass.ViewModels
             }
         }
 
+        public bool MainWindowBlocked => IsAddEditCategoryWindowEnabled || IsAddObjectWindowEnabled;
+
         // Category was user select
         public CategoryVM? SelectedCategory
         {
@@ -556,9 +650,9 @@ namespace SecurePass.ViewModels
             {
                 categoryInObjectView = value;
                 OnPropertyChanged();
-                if (SecureObjectEdit.IsEditable)
+                if (SecureObjectEdit?.IsEditable == true)
                 {
-                    SecureObjectEdit.CategoryId = value.Id;
+                    SecureObjectEdit.CategoryId = value?.Id ?? 0;
                     OnPropertyChanged(nameof(SecureObjects));
                 }
             }
@@ -609,6 +703,7 @@ namespace SecurePass.ViewModels
         public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => saveButtonEnabler());
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
-       
+        public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
+
     }
 }

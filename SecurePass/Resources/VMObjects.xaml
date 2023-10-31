@@ -1,18 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vmf="clr-namespace:SecurePass.ViewModels.EntitiesVM">
+                    xmlns:vmf="clr-namespace:SecurePass.ViewModels.EntitiesVM"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-
-    <vmf:CategoryVM x:Key="CategoryVM"/>
-    <vmf:BankAccountVM x:Key="BankAccountVM"/>
+    <sys:Int32 x:Key="OneValue" >1</sys:Int32>
+    <sys:Int32 x:Key="TwoValue" >2</sys:Int32>
+    <sys:Int32 x:Key="ThreeValue" >3</sys:Int32>
+    
+    <vmf:CategoryVM x:Key="CategoryVM" Name="New Category"/>
+    <vmf:BankAccountVM x:Key="BankAccountVM" Title="New Bank Account"/>
     <vmf:UserVM x:Key="UserVM"/>
-    <vmf:ContactVM x:Key="ContactVM"/>
-    <vmf:CreditCardVM x:Key="CreditCardVM"/>
-    <vmf:DataBaseVM x:Key="DataBaseVM"/>
-    <vmf:EmailVM x:Key="EmailVM"/>
-    <vmf:ServerVM x:Key="ServerVM"/>
-    <vmf:UniversalVM x:Key="UniversalVM"/>
-    <vmf:WiFiVM x:Key="WiFiVM"/>
+    <vmf:ContactVM x:Key="ContactVM" Title="New Contact"/>
+    <vmf:CreditCardVM x:Key="CreditCardVM" Title="New Credit Card"/>
+    <vmf:DataBaseVM x:Key="DataBaseVM" Title="New Database"/>
+    <vmf:EmailVM x:Key="EmailVM" Title="New Email"/>
+    <vmf:ServerVM x:Key="ServerVM" Title="New Server"/>
+    <vmf:UniversalVM x:Key="Password" Title="New Password" TypeId = "{StaticResource OneValue}"/>
+    <vmf:UniversalVM x:Key="Login" Title="New Login" TypeId = "{StaticResource TwoValue}"/>
+    <vmf:UniversalVM x:Key="Note" Title="New Note" TypeId = "{StaticResource ThreeValue}"/>
+    <vmf:WiFiVM x:Key="WiFiVM" Title="New WiFi connection"/>
 
 
 </ResourceDictionary>
