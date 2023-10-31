@@ -76,6 +76,10 @@ namespace SecurePass.ViewModels.EntitiesVM
             }
         }
 
+        public string ValidityStr => Validity.ToShortDateString();
+
+        public string StartDateStr => StartDate.ToShortDateString();
+
         public DateTime Validity
         {
             get => validity;
@@ -83,6 +87,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             {
                 validity= value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(ValidityStr));
             }
         }
 
@@ -93,6 +98,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             {
                 startDate = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(StartDateStr));
             }
         }
 
