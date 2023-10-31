@@ -299,6 +299,12 @@ namespace SecurePass.ViewModels
                     break;
             }
             await repository.SaveAsync();
+            if (o is SecureObjectVM secureObject)
+            {
+                if (SelectedSecureObject == secureObject)
+                    secureObjectSelectionClear();
+                secureObjects.Remove(secureObject);
+            }
             OnPropertyChanged(nameof(SecureObjects));
         }
 
@@ -358,8 +364,10 @@ namespace SecurePass.ViewModels
                     else NewEditObject = bankAccountVM.Clone() as BankAccountVM;
                     break;
             }
-            if (o is SecureObjectVM)
+            if (o is SecureObjectVM secureObject)
             {
+                if (SelectedSecureObject != secureObject)
+                    secureObjectSelected(secureObject);
                 SecureObjectEdit = NewEditObject as SecureObjectVM;
                 SecureObjectEdit.IsEditable = true;
                 if (SecureObjectEdit.Id == 0)
