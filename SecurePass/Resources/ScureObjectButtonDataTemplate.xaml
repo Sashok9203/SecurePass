@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <DataTemplate x:Key ="secureObjectButtonTemplateContext" >
-        <Border Margin="0,1,5,1" CornerRadius="8" MinWidth="150" Height="55" HorizontalAlignment="Stretch">
+        <Border Margin="0,1,5,1" CornerRadius="8" MinWidth="150" Height="55" HorizontalAlignment="Stretch"  Tag="{Binding DataContext ,ElementName=mainWindow}">
             <StackPanel Margin="15,0,15,0" Orientation="Horizontal">
                 <Image Source="/Images/preview.png" Width="30" Margin="0,0,5,0"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -24,10 +24,10 @@
                 <MouseBinding Gesture ="LeftClick"  Command="{Binding DataContext.SecureObjectSelected ,ElementName=mainWindow}" CommandParameter="{Binding}"/>
             </Border.InputBindings>
             <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Add to favorit"/>
-                    <MenuItem Header="Edit"/>
-                    <MenuItem Header="Delete"/>
+                <ContextMenu Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                    <MenuItem Header="Add to favorit" Command="{Binding Path = Tag.ChangeFavorit ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
+                    <MenuItem Header="Edit" Command="{Binding Path = Tag.AddEditObject ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete" Command="{Binding Path = Tag.DeleteObject ,RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"/>
                 </ContextMenu>
             </Border.ContextMenu>
         </Border>
