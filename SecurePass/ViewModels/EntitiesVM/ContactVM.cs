@@ -93,7 +93,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             }
         }
 
-        public string WorkPLace
+        public string WorkPlace
         {
             get => workPLace;
             set

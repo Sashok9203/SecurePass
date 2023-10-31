@@ -435,10 +435,13 @@ namespace SecurePass.ViewModels
                     IsAddEditCategoryWindowEnabled = false;
                     break;
                 case SecureObjectVM secureObjectVM:
-                    secureObjectVM.IsEditable = false;
-                    SecureObjectEdit = secureObjectVM.Id == 0 ? null : SelectedSecureObject;
-                    if(secureObjectVM.Id != 0) 
-                        CategoryInObjectView = UserCategories.First(x=>x.Id == SelectedSecureObject?.CategoryId);
+                    if (secureObjectVM.Id != 0)
+                    {
+                        secureObjectVM.IsEditable = false;
+                        SecureObjectEdit = SelectedSecureObject;
+                        CategoryInObjectView = UserCategories.First(x => x.Id == SelectedSecureObject?.CategoryId);
+                    }
+                    else SecureObjectEdit = null;
                     break;
             }
             NewEditObject = null;
