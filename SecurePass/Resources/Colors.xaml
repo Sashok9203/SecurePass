@@ -5,5 +5,6 @@
     <SolidColorBrush x:Key="objectInfoBorderBrush" Color="Gray"/>
     <SolidColorBrush x:Key="objectInfoTextBlockColor" Color="Gray"/>
     <SolidColorBrush x:Key="objectInfoTextBoxBorderColor" Color="#FF4C4C4C"/>
+    
 
 </ResourceDictionary>

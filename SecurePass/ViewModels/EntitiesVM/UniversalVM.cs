@@ -11,6 +11,7 @@ namespace SecurePass.ViewModels.EntitiesVM
     {
         private string value;
         private string label;
+        private int typeId;
 
         public UniversalVM() : base(0, -1, 0, "", "", false)
         {
@@ -22,6 +23,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         {
             value = universal.Value;
             label = universal.Label;
+            typeId = universal.TypeId;
         }
         
         public string Label
@@ -44,12 +46,23 @@ namespace SecurePass.ViewModels.EntitiesVM
             }
         }
 
+        public int TypeId
+        {
+            get => typeId;
+            set
+            {
+                this.typeId = value;
+                OnPropertyChanged();
+            }
+        }
+
         public override void CopyToEntity(BaseEntity entity)
         {
             base.CopyToEntity(entity);
             var temp = (Universal)entity;
             temp.Value = value;
             temp.Label = label;
+            temp.TypeId = typeId;
         }
     }
 }
