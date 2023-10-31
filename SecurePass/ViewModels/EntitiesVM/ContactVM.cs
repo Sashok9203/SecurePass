@@ -80,6 +80,8 @@ namespace SecurePass.ViewModels.EntitiesVM
             }
         }
 
+        public string BirthdayStr => Birthday.ToShortDateString();
+
         public DateTime Birthday
         {
             get => birthday;
@@ -87,6 +89,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             {
                 birthday = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(BirthdayStr));
             }
         }
 
