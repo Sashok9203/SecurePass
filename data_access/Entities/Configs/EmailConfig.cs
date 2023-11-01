@@ -19,6 +19,8 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.Safety).HasMaxLength(128);
             builder.Property(x => x.AuthenticationMethod).HasMaxLength(128);
             builder.HasOne(x => x.Category).WithMany(x => x.Emails);
+            builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("Name_check", "[Name] <> ''"));
         }
     }
 }

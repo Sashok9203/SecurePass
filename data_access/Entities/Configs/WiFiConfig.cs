@@ -18,6 +18,7 @@ namespace data_access.Entities.Configs
             builder.Property(x => x.WirelessSecurity).HasMaxLength(64);
             builder.Property(x => x.WirelessPassword).HasMaxLength(64);
             builder.ToTable(t => t.HasCheckConstraint("Title_check", "[Title] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("NetworkName_check", "[NetworkName] <> ''"));
         }
     }
 }

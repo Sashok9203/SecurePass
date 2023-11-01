@@ -44,7 +44,19 @@ namespace SecurePass.ViewModels
         private bool saveButtonEnabler()
         {
             if (NewEditObject is CategoryVM) return !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name);
-            if (NewEditObject is SecureObjectVM) return (NewEditObject as SecureObjectVM).IsEditable;
+            if (NewEditObject is SecureObjectVM)
+                return !string.IsNullOrWhiteSpace((NewEditObject as SecureObjectVM).Title) &&
+                NewEditObject switch 
+                { 
+                    ContactVM contactVM => !string.IsNullOrWhiteSpace(contactVM?.Name),
+                    BankAccountVM bankAccountVM => !string.IsNullOrWhiteSpace(bankAccountVM?.Name) && !string.IsNullOrWhiteSpace(bankAccountVM?.OwnerName),
+                    CreditCardVM creditCardVM => !string.IsNullOrWhiteSpace(creditCardVM?.Type) && !string.IsNullOrWhiteSpace(creditCardVM?.OwnerName),
+                    DataBaseVM dataBaseVM => !string.IsNullOrWhiteSpace(dataBaseVM?.Name),
+                    EmailVM emailVM => !string.IsNullOrWhiteSpace(emailVM?.Name),
+                    ServerVM serverVM => !string.IsNullOrWhiteSpace(serverVM?.Name) && !string.IsNullOrWhiteSpace(serverVM?.URL) && !string.IsNullOrWhiteSpace(serverVM?.Password),
+                    UniversalVM universalVM => !string.IsNullOrWhiteSpace(universalVM?.Value) && !string.IsNullOrWhiteSpace(universalVM?.Label),
+                    WiFiVM wiFiVM => !string.IsNullOrWhiteSpace(wiFiVM?.NetworkName)
+                };
             return false;
         }
 
