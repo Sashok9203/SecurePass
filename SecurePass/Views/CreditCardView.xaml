@@ -27,7 +27,7 @@
             <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
 
             <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Validity" />
-            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Validity,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseInvertConverter}}"/>
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding ValidityStr,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseInvertConverter}}"/>
             <DatePicker Style="{DynamicResource ObjectInfoDatePickerStyle}"  SelectedDate="{Binding Validity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseConverter}}"
                 Width="130" HorizontalAlignment="Left" Margin="30,0,0,5" FontSize="16" />
