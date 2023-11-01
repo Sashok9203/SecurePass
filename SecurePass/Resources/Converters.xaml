@@ -14,6 +14,10 @@
     <cf:BoolInvertConverter  x:Key="BoolInvertConverter"/>
     <cf:NullToVisibilityConverter  x:Key="NullToVisibilityConverter"/>
     <cf:NullToVisibilityInvertedConverter  x:Key="NullToVisibilityInvertedConverter"/>
- 
+    <cf:TypeIdToLabelConverter  x:Key="TypeIdToLabelConverter"/>
+    <cf:TypeIdToValueConverter  x:Key="TypeIdToValueConverter"/>
+    <cf:TypeIdToCollapseConverter  x:Key="TypeIdToCollapseConverter"/>
+    <cf:TypeIdToCollapseInvertConverter  x:Key="TypeIdToCollapseInvertConverter"/>
+
 
 </ResourceDictionary>
