@@ -33,8 +33,8 @@
                 Width="130" HorizontalAlignment="Left" Margin="30,0,0,5" FontSize="16" />
 
             <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Start Date" />
-            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding StartDate,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseInvertConverter}}"/>
-            <DatePicker Style="{DynamicResource ObjectInfoDatePickerStyle}"  SelectedDate="{Binding StartDateStr,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding StartDateStr,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseInvertConverter}}"/>
+            <DatePicker Style="{DynamicResource ObjectInfoDatePickerStyle}"  SelectedDate="{Binding StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                      Visibility="{Binding IsEditable,Converter={StaticResource BoolToCallapseConverter}}"
                      Width="130" HorizontalAlignment="Left" Margin="30,0,0,5" FontSize="16" />
         </StackPanel>
