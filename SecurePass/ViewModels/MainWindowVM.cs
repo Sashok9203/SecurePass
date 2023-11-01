@@ -236,7 +236,7 @@ namespace SecurePass.ViewModels
                         var localBankAccountsId = secureObjects.OfType<BankAccountVM>()
                                                                        .Where(x => x.CategoryId == bankAccountVM.CategoryId)
                                                                        .Select(x => x.Id);
-                        bankAccountVM.Id = repository.Contacts.Get(x => x.CategoryId == bankAccountVM.CategoryId)
+                        bankAccountVM.Id = repository.BankAccounts.Get(x => x.CategoryId == bankAccountVM.CategoryId)
                                                             .First(y => !localBankAccountsId
                                                             .Any(x => x == y.Id)).Id;
                     }
