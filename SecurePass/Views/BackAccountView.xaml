@@ -8,7 +8,38 @@
              xmlns:evmf="clr-namespace:SecurePass.ViewModels.EntitiesVM"
              d:DataContext="{d:DesignInstance Type= evmf:BankAccountVM}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+	<Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
+		<StackPanel Orientation="Vertical">
+			<TextBlock Text="Name" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="Owner Name" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding OwnerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="Type" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="Department Number" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding DepartmentNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="Bank Account Number" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding BankAccountNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="SWIFT" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding SWIFT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="IBAN" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding IBAN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="PIN" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding PIN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		</StackPanel>
+	</Border>
 </UserControl>
