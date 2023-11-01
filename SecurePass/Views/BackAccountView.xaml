@@ -37,6 +37,9 @@
 			<TextBlock Text="IBAN" Style="{StaticResource objectInfoTextBlockStyle}" />
 			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding IBAN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 			<Rectangle Style="{StaticResource objectInfoRectangleStyle}" />
+
+			<TextBlock Text="PIN" Style="{StaticResource objectInfoTextBlockStyle}" />
+			<TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding PIN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		</StackPanel>
 	</Border>
 </UserControl>
