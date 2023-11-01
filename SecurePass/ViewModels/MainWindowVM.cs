@@ -19,8 +19,8 @@ namespace SecurePass.ViewModels
     internal class MainWindowVM : BaseViewModel
     {
         public int SelectedIndex;
-        public string[] FilterCategories = { "All", "Bank Accounts", "Contacts", "Credit Cards", "Databases", "Servers", "WiFies", "Emails", "Others" };
-        public IEnumerable<string> FilterTypes => FilterCategories;
+        private string[] filterCategories = { "All", "Bank Accounts", "Contacts", "Credit Cards", "Databases", "Servers", "WiFies", "Emails", "Passwords","Logins","Notes" };
+        public IEnumerable<string> FilterTypes => filterCategories;
         private bool isMainWindowEnabled, 
             isFirstStart, 
             isSelected, 
@@ -506,8 +506,7 @@ namespace SecurePass.ViewModels
         
         private bool secureElementFilter(SecureObjectVM so)
         {
-            bool condition = false;
-            condition = SelectedIndex switch
+            bool condition = SelectedIndex switch
             {
                 0 => true,
                 1 => so is BankAccountVM,
@@ -517,7 +516,10 @@ namespace SecurePass.ViewModels
                 5 => so is ServerVM,
                 6 => so is WiFiVM,
                 7 => so is EmailVM,
-                8 => so is UniversalVM
+                8 => so is UniversalVM universal && universal.TypeId == 1,
+                9 => so is UniversalVM universal && universal.TypeId == 2,
+                10 => so is UniversalVM universal && universal.TypeId == 3,
+                _ => throw new NotImplementedException()
             };
             bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
             if (SelectedCategory?.Id == -1 && strFindCondition && condition) return true;
