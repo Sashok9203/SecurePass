@@ -19,7 +19,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         {
             this.name = category.Name;
             UserId = category.UserId;
-            elementsCount = category.CreditCards.Count
+            elementsCount =  category.CreditCards.Count
                            + category.Universals.Count
                            + category.Emails.Count
                            + category.Servers.Count

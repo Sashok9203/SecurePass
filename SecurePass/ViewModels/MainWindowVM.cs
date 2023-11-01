@@ -29,8 +29,14 @@ namespace SecurePass.ViewModels
         private CategoryVM? selectedCategory,categoryInObjectView;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
-        private List<int> categoriesId = new();
         private BaseEntityVM? createdObject;
+
+        private void setCategoryElementsCount(CategoryVM categoryVM)
+        {
+            if (categoryVM.Id == -1) categoryVM.ElementsCount = secureObjects.Count;
+            else if (categoryVM.Id == -2) categoryVM.ElementsCount = secureObjects.Where(x => x.IsFavorit).Count();
+            else categoryVM.ElementsCount = secureObjects.Where(x=>x.CategoryId == categoryVM.Id).Count();
+        }
 
         private bool saveButtonEnabler()
         {
@@ -84,8 +90,7 @@ namespace SecurePass.ViewModels
                         categoryVM.CopyToEntity(category);
                         await repository.Categories.InsertAsync(category);
                         await repository.SaveAsync();
-                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !categoriesId.Any(y => y == x.Id)).First();
-                        categoriesId.Add(newCategory.Id);
+                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !UserCategories.Any(y => y.Id == x.Id)).First();
                         UserCategories.Add(new(newCategory));
                     }
                     else
@@ -272,6 +277,8 @@ namespace SecurePass.ViewModels
                     foreach (var item in toDelete)
                         secureObjects.Remove(item);
                     UserCategories.Remove(categoryVM);
+                    setCategoryElementsCount(staticCategoryButtons[0]);
+                    setCategoryElementsCount(staticCategoryButtons[1]);
                     break;
                 case WiFiVM wifiVM:
                     repository.WiFis.Delete(wifiVM.Id);
@@ -304,6 +311,9 @@ namespace SecurePass.ViewModels
                 if (SelectedSecureObject == secureObject)
                     secureObjectSelectionClear();
                 secureObjects.Remove(secureObject);
+                UserCategories.First(x=>x.Id == secureObject.CategoryId).ElementsCount--;
+                staticCategoryButtons[0].ElementsCount--;
+                if (secureObject.IsFavorit) staticCategoryButtons[1].ElementsCount--;
             }
             OnPropertyChanged(nameof(SecureObjects));
         }
@@ -407,7 +417,13 @@ namespace SecurePass.ViewModels
                         {
                             if (secureObjects[i] == newObject)
                             {
+                                int currentId = secureObjects[i].CategoryId;
                                 secureObjects[i] = secureObjectVM;
+                                if (currentId != secureObjectVM.CategoryId)
+                                {
+                                    setCategoryElementsCount(UserCategories.First(x => x.Id == currentId));
+                                    setCategoryElementsCount(UserCategories.First(x => x.Id == secureObjectVM.CategoryId));
+                                }
                                 SelectedSecureObject = secureObjectVM;
                                 break;
                             }
@@ -416,6 +432,8 @@ namespace SecurePass.ViewModels
                     else
                     {
                         secureObjects.Add(secureObjectVM);
+                        UserCategories.First(x=>x.Id == secureObjectVM.CategoryId).ElementsCount++;
+                        staticCategoryButtons[0].ElementsCount++;
                         secureObjectSelected(secureObjectVM);
                     }
                     OnPropertyChanged(nameof(SecureObjects));
@@ -526,20 +544,22 @@ namespace SecurePass.ViewModels
                     MessageBox.Show("Invalid password...", "Server information");
                 else
                 {
-                    var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id);
+                    var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id,includeProperties: "Universals,CreditCards,Emails,Servers,DataBases,BankAccounts,WiFis,Contacts");
                     foreach (var item in categories)
+                    {
                         UserCategories.Add(new(item));
-                    categoriesId.AddRange(UserCategories.Select(x => x.Id));
-                    secureObjects.AddRange(repository.Emails.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new EmailVM(x)));
-                    secureObjects.AddRange(repository.WiFis.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new WiFiVM(x)));
-                    secureObjects.AddRange(repository.Universals.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new UniversalVM(x)));
-                    secureObjects.AddRange(repository.Servers.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ServerVM(x)));
-                    secureObjects.AddRange(repository.CreditCards.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new CreditCardVM(x)));
-                    secureObjects.AddRange(repository.Contacts.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new ContactVM(x)));
-                    secureObjects.AddRange(repository.BankAccounts.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new BankAccountVM(x)));
-                    secureObjects.AddRange(repository.DataBases.Get(x => categoriesId.Any(y => y == x.CategoryId)).Select(x => new DataBaseVM(x)));
+                        secureObjects.AddRange(item.Emails.Select(x => new EmailVM(x)));
+                        secureObjects.AddRange(item.WiFis.Select(x => new WiFiVM(x)));
+                        secureObjects.AddRange(item.Universals.Select(x => new UniversalVM(x)));
+                        secureObjects.AddRange(item.Servers.Select(x => new ServerVM(x)));
+                        secureObjects.AddRange(item.CreditCards.Select(x => new CreditCardVM(x)));
+                        secureObjects.AddRange(item.Contacts.Select(x => new ContactVM(x)));
+                        secureObjects.AddRange(item.BankAccounts.Select(x => new BankAccountVM(x)));
+                        secureObjects.AddRange(item.DataBases.Select(x => new DataBaseVM(x)));
+                    }
                     SelectedCategory = staticCategoryButtons[0];
-                    SelectedCategory.ElementsCount = secureObjects.Count;
+                    setCategoryElementsCount(staticCategoryButtons[1]);
+                    setCategoryElementsCount(staticCategoryButtons[0]);
                     RegistryUtility.SetLoginToRegistry(UserLogin);
                     IsMainWindowEnabled = true;
                 }
