@@ -18,6 +18,9 @@ namespace SecurePass.ViewModels
 {
     internal class MainWindowVM : BaseViewModel
     {
+        public int SelectedIndex;
+        public string[] FilterCategories = {"All", "Bank Accounts", "Contacts", "Credit Cards", "Databases", "Servers", "WiFies", "Emails", "Others" };
+        public IEnumerable<string> FilterTypes => FilterCategories;
         private bool isMainWindowEnabled, isFirstStart, isSelected, isAddEditCategoryWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
@@ -393,9 +396,23 @@ namespace SecurePass.ViewModels
         
         private bool secureElementFilter(SecureObjectVM so)
         {
+            bool condition = false;
+            condition = SelectedIndex switch
+            {
+                0 => true,
+                1 => so is BankAccountVM,
+                2 => so is ContactVM,
+                3 => so is CreditCardVM,
+                4 => so is DataBaseVM,
+                5 => so is ServerVM,
+                6 => so is WiFiVM,
+                7 => so is EmailVM,
+                8 => so is UniversalVM
+            };
+
             bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
-            if (SelectedCategory?.Id == -1 && strFindCondition) return true;
-            else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition;
+            if (SelectedCategory?.Id == -1 && strFindCondition && condition) return true;
+            else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition && condition;
         }
 
         private bool isUserLoginInfoExist() => !string.IsNullOrWhiteSpace(UserLogin) && !string.IsNullOrWhiteSpace(UserPassword);
@@ -461,6 +478,15 @@ namespace SecurePass.ViewModels
             IsFirstStart = UserLogin == string.Empty;
         }
 
+        public int SelectedFilterIndex
+        {
+            get => SelectedIndex;
+            set
+            {
+                SelectedIndex = value;
+                OnPropertyChanged(nameof(SecureObjects));
+            }
+        }
         // Filter string
         public string FindString
         {

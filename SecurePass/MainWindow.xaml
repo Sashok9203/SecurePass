@@ -55,7 +55,18 @@
                     
                     <!--List of categories and filter -->
                     <DockPanel Grid.Column="0" Grid.Row="1">
-                        <Button Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0">All types</Button>
+                        <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"   Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0" 
+                          SelectedIndex="{Binding SelectedFilterIndex}"
+                          ItemsSource="{Binding FilterTypes}" Foreground="White" FontSize="16">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <Image Width="20" Source="/Images/icons/icons_in_circle_for_categories/bird_ico.png"/>
+                                        <TextBlock Margin="5,0,0,0" Text="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
                     </DockPanel>
                     
