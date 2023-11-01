@@ -8,14 +8,22 @@
              d:DataContext="{d:DesignInstance Type= evmf:UniversalVM}"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="500">
-    <Border BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
+    
+    <Border x:Name="mainBorder" BorderThickness="1" VerticalAlignment="Top" BorderBrush="{StaticResource objectInfoBorderBrush}" CornerRadius="6">
         <StackPanel Orientation="Vertical">
-            <TextBlock  Text="Label" Style ="{StaticResource objectInfoTextBlockStyle}"/>
+            <TextBlock  Text="{Binding TypeId,Converter={StaticResource TypeIdToLabelConverter}}" Style ="{StaticResource objectInfoTextBlockStyle}"/>
             <TextBox Style="{StaticResource objectInfoTextBoxStyle}"  Text="{Binding Label,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Rectangle Style="{StaticResource objectInfoRectangleStyle}"/>
 
-            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="Value" />
-            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Style ="{StaticResource objectInfoTextBlockStyle}" Text="{Binding TypeId,Converter={StaticResource TypeIdToValueConverter}}" />
+            <TextBox Style="{StaticResource objectInfoTextBoxStyle}" Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding TypeId,Converter={StaticResource TypeIdToCollapseConverter}}"/>
+            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="100" HorizontalAlignment="Stretch"
+                     Width="Auto" Margin="30,0,30,10" Style="{StaticResource objectInfoTextBoxStyle}"
+                     Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     Visibility="{Binding TypeId,Converter={StaticResource TypeIdToCollapseInvertConverter}}"
+                     VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
         </StackPanel>
     </Border>
 </UserControl>
