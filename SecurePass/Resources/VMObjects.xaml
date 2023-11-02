@@ -3,10 +3,10 @@
                     xmlns:vmf="clr-namespace:SecurePass.ViewModels.EntitiesVM"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <sys:Int32 x:Key="OneValue" >1</sys:Int32>
-    <sys:Int32 x:Key="TwoValue" >2</sys:Int32>
-    <sys:Int32 x:Key="ThreeValue" >3</sys:Int32>
-    
+    <sys:Int32 x:Key="Int1">1</sys:Int32>
+    <sys:Int32 x:Key="Int2">2</sys:Int32>
+    <sys:Int32 x:Key="Int3">3</sys:Int32>
+   
     <vmf:CategoryVM x:Key="CategoryVM" Name="New Category"/>
     <vmf:BankAccountVM x:Key="BankAccountVM" Title="New Bank Account"/>
     <vmf:UserVM x:Key="UserVM"/>
@@ -15,9 +15,9 @@
     <vmf:DataBaseVM x:Key="DataBaseVM" Title="New Database"/>
     <vmf:EmailVM x:Key="EmailVM" Title="New Email"/>
     <vmf:ServerVM x:Key="ServerVM" Title="New Server"/>
-    <vmf:UniversalVM x:Key="Password" Title="New Password" TypeId = "{StaticResource OneValue}"/>
-    <vmf:UniversalVM x:Key="Login" Title="New Login" TypeId = "{StaticResource TwoValue}"/>
-    <vmf:UniversalVM x:Key="Note" Title="New Note" TypeId = "{StaticResource ThreeValue}"/>
+    <vmf:UniversalVM x:Key="Password" Title="New Password" TypeId = "{StaticResource Int1}"/>
+    <vmf:UniversalVM x:Key="Login" Title="New Login" TypeId = "{StaticResource Int2}"/>
+    <vmf:UniversalVM x:Key="Note" Title="New Note" TypeId = "{StaticResource Int3}"/>
     <vmf:WiFiVM x:Key="WiFiVM" Title="New WiFi connection"/>
 
 

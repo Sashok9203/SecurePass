@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string safety;
         private string authenticationMethod;
 
-        public EmailVM() : base(0, -1, 0, "", "", false)
+        public EmailVM() : base(0, -1, 0, "", "", false,6)
         {
             type = string.Empty;
             name = string.Empty;
@@ -28,7 +28,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             authenticationMethod = string.Empty;
         }
 
-        public EmailVM(Email email): base(email.Id,email.ImageId,email.CategoryId,email.Title,email.Name, email.IsFavorit)
+        public EmailVM(Email email): base(email.Id,email.ImageId,email.CategoryId,email.Title,email.Name, email.IsFavorit,6)
         {
             type = email.Type;
             name = email.Name;

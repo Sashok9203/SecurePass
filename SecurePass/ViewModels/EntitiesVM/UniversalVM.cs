@@ -13,19 +13,31 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string label;
         private int typeId;
 
-        public UniversalVM() : base(0, -1, 0, "", "", false)
+        public UniversalVM() : base(0, -1, 0, "", "", false,-1)
         {
             value = string.Empty;
             label = string.Empty;
         }
 
-        public UniversalVM(Universal universal):base(universal.Id,universal.ImageId,universal.CategoryId,universal.Title,universal.Label, universal.IsFavorit)
+        public UniversalVM(Universal universal):base(universal.Id,universal.ImageId,universal.CategoryId,universal.Title,universal.Label, universal.IsFavorit,-1)
         {
             value = universal.Value;
             label = universal.Label;
             typeId = universal.TypeId;
         }
-        
+
+        public override int ImageId 
+        {
+            get => base.ImageId >= 0 ? base.ImageId : TypeId switch
+            {
+                1 => 20,
+                2 => 7,
+                3 => 10,
+                _ => throw new ArgumentException("Invalid TypeId value...")
+            };
+            set => base.ImageId = value; 
+        }
+
         public string Label
         {
             get => label;

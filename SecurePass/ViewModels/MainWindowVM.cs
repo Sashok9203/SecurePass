@@ -18,9 +18,32 @@ namespace SecurePass.ViewModels
 {
     internal class MainWindowVM : BaseViewModel
     {
+        public struct ComboboxType
+        {
+            public string Lable { get; set; }
+            public string ImagePath { get; set; }
+            public ComboboxType(string Lable, string ImagePath)
+            {
+                this.Lable = Lable;
+                this.ImagePath = ImagePath;
+            }
+        }
         public int SelectedIndex;
-        private string[] filterCategories = { "All", "Bank Accounts", "Contacts", "Credit Cards", "Databases", "Servers", "WiFies", "Emails", "Passwords","Logins","Notes" };
-        public IEnumerable<string> FilterTypes => filterCategories;
+        private readonly ComboboxType[] filterCategories = 
+        {
+           new ComboboxType("All", "/Images/icons/icons_in_circle_for_entities/menu_ico.png"),
+           new ComboboxType("Bank Accounts", "/Images/icons/icons_in_circle_for_entities/bankAccount_ico.png"),
+           new ComboboxType("Contacts", "/Images/icons/icons_in_circle_for_entities/contact_ico.png"),
+           new ComboboxType("Credit Cards", "/Images/icons/icons_in_circle_for_entities/creditCard_ico.png"),
+           new ComboboxType("Databases", "/Images/icons/icons_in_circle_for_entities/database_ico.png"),
+           new ComboboxType("Servers", "/Images/icons/icons_in_circle_for_entities/server_ico.png"),
+           new ComboboxType("WiFies", "/Images/icons/icons_in_circle_for_entities/router_ico.png"),
+           new ComboboxType("Emails", "/Images/icons/icons_in_circle_for_entities/email_ico.png"),
+           new ComboboxType("Passwords", "/Images/icons/icons_in_circle_for_entities/password_ico.png"),
+           new ComboboxType("Logins", "/Images/icons/icons_in_circle_for_entities/login_ico.png"),
+           new ComboboxType("Notes", "/Images/icons/icons_in_circle_for_entities/notes_ico.png")
+        };
+        public IEnumerable<ComboboxType> FilterTypes => filterCategories;
         private bool isMainWindowEnabled, 
             isFirstStart, 
             isSelected, 
@@ -272,8 +295,8 @@ namespace SecurePass.ViewModels
 
         private CategoryVM[] staticCategoryButtons =
         {
-            new(new(){ Name = "AllElements",Id = -1}){ IsSelected = true  },
-            new(new(){ Name = "Favorit",Id = -2})
+            new(new(){ Name = "All Elements",Id = -1}){ IsSelected = true ,ImageId = 13 },
+            new(new(){ Name = "Favorit",Id = -2,ImageId = 16})
         };
 
         private async Task deleteObjectFromDataBase(BaseEntityVM? o)
@@ -538,6 +561,11 @@ namespace SecurePass.ViewModels
             else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition && condition;
         }
 
+        private void changeImage(object o)
+        {
+            
+        }
+
         private bool isUserLoginInfoExist() => !string.IsNullOrWhiteSpace(UserLogin) && !string.IsNullOrWhiteSpace(UserPassword);
 
         // Create new account logic
@@ -561,13 +589,19 @@ namespace SecurePass.ViewModels
             }
         }
 
+        private async Task getUserFromDataBase(string nikName)
+        {
+            var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == nikName);
+            if (user != null)
+                CurrentUser = new(user);
+            else
+                MessageBox.Show("User with this login is not registered...", "Server information");
+        }
+
         // Login logic
         private async Task LoginClick()
         {
-            var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == UserLogin);
-            if (user != null) CurrentUser = new(user);
-            if (CurrentUser == null)
-                MessageBox.Show("User with this login is not registered...", "Server information");
+            if (isFirstStart) await getUserFromDataBase(UserLogin);
             else
             {
                 if (Utility.GetHash(UserPassword) != CurrentUser.PasswordHash)
@@ -596,11 +630,13 @@ namespace SecurePass.ViewModels
             }
         }
 
-        public MainWindowVM()
+        public  MainWindowVM()
         {
             repository = new();
             UserLogin = RegistryUtility.TryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
+            if (!IsFirstStart)
+                getUserFromDataBase(UserLogin);
         }
         //Selected Filter
         public int SelectedFilterIndex
@@ -775,6 +811,7 @@ namespace SecurePass.ViewModels
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
+        public RelayCommand ChangeImage => new((o) => changeImage(o), (o) => (o is not SecureObjectVM) || (o as SecureObjectVM).IsEditable);
 
     }
 }

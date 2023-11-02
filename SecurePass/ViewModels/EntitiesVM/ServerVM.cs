@@ -13,14 +13,14 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private string password;
 
-        public ServerVM() : base(0, -1, 0, "", "", false)
+        public ServerVM() : base(0, -1, 0, "", "", false,0)
         {
             url = string.Empty;
             name = string.Empty;
             password = string.Empty;
         }
 
-        public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.Title, server.Name, server.IsFavorit)
+        public ServerVM(Server server) : base(server.Id,server.ImageId,server.CategoryId,server.Title, server.Name, server.IsFavorit,0)
         {
             url = server.URL;
             name = server.Name;

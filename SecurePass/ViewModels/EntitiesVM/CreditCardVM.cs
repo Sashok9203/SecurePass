@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private DateTime validity;
         private DateTime startDate;
 
-        public CreditCardVM() : base(0, -1, 0, "", "", false)
+        public CreditCardVM() : base(0, -1, 0, "", "", false,21)
         {
             ownerName = string.Empty;
             type = string.Empty;
@@ -26,7 +26,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             verificationCode = string.Empty;
         }
 
-        public CreditCardVM(CreditCard creditCard) : base(creditCard.Id,creditCard.ImageId,creditCard.CategoryId,creditCard.Title,creditCard.OwnerName, creditCard.IsFavorit)
+        public CreditCardVM(CreditCard creditCard) : base(creditCard.Id,creditCard.ImageId,creditCard.CategoryId,creditCard.Title,creditCard.OwnerName, creditCard.IsFavorit,21)
         {
             ownerName = creditCard.OwnerName;
             type = creditCard.Type;

@@ -10,16 +10,18 @@ namespace SecurePass.ViewModels.EntitiesVM
     internal class BaseEntityVM : BaseViewModel ,ICloneable
     {
 		private int imageId;
+        private  readonly int defaultImageId;
 
-        public BaseEntityVM(int id,int imageId)
+        public BaseEntityVM(int id,int imageId,int defaulImageId)
         {
-			this.imageId = imageId;
+            this.defaultImageId = defaulImageId;
+            this.imageId = imageId;
 			this.Id = id;
         }
 
-        public int ImageId
+        public virtual int ImageId
 		{
-			get => imageId;
+			get => imageId < 0 ? defaultImageId : imageId;
          	set
 			{
 				imageId = value;

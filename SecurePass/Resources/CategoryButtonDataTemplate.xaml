@@ -20,7 +20,7 @@
    <DataTemplate x:Key ="categoryButtonTemplate">
         <Border Name ="buttonBorder"  Style="{StaticResource categoryButtonBorderStyle}">
             <StackPanel Margin="15,0,15,0" Orientation="Horizontal">
-                <Image Source="/Images/preview.png" Width="20" Margin="0,0,5,0"/>
+                <Image Source="{Binding ImageId , Converter={StaticResource ImageIdToObjectConverter} ,AsyncState= true}" Width="20" Margin="0,0,5,0"/>
                 <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="White" Text="{Binding Name}"/>
                 <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="Gray" Margin="10,0,0,0" Text="{Binding ElementsCount,Converter={StaticResource IntZeroHideConverter}}"/>
             </StackPanel>
@@ -33,7 +33,7 @@
     <DataTemplate x:Key ="categoryButtonTemplateContextMenu" >
         <Border Name ="buttonBorder"  Style="{StaticResource categoryButtonBorderStyle}" Tag="{Binding DataContext ,ElementName=mainWindow}">
             <StackPanel Margin="15,0,15,0" Orientation="Horizontal">
-                <Image Source="/Images/preview.png" Width="20" Margin="0,0,5,0"/>
+                <Image Source="{Binding ImageId , Converter={StaticResource ImageIdToObjectConverter},AsyncState= true}" Width="20" Margin="0,0,5,0"/>
                 <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="White" Text="{Binding Name}"/>
                 <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="Gray" Margin="10,0,0,0" Text="{Binding ElementsCount,Converter={StaticResource IntZeroHideConverter}}"/>
             </StackPanel>
