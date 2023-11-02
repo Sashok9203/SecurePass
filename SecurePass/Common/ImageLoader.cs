@@ -15,24 +15,29 @@ namespace SecurePass.Common
 {
     internal static class ImageLoader
     {
-        private static List<Bitmap?> defaultImages = new();
-        private static ImageConverter converter;
+        private static List<byte[]?> defaultImages = new();
+        private static List<byte[]?> defaultCategoryCirclImages = new();
+
         static ImageLoader()
         {
-            converter = new();
+            ImageConverter converter = new();
             ResourceSet? resourceSet = Resource.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-            int i = 0;
             foreach (DictionaryEntry item in resourceSet)
-            {
-                defaultImages.Add(item.Value as Bitmap);
-                Debug.WriteLine($"{i++} - {item.Key}");
-            }
-            
+                  defaultImages.Add(converter.ConvertTo(item.Value, typeof(byte[])) as byte[]);
+            resourceSet = DefaultCategoryCircleImagesResource.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            foreach (DictionaryEntry item in resourceSet)
+                defaultCategoryCirclImages.Add(converter.ConvertTo(item.Value, typeof(byte[])) as byte[]);
+
         }
 
-        public static byte[]? GetBuId(int id)
+        public static int ChangeImageId(int imageId)
         {
-            if (id <= defaultImages.Count - 1) return converter.ConvertTo(defaultImages[id], typeof(byte[])) as byte[];
+            return 0;
+        }
+
+        public static byte[]? GetById(int id)
+        {
+            if (id <= defaultImages.Count - 1) return defaultImages[id];
             else return null;
         }
 
