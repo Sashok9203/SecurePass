@@ -25,7 +25,6 @@ namespace SecurePass.ViewModels
             isFirstStart, 
             isSelected, 
             isAddEditCategoryWindowEnabled,
-            isEdituserWindowEnabled,
             isAddObjectWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
@@ -34,7 +33,7 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
-        public bool WindowEnabled => IsAddEditCategoryWindowEnabled || isEditUserWindowEnabled;
+
         private void setCategoryElementsCount(CategoryVM categoryVM)
         {
             if (categoryVM.Id == -1) categoryVM.ElementsCount = secureObjects.Count;
@@ -44,7 +43,6 @@ namespace SecurePass.ViewModels
 
         private bool saveButtonEnabler()
         {
-            if(NewEditObject is UserVM) return !string.IsNullOrWhiteSpace((NewEditObject as UserVM)?.NikName); // can`t add passwords` checkouts,cause if the user want to change ONLY the login
             if (NewEditObject is CategoryVM) return !string.IsNullOrWhiteSpace((NewEditObject as CategoryVM)?.Name);
             if (NewEditObject is SecureObjectVM)
                 return !string.IsNullOrWhiteSpace((NewEditObject as SecureObjectVM).Title) &&
@@ -341,7 +339,7 @@ namespace SecurePass.ViewModels
             switch (o)
             {
                 case UserVM userVM:
-                    isEditUserWindowEnabled = true;
+
                     break;
                 case CategoryVM categoryVM:
                     if (categoryVM.Id == 0)
@@ -412,14 +410,6 @@ namespace SecurePass.ViewModels
             switch (NewEditObject)
             {
                 case UserVM userVM:
-                    if (OldPassword == UserPassword)
-                    {
-                        userVM.PasswordHash = Utility.GetHash(NewPassword);
-                        //CurrentPassword == newPassword
-                        //UserPassword = userVM.PasswordHash;
-                        isEditUserWindowEnabled = false;
-                    }
-                    else { MessageBox.Show("Invalid password!"); return; };
                     CurrentUser = userVM;
                     break;
                 case CategoryVM categoryVM:
@@ -472,7 +462,7 @@ namespace SecurePass.ViewModels
             switch (NewEditObject)
             {
                 case UserVM userVM:
-                    isEditUserWindowEnabled = false;
+
                     break;
                 case CategoryVM categoryVM:
                     IsAddEditCategoryWindowEnabled = false;
@@ -644,8 +634,7 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged();
             }
         }
-        //
-        public bool isEditUserWindowEnabled { get; set; }
+
         // Show/Hide add/edit category window
         public bool IsAddEditCategoryWindowEnabled
         {
@@ -773,10 +762,6 @@ namespace SecurePass.ViewModels
 
         // User login value 
         public string UserLogin { get; set; } = string.Empty;
-        //Old Password
-        public string OldPassword { get; set; }
-        //New Password
-        public string NewPassword { get; set; }
 
         // User password value 
         public string UserPassword { get; set; } = string.Empty;
