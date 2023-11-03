@@ -419,11 +419,12 @@ namespace SecurePass.ViewModels
                         {
                             userVM.PasswordHash = Utility.GetHash(NewPassword);
                             UserPassword = NewPassword;
-                            IsEditUserWindowEnabled = false;
                         }
                         else { MessageBox.Show("Invalid password!"); return; };
                         CurrentUser = userVM;
                     }
+                    IsEditUserWindowEnabled = false;
+                    RegistryUtility.SetInfoToRegistry(CurrentUser.NikName);
                     break;
                 case CategoryVM categoryVM:
                     for (int i = 0; i < UserCategories.Count; i++)
