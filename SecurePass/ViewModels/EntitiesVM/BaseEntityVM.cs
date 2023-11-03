@@ -1,4 +1,5 @@
 ﻿using data_access.Entities;
+using SecurePass.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace SecurePass.ViewModels.EntitiesVM
         {
             this.defaultImageId = defaulImageId;
             this.imageId = imageId;
-			this.Id = id;
+            if (ImageLoader.StartIndex <= imageId) 
+                ImageLoader.StartIndex = imageId + 1;
+            this.Id = id;
         }
 
         public virtual int ImageId
 		{
-			get => imageId < 0 ? defaultImageId : imageId;
+			get => ImageLoader.IsImageExist(imageId) ? imageId : defaultImageId;
          	set
 			{
 				imageId = value;
