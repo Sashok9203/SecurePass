@@ -168,7 +168,7 @@
             </Border.Effect>
         </Border>
         <!--Edit User properties window-->
-        <Border  Height="430" Width="320" CornerRadius="10" Visibility="{Binding isEditUserWindowEnabled, Converter={StaticResource BoolToCallapseConverter}}"
+        <Border  Height="430" Width="320" CornerRadius="10" Visibility="{Binding IsEditUserWindowEnabled, Converter={StaticResource BoolToCallapseConverter}}"
        HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3A3A3A" BorderBrush="#FF100F0F" BorderThickness="1">
             <StackPanel Width="250" Margin ="0,20,0,0"  Orientation="Vertical">
                 <Image Source="/Images/preview.png" Width="60" HorizontalAlignment="Center">
@@ -179,7 +179,7 @@
                 <TextBlock Text="Change image" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
                 <TextBlock Text="User name" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
                 <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
-                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.NikName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
            Background="Transparent" Foreground="White" FontSize="14" 
            CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                     <Border.Effect>
@@ -189,7 +189,7 @@
                 <TextBlock Text="Change password" FontSize="13" Foreground="White" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 <TextBlock Text="Old password" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
                 <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
-                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.OldPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding OldPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
 Background="Transparent" Foreground="White" FontSize="14" 
 CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                     <Border.Effect>
@@ -198,7 +198,7 @@ CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignmen
                 </Border>
                 <TextBlock Text="New password" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
                 <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
-                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.NewPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
 Background="Transparent" Foreground="White" FontSize="14" 
 CaretBrush="Gray" BorderBrush="Transparent" BorderThickness="0" VerticalAlignment="Center"/>
                     <Border.Effect>
