@@ -801,7 +801,7 @@ namespace SecurePass.ViewModels
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
         public RelayCommand SecureObjectSelected => new((o) => secureObjectSelected(o));
         public RelayCommand Cancel => new((o) => cancel());
-        public RelayCommand SaveObject => new(async (o) => await saveObject()); //, (o) => saveButtonEnabler()
+        public RelayCommand SaveObject => new(async (o) => await saveObject(), (o) => saveButtonEnabler()); 
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
