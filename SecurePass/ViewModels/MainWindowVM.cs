@@ -25,7 +25,7 @@ namespace SecurePass.ViewModels
             isFirstStart, 
             isSelected, 
             isAddEditCategoryWindowEnabled,
-            isEdituserWindowEnabled,
+            isEditUserWindowEnabled,
             isAddObjectWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
@@ -34,7 +34,7 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
-        public bool WindowEnabled => IsAddEditCategoryWindowEnabled || isEditUserWindowEnabled;
+        public bool WindowEnabled => IsAddEditCategoryWindowEnabled || IsEditUserWindowEnabled;
         private void setCategoryElementsCount(CategoryVM categoryVM)
         {
             if (categoryVM.Id == -1) categoryVM.ElementsCount = secureObjects.Count;
@@ -342,7 +342,7 @@ namespace SecurePass.ViewModels
             {
                 case UserVM userVM:
                     NewEditObject = userVM.Clone() as UserVM;
-                    isEditUserWindowEnabled = true;
+                    IsEditUserWindowEnabled = true;
                     break;
                 case CategoryVM categoryVM:
                     if (categoryVM.Id == 0)
@@ -413,13 +413,13 @@ namespace SecurePass.ViewModels
             switch (NewEditObject)
             {
                 case UserVM userVM:
-                    if (NewPassword != null && NewPassword.Length > 0)
+                    if (!string.IsNullOrWhiteSpace(NewPassword))
                     {
                         if (OldPassword == UserPassword)
                         {
                             userVM.PasswordHash = Utility.GetHash(NewPassword);
                             UserPassword = NewPassword;
-                            isEditUserWindowEnabled = false;
+                            IsEditUserWindowEnabled = false;
                         }
                         else { MessageBox.Show("Invalid password!"); return; };
                         CurrentUser = userVM;
@@ -475,7 +475,7 @@ namespace SecurePass.ViewModels
             switch (NewEditObject)
             {
                 case UserVM userVM:
-                    isEditUserWindowEnabled = false;
+                    IsEditUserWindowEnabled = false;
                     break;
                 case CategoryVM categoryVM:
                     IsAddEditCategoryWindowEnabled = false;
@@ -648,9 +648,9 @@ namespace SecurePass.ViewModels
             }
         }
 
-        public bool isEditUserWindowEnabled
+        public bool IsEditUserWindowEnabled
         {
-            get => IsAddEditCategoryWindowEnabled;
+            get => isAddEditCategoryWindowEnabled;
             set
             {
                 isAddEditCategoryWindowEnabled = value;
