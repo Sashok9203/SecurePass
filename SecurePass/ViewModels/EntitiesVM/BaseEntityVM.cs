@@ -1,4 +1,5 @@
 ﻿using data_access.Entities;
+using SecurePass.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,20 @@ namespace SecurePass.ViewModels.EntitiesVM
     internal class BaseEntityVM : BaseViewModel ,ICloneable
     {
 		private int imageId;
+        private  readonly int defaultImageId;
 
-        public BaseEntityVM(int id,int imageId)
+        public BaseEntityVM(int id,int imageId,int defaulImageId)
         {
-			this.imageId = imageId;
-			this.Id = id;
+            this.defaultImageId = defaulImageId;
+            this.imageId = imageId;
+            if (ImageLoader.StartIndex <= imageId) 
+                ImageLoader.StartIndex = imageId + 1;
+            this.Id = id;
         }
 
-        public int ImageId
+        public virtual int ImageId
 		{
-			get => imageId;
+			get => ImageLoader.IsImageExist(imageId) ? imageId : defaultImageId;
          	set
 			{
 				imageId = value;

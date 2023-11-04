@@ -14,22 +14,23 @@ namespace SecurePass.Common
 
         public static string TryGetLogin()
         {
-            RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
+            using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
             if (registryKey == null)
                 return string.Empty;
             else
                 return registryKey?.GetValue(userLoginValueName)?.ToString() ?? string.Empty;
+           
         }
 
         public static void SetLoginToRegistry(string login)
         {
-            RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath);
+            using RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath,true);
             registryKey.SetValue(userLoginValueName, login);
         }
 
         public static void DeleteInfoFromRegistry()
         {
-            RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
+            using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath);
             if (registryKey == null) return;
             Registry.CurrentUser.DeleteSubKeyTree(keyLoginRegistryPath);
         }
@@ -37,7 +38,10 @@ namespace SecurePass.Common
         {
             using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath, true);
             if (registryKey == null) return;
-
+        public static void SetInfoToRegistry(string value)
+        {
+            using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath,true);
+            if (registryKey == null) return;
             registryKey.SetValue(userLoginValueName, value);
         }
     }

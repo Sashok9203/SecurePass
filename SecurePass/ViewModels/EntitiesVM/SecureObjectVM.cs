@@ -14,7 +14,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string title, info;
         private bool isSelected,isFavorit,isEditable;
 
-        public SecureObjectVM(int id, int imageId, int categoryId, string title, string info,bool isFavorit) : base(id, imageId)
+        public SecureObjectVM(int id, int imageId, int categoryId, string title, string info,bool isFavorit,int defaultImageId) : base(id, imageId, defaultImageId)
         {
             this.isFavorit = isFavorit;
             this.info = info;
