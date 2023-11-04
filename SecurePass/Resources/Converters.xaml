@@ -19,6 +19,7 @@
     <cf:TypeIdToCollapseConverter  x:Key="TypeIdToCollapseConverter"/>
     <cf:TypeIdToCollapseInvertConverter  x:Key="TypeIdToCollapseInvertConverter"/>
     <cf:ImageIdToObjectConverter  x:Key="ImageIdToObjectConverter"/>
+    <cf:StringEmptyToBoolConverter  x:Key="StringEmptyToBoolConverter"/>
 
 
 </ResourceDictionary>
