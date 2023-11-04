@@ -57,7 +57,7 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
-        public bool WindowEnabled => IsAddEditCategoryWindowEnabled || IsEditUserWindowEnabled;
+
         private void setCategoryImage(object o)
         {
             if (o is int newImageId)
@@ -70,6 +70,7 @@ namespace SecurePass.ViewModels
                 }
             }
         }
+
         private void setCategoryElementsCount(CategoryVM categoryVM)
         {
             if (categoryVM.Id == -1) categoryVM.ElementsCount = secureObjects.Count;
