@@ -52,7 +52,7 @@ namespace SecurePass.ViewModels
             isAddObjectWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
-        private string? findString;
+        private string? findString,oldPassword,newPassword;
         private CategoryVM? selectedCategory,categoryInObjectView;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
@@ -523,6 +523,8 @@ namespace SecurePass.ViewModels
             {
                 case UserVM userVM:
                     IsEditUserWindowEnabled = false;
+                    NewPassword = null;
+                    OldPassword = null;
                     break;
                 case CategoryVM categoryVM:
                     IsAddEditCategoryWindowEnabled = false;
@@ -847,10 +849,26 @@ namespace SecurePass.ViewModels
         public ObservableCollection<CategoryVM> UserCategories { get; set; } = new();
 
         //Old Password
-        public string OldPassword { get; set; }
+        public string? OldPassword
+        {
+            get => oldPassword;
+            set
+            {
+                oldPassword = value;
+                OnPropertyChanged();
+            }
+        }
 
         //New Password
-        public string NewPassword { get; set; }
+        public string? NewPassword
+        {
+            get => newPassword;
+            set
+            {
+                newPassword = value;
+                OnPropertyChanged();
+            }
+        }
 
         // User login value 
         public string UserLogin { get; set; } = string.Empty;
