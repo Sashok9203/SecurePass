@@ -51,7 +51,7 @@ namespace SecurePass.ViewModels
             isAddObjectWindowEnabled;
         private readonly UnitOfWork repository;
         private UserVM? currentUser;
-        private string? findString;
+        private string? findString,userPassword,userLogin;
         private CategoryVM? selectedCategory,categoryInObjectView;
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
@@ -98,18 +98,27 @@ namespace SecurePass.ViewModels
 
         private void clearData()
         {
-            createdObject = null;
-            isMainWindowEnabled = false;
-            isFirstStart = false;
-            secureObjects.Clear();
-            UserCategories.Clear();
-            UserLogin = string.Empty;
-            UserPassword = string.Empty;
-            CurrentUser = null;
-            SelectedCategory = null;
-            SelectedSecureObject = null;
-            findString = string.Empty;
-            RegistryUtility.DeleteInfoFromRegistry();
+            MessageBoxResult result = MessageBox.Show("Чи ви впевнені, що бажаєте вийти з аккаунту?", "Підтвердження виходу", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                createdObject = null;
+                secureObjects.Clear();
+                UserCategories.Clear();
+                UserLogin = null;
+                UserPassword = null;
+                CurrentUser = null;
+                SelectedCategory = null;
+                SelectedSecureObject = null;
+                findString = string.Empty;
+                RegistryUtility.DeleteInfoFromRegistry();
+                IsFirstStart = true;
+                IsMainWindowEnabled = false;
+            }
+            else
+            {
+
+            }
         }
 
         private async Task setObjectToDataBase(BaseEntityVM? vm)
@@ -821,10 +830,27 @@ namespace SecurePass.ViewModels
         public ObservableCollection<CategoryVM> UserCategories { get; set; } = new();
 
         // User login value 
-        public string UserLogin { get; set; } = string.Empty;
+        public string UserLogin
+        {
+            get => userLogin;
+            set
+            {
+                userLogin = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         // User password value 
-        public string UserPassword { get; set; } = string.Empty;
+        public string UserPassword 
+        { 
+            get => userPassword; 
+            set 
+            {
+                userPassword = value;
+                OnPropertyChanged();
+            }
+        }
 
         public IEnumerable<ImageVM> DefaultCategoryImages => ImageLoader.DefaultCategoryImages.Select(x => new ImageVM(x));
 
@@ -839,5 +865,6 @@ namespace SecurePass.ViewModels
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
         public RelayCommand ChangeImage => new((o) => changeImage(o), (o) => (o is not SecureObjectVM) || (o as SecureObjectVM).IsEditable);
         public RelayCommand SetCategoryImage => new ((o) => setCategoryImage(o));
+        public RelayCommand QuitFromAccount => new((object o) => clearData());
     }
 }
