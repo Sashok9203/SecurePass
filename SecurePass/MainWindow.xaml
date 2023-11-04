@@ -164,7 +164,7 @@
                 </DockPanel>
             </Grid>
             <Border.Effect>
-                <BlurEffect Radius="{Binding WindowEnabled,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToInt5Converter}}"/>
+                <BlurEffect Radius="{Binding MainWindowBlocked,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToInt5Converter}}"/>
             </Border.Effect>
         </Border>
         <!--Edit User properties window-->
