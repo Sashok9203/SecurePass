@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string wirelessPassword;
         private string connectedStoragePasswords;
 
-        public WiFiVM() : base(0, -1, 0, "", "", false,25)
+        public WiFiVM() : base(0, -1, 0, "", "", false,12)
         {
             baseStation = string.Empty;
             password = string.Empty;
@@ -30,7 +30,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             connectedStoragePasswords = string.Empty;
         }
 
-        public WiFiVM(WiFi wifi) : base(wifi.Id,wifi.ImageId,wifi.CategoryId,wifi.Title,wifi.NetworkName,wifi.IsFavorit,25)
+        public WiFiVM(WiFi wifi) : base(wifi.Id,wifi.ImageId,wifi.CategoryId,wifi.Title,wifi.NetworkName,wifi.IsFavorit,12)
         {
             baseStation = wifi.BaseStation;
             password = wifi.Password;

@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="/Resources/ObjectInfoComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/AddObjectWindowElementsStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/ObjectInfoDatePickerStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/ToggleButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

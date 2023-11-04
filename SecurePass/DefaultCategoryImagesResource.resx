@@ -118,46 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bird_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\bird_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bird" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\bird.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="buterfly_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\buterfly_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="butterfly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\butterfly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="canvas_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\canvas_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="canvas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\canvas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cloud_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\cloud_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="clouds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\clouds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="coala_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\coala_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cyber_security" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\cyber-security.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cyber_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\cyber_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="deer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\deer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="deer_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\deer_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\dna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dnk_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\dnk_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="fire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\fire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fire_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\fire_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="house_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\house_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="koala" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\koala.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="molecule_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\molecule_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="molecule" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\molecule.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="music_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\music_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="music" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\music.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rainbow_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\rainbow_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="rainbow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\rainbow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sport_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Images\icons\icons_in_circle_for_categories\sport_ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\icons\base_icons_for_categories\sports.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string iban;
         private string pin;
 
-        public BankAccountVM() : base(0, -1, 0, "", "", false,14)
+        public BankAccountVM() : base(0, -1, 0, "", "", false,7)
         {
             name = string.Empty;
             ownerName = string.Empty;
@@ -29,7 +29,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             pin = string.Empty;
         }
 
-        public BankAccountVM(BankAccount bankAccount) : base(bankAccount.Id,bankAccount.ImageId,bankAccount.CategoryId,bankAccount.Title, bankAccount.Name,bankAccount.IsFavorit,14)
+        public BankAccountVM(BankAccount bankAccount) : base(bankAccount.Id,bankAccount.ImageId,bankAccount.CategoryId,bankAccount.Title, bankAccount.Name,bankAccount.IsFavorit,7)
         {
             name = bankAccount.Name;    
             ownerName = bankAccount.OwnerName;

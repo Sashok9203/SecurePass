@@ -24,6 +24,7 @@
     <None Remove="Images\icons\base_icons_for_entities\router.png" />
     <None Remove="Images\icons\base_icons_for_entities\server.png" />
     <None Remove="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
+    <None Remove="Images\icons\icons_in_circle_for_categories\plus_ico.png" />
     <None Remove="Images\icons\icons_in_circle_for_entities\bankAccount_ico.png" />
     <None Remove="Images\icons\icons_in_circle_for_entities\contact_ico.png" />
     <None Remove="Images\icons\icons_in_circle_for_entities\creditCard_ico.png" />
@@ -44,10 +45,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DefaultCategoryCircleImagesResource.Designer.cs">
+    <Compile Update="DefaultCategoryImagesResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DefaultCategoryCircleImagesResource.resx</DependentUpon>
+      <DependentUpon>DefaultCategoryImagesResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="PlusIconResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PlusIconResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -57,9 +63,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="DefaultCategoryCircleImagesResource.resx">
+    <EmbeddedResource Update="DefaultCategoryImagesResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DefaultCategoryCircleImagesResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>DefaultCategoryImagesResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PlusIconResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PlusIconResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -88,6 +98,7 @@
     <Resource Include="Images\icons\base_icons_for_entities\router.png" />
     <Resource Include="Images\icons\base_icons_for_entities\server.png" />
     <Resource Include="Images\icons\icons_in_circle_for_categories\bird_ico.png" />
+    <Resource Include="Images\icons\icons_in_circle_for_categories\plus_ico.png" />
     <Resource Include="Images\icons\icons_in_circle_for_entities\bankAccount_ico.png" />
     <Resource Include="Images\icons\icons_in_circle_for_entities\contact_ico.png" />
     <Resource Include="Images\icons\icons_in_circle_for_entities\creditCard_ico.png" />

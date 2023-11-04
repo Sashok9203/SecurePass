@@ -18,7 +18,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string company;
         private string position;
 
-        public ContactVM() : base(0, -1, 0, "", "", false,5)
+        public ContactVM() : base(0, -1, 0, "", "", false,2)
         {
             name = string.Empty;
             surname = string.Empty;
@@ -28,7 +28,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             position = string.Empty;
         }
 
-        public ContactVM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.Title,contact.Name, contact.IsFavorit,5)
+        public ContactVM(Contact contact) : base(contact.Id,contact.ImageId,contact.CategoryId,contact.Title,contact.Name, contact.IsFavorit,2)
         {
             title = contact.Title;
             name = contact.Name;

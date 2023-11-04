@@ -22,14 +22,14 @@ namespace SecurePass {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DefaultCategoryCircleImagesResource {
+    internal class DefaultCategoryImagesResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DefaultCategoryCircleImagesResource() {
+        internal DefaultCategoryImagesResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SecurePass {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SecurePass.DefaultCategoryCircleImagesResource", typeof(DefaultCategoryCircleImagesResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SecurePass.DefaultCategoryImagesResource", typeof(DefaultCategoryImagesResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bird_ico {
+        internal static System.Drawing.Bitmap bird {
             get {
-                object obj = ResourceManager.GetObject("bird_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("bird", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buterfly_ico {
+        internal static System.Drawing.Bitmap butterfly {
             get {
-                object obj = ResourceManager.GetObject("buterfly_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("butterfly", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap canvas_ico {
+        internal static System.Drawing.Bitmap canvas {
             get {
-                object obj = ResourceManager.GetObject("canvas_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("canvas", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloud_ico {
+        internal static System.Drawing.Bitmap clouds {
             get {
-                object obj = ResourceManager.GetObject("cloud_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("clouds", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap coala_ico {
+        internal static System.Drawing.Bitmap cyber_security {
             get {
-                object obj = ResourceManager.GetObject("coala_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("cyber_security", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cyber_ico {
+        internal static System.Drawing.Bitmap deer {
             get {
-                object obj = ResourceManager.GetObject("cyber_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("deer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap deer_ico {
+        internal static System.Drawing.Bitmap dna {
             get {
-                object obj = ResourceManager.GetObject("deer_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("dna", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dnk_ico {
+        internal static System.Drawing.Bitmap fire {
             get {
-                object obj = ResourceManager.GetObject("dnk_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("fire", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fire_ico {
+        internal static System.Drawing.Bitmap house {
             get {
-                object obj = ResourceManager.GetObject("fire_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("house", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap house_ico {
+        internal static System.Drawing.Bitmap koala {
             get {
-                object obj = ResourceManager.GetObject("house_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("koala", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap molecule_ico {
+        internal static System.Drawing.Bitmap molecule {
             get {
-                object obj = ResourceManager.GetObject("molecule_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("molecule", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap music_ico {
+        internal static System.Drawing.Bitmap music {
             get {
-                object obj = ResourceManager.GetObject("music_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("music", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +183,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rainbow_ico {
+        internal static System.Drawing.Bitmap rainbow {
             get {
-                object obj = ResourceManager.GetObject("rainbow_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("rainbow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +193,9 @@ namespace SecurePass {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sport_ico {
+        internal static System.Drawing.Bitmap sports {
             get {
-                object obj = ResourceManager.GetObject("sport_ico", resourceCulture);
+                object obj = ResourceManager.GetObject("sports", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

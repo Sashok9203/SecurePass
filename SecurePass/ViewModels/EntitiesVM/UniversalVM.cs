@@ -30,9 +30,9 @@ namespace SecurePass.ViewModels.EntitiesVM
         {
             get => base.ImageId >= 0 ? base.ImageId : TypeId switch
             {
-                1 => 20,
-                2 => 7,
-                3 => 10,
+                1 => 10,
+                2 => 4,
+                3 => 5,
                 _ => throw new ArgumentException("Invalid TypeId value...")
             };
             set => base.ImageId = value; 

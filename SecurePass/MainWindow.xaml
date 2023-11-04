@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vmf:MainWindowVM}"
         Title="SecurePass" Height="600" Width="900" Icon="/Images/preview.png" Name="mainWindow">
-        
+           
     <Window.DataContext>
         <vmf:MainWindowVM/>
     </Window.DataContext>
@@ -178,7 +178,19 @@
                         <DropShadowEffect Color="#FF100F0F" BlurRadius="8" ShadowDepth="6" Opacity=".5"/>
                     </Image.Effect>
                 </Image>
-                <TextBlock Text="Change image" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
+                <ToggleButton x:Name="chageImage" Style="{DynamicResource ToggleButtonStyle}"  Content="Change image" FontSize="13" Foreground="White" HorizontalAlignment="Center"/>
+                <Popup  AllowsTransparency="True" Placement="Bottom" VerticalOffset="5" HorizontalOffset="-102" StaysOpen="False" PlacementTarget="{Binding ElementName=chageImage}" 
+                       IsOpen="{Binding ElementName=chageImage ,Path=IsChecked}">
+                    <Border Background="Gray" CornerRadius="8">
+                        <ItemsControl ItemsSource="{Binding DefaultCategoryImages}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="5"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </Popup>
                 <TextBlock Text="Category name" Margin="0,15,0,5"  FontWeight="Light" HorizontalAlignment="Left" Foreground="Gray" FontSize="14"/>
                 <Border Grid.Column="2" Height="30" CornerRadius="6" Background="#333333" BorderThickness="3" BorderBrush="#FF2958C8"  >
                     <TextBox VerticalContentAlignment="Center" Margin="5,0,0,0" Text="{Binding NewEditObject.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 

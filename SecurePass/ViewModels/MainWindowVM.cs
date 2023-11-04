@@ -57,6 +57,19 @@ namespace SecurePass.ViewModels
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
 
+        private void setCategoryImage(object o)
+        {
+            if (o is int newImageId)
+            {
+                if (NewEditObject is BaseEntityVM baseEntity)
+                {
+                    baseEntity.ImageId = newImageId;
+                    if (newImageId < 0)
+                        changeImage(baseEntity);
+                }
+            }
+        }
+
         private void setCategoryElementsCount(CategoryVM categoryVM)
         {
             if (categoryVM.Id == -1) categoryVM.ElementsCount = secureObjects.Count;
@@ -128,7 +141,8 @@ namespace SecurePass.ViewModels
                         categoryVM.CopyToEntity(category);
                         await repository.Categories.InsertAsync(category);
                         await repository.SaveAsync();
-                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !UserCategories.Any(y => y.Id == x.Id)).First();
+                        var ids = UserCategories.Select(x=>x.Id);
+                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !ids.Any(y => y == x.Id)).First();
                         UserCategories.Add(new(newCategory));
                     }
                     else
@@ -295,8 +309,8 @@ namespace SecurePass.ViewModels
 
         private CategoryVM[] staticCategoryButtons =
         {
-            new(new(){ Name = "All Elements",Id = -1}){ IsSelected = true ,ImageId = 13 },
-            new(new(){ Name = "Favorit",Id = -2,ImageId = 16})
+            new(new(){ Name = "All Elements",Id = -1}){ IsSelected = true ,ImageId = 6 },
+            new(new(){ Name = "Favorit",Id = -2,ImageId = 9})
         };
 
         private async Task deleteObjectFromDataBase(BaseEntityVM? o)
@@ -317,7 +331,7 @@ namespace SecurePass.ViewModels
                         ImageLoader.DeleteUserImage(item.ImageId);
                         secureObjects.Remove(item);
                     }
-                    ImageLoader.SaveUserImages();
+                    ImageLoader.DeleteUserImage(categoryVM.ImageId);
                     UserCategories.Remove(categoryVM);
                     setCategoryElementsCount(staticCategoryButtons[0]);
                     setCategoryElementsCount(staticCategoryButtons[1]);
@@ -352,11 +366,13 @@ namespace SecurePass.ViewModels
             {
                 if (SelectedSecureObject == secureObject)
                     secureObjectSelectionClear();
+                ImageLoader.DeleteUserImage(secureObject.ImageId);
                 secureObjects.Remove(secureObject);
                 UserCategories.First(x=>x.Id == secureObject.CategoryId).ElementsCount--;
                 staticCategoryButtons[0].ElementsCount--;
                 if (secureObject.IsFavorit) staticCategoryButtons[1].ElementsCount--;
             }
+            ImageLoader.SaveUserImages();
             OnPropertyChanged(nameof(SecureObjects));
         }
 
@@ -810,6 +826,8 @@ namespace SecurePass.ViewModels
         // User password value 
         public string UserPassword { get; set; } = string.Empty;
 
+        public IEnumerable<ImageVM> DefaultCategoryImages => ImageLoader.DefaultCategoryImages.Select(x => new ImageVM(x));
+
         public RelayCommand LoginButtonClick => new(async (o) => await LoginClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CreateNewAccButtonClick => new(async (o) => await CreateNewAccClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
@@ -820,6 +838,6 @@ namespace SecurePass.ViewModels
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
         public RelayCommand ChangeImage => new((o) => changeImage(o), (o) => (o is not SecureObjectVM) || (o as SecureObjectVM).IsEditable);
-
+        public RelayCommand SetCategoryImage => new ((o) => setCategoryImage(o));
     }
 }
