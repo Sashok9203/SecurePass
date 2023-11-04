@@ -18,9 +18,32 @@ namespace SecurePass.ViewModels
 {
     internal class MainWindowVM : BaseViewModel
     {
+        public struct ComboboxType
+        {
+            public string Lable { get; set; }
+            public string ImagePath { get; set; }
+            public ComboboxType(string Lable, string ImagePath)
+            {
+                this.Lable = Lable;
+                this.ImagePath = ImagePath;
+            }
+        }
         public int SelectedIndex;
-        private string[] filterCategories = { "All", "Bank Accounts", "Contacts", "Credit Cards", "Databases", "Servers", "WiFies", "Emails", "Passwords","Logins","Notes" };
-        public IEnumerable<string> FilterTypes => filterCategories;
+        private readonly ComboboxType[] filterCategories = 
+        {
+           new ComboboxType("All", "/Images/icons/icons_in_circle_for_entities/menu_ico.png"),
+           new ComboboxType("Bank Accounts", "/Images/icons/icons_in_circle_for_entities/bankAccount_ico.png"),
+           new ComboboxType("Contacts", "/Images/icons/icons_in_circle_for_entities/contact_ico.png"),
+           new ComboboxType("Credit Cards", "/Images/icons/icons_in_circle_for_entities/creditCard_ico.png"),
+           new ComboboxType("Databases", "/Images/icons/icons_in_circle_for_entities/database_ico.png"),
+           new ComboboxType("Servers", "/Images/icons/icons_in_circle_for_entities/server_ico.png"),
+           new ComboboxType("WiFies", "/Images/icons/icons_in_circle_for_entities/router_ico.png"),
+           new ComboboxType("Emails", "/Images/icons/icons_in_circle_for_entities/email_ico.png"),
+           new ComboboxType("Passwords", "/Images/icons/icons_in_circle_for_entities/password_ico.png"),
+           new ComboboxType("Logins", "/Images/icons/icons_in_circle_for_entities/login_ico.png"),
+           new ComboboxType("Notes", "/Images/icons/icons_in_circle_for_entities/notes_ico.png")
+        };
+        public IEnumerable<ComboboxType> FilterTypes => filterCategories;
         private bool isMainWindowEnabled, 
             isFirstStart, 
             isSelected, 
@@ -33,6 +56,19 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
+
+        private void setCategoryImage(object o)
+        {
+            if (o is int newImageId)
+            {
+                if (NewEditObject is BaseEntityVM baseEntity)
+                {
+                    baseEntity.ImageId = newImageId;
+                    if (newImageId < 0)
+                        changeImage(baseEntity);
+                }
+            }
+        }
 
         private void setCategoryElementsCount(CategoryVM categoryVM)
         {
@@ -105,7 +141,8 @@ namespace SecurePass.ViewModels
                         categoryVM.CopyToEntity(category);
                         await repository.Categories.InsertAsync(category);
                         await repository.SaveAsync();
-                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !UserCategories.Any(y => y.Id == x.Id)).First();
+                        var ids = UserCategories.Select(x=>x.Id);
+                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !ids.Any(y => y == x.Id)).First();
                         UserCategories.Add(new(newCategory));
                     }
                     else
@@ -272,8 +309,8 @@ namespace SecurePass.ViewModels
 
         private CategoryVM[] staticCategoryButtons =
         {
-            new(new(){ Name = "AllElements",Id = -1}){ IsSelected = true  },
-            new(new(){ Name = "Favorit",Id = -2})
+            new(new(){ Name = "All Elements",Id = -1}){ IsSelected = true ,ImageId = 6 },
+            new(new(){ Name = "Favorit",Id = -2,ImageId = 9})
         };
 
         private async Task deleteObjectFromDataBase(BaseEntityVM? o)
@@ -290,7 +327,11 @@ namespace SecurePass.ViewModels
                     repository.Categories.Delete(categoryVM.Id);
                     var toDelete = secureObjects.Where(x => x.CategoryId == categoryVM.Id).ToArray();
                     foreach (var item in toDelete)
+                    {
+                        ImageLoader.DeleteUserImage(item.ImageId);
                         secureObjects.Remove(item);
+                    }
+                    ImageLoader.DeleteUserImage(categoryVM.ImageId);
                     UserCategories.Remove(categoryVM);
                     setCategoryElementsCount(staticCategoryButtons[0]);
                     setCategoryElementsCount(staticCategoryButtons[1]);
@@ -325,11 +366,13 @@ namespace SecurePass.ViewModels
             {
                 if (SelectedSecureObject == secureObject)
                     secureObjectSelectionClear();
+                ImageLoader.DeleteUserImage(secureObject.ImageId);
                 secureObjects.Remove(secureObject);
                 UserCategories.First(x=>x.Id == secureObject.CategoryId).ElementsCount--;
                 staticCategoryButtons[0].ElementsCount--;
                 if (secureObject.IsFavorit) staticCategoryButtons[1].ElementsCount--;
             }
+            ImageLoader.SaveUserImages();
             OnPropertyChanged(nameof(SecureObjects));
         }
 
@@ -339,6 +382,7 @@ namespace SecurePass.ViewModels
             switch (o)
             {
                 case UserVM userVM:
+                   
 
                     break;
                 case CategoryVM categoryVM:
@@ -538,6 +582,15 @@ namespace SecurePass.ViewModels
             else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition && condition;
         }
 
+        private void changeImage(object o)
+        {
+            if (o is BaseEntityVM baseEntityVM)
+            {
+                baseEntityVM.ImageId = ImageLoader.ChangeImage(baseEntityVM.ImageId);
+                ImageLoader.SaveUserImages();
+            }
+        }
+
         private bool isUserLoginInfoExist() => !string.IsNullOrWhiteSpace(UserLogin) && !string.IsNullOrWhiteSpace(UserPassword);
 
         // Create new account logic
@@ -561,47 +614,53 @@ namespace SecurePass.ViewModels
             }
         }
 
+        private async Task getUserFromDataBase(string nikName)
+        {
+            var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == nikName);
+            if (user != null)
+                CurrentUser = new(user);
+            else
+                MessageBox.Show("User with this login is not registered...", "Server information");
+        }
+
         // Login logic
         private async Task LoginClick()
         {
-            var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == UserLogin);
-            if (user != null) CurrentUser = new(user);
-            if (CurrentUser == null)
-                MessageBox.Show("User with this login is not registered...", "Server information");
+            if (isFirstStart) await getUserFromDataBase(UserLogin);
+            if (Utility.GetHash(UserPassword) != CurrentUser?.PasswordHash)
+                MessageBox.Show("Invalid password...", "Server information");
             else
             {
-                if (Utility.GetHash(UserPassword) != CurrentUser.PasswordHash)
-                    MessageBox.Show("Invalid password...", "Server information");
-                else
+                var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id,includeProperties: "Universals,CreditCards,Emails,Servers,DataBases,BankAccounts,WiFis,Contacts");
+                foreach (var item in categories)
                 {
-                    var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id,includeProperties: "Universals,CreditCards,Emails,Servers,DataBases,BankAccounts,WiFis,Contacts");
-                    foreach (var item in categories)
-                    {
-                        UserCategories.Add(new(item));
-                        secureObjects.AddRange(item.Emails.Select(x => new EmailVM(x)));
-                        secureObjects.AddRange(item.WiFis.Select(x => new WiFiVM(x)));
-                        secureObjects.AddRange(item.Universals.Select(x => new UniversalVM(x)));
-                        secureObjects.AddRange(item.Servers.Select(x => new ServerVM(x)));
-                        secureObjects.AddRange(item.CreditCards.Select(x => new CreditCardVM(x)));
-                        secureObjects.AddRange(item.Contacts.Select(x => new ContactVM(x)));
-                        secureObjects.AddRange(item.BankAccounts.Select(x => new BankAccountVM(x)));
-                        secureObjects.AddRange(item.DataBases.Select(x => new DataBaseVM(x)));
-                    }
-                    SelectedCategory = staticCategoryButtons[0];
-                    setCategoryElementsCount(staticCategoryButtons[1]);
-                    setCategoryElementsCount(staticCategoryButtons[0]);
-                    RegistryUtility.SetLoginToRegistry(UserLogin);
-                    IsMainWindowEnabled = true;
+                    UserCategories.Add(new(item));
+                    secureObjects.AddRange(item.Emails.Select(x => new EmailVM(x)));
+                    secureObjects.AddRange(item.WiFis.Select(x => new WiFiVM(x)));
+                    secureObjects.AddRange(item.Universals.Select(x => new UniversalVM(x)));
+                    secureObjects.AddRange(item.Servers.Select(x => new ServerVM(x)));
+                    secureObjects.AddRange(item.CreditCards.Select(x => new CreditCardVM(x)));
+                    secureObjects.AddRange(item.Contacts.Select(x => new ContactVM(x)));
+                    secureObjects.AddRange(item.BankAccounts.Select(x => new BankAccountVM(x)));
+                    secureObjects.AddRange(item.DataBases.Select(x => new DataBaseVM(x)));
                 }
+                SelectedCategory = staticCategoryButtons[0];
+                setCategoryElementsCount(staticCategoryButtons[1]);
+                setCategoryElementsCount(staticCategoryButtons[0]);
+                RegistryUtility.SetLoginToRegistry(UserLogin);
+                IsMainWindowEnabled = true;
             }
         }
 
-        public MainWindowVM()
+        public  MainWindowVM()
         {
             repository = new();
             UserLogin = RegistryUtility.TryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
+            if (!IsFirstStart)
+                getUserFromDataBase(UserLogin);
         }
+
         //Selected Filter
         public int SelectedFilterIndex
         {
@@ -612,6 +671,7 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged(nameof(SecureObjects));
             }
         }
+
         // Filter string
         public string FindString
         {
@@ -766,6 +826,8 @@ namespace SecurePass.ViewModels
         // User password value 
         public string UserPassword { get; set; } = string.Empty;
 
+        public IEnumerable<ImageVM> DefaultCategoryImages => ImageLoader.DefaultCategoryImages.Select(x => new ImageVM(x));
+
         public RelayCommand LoginButtonClick => new(async (o) => await LoginClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CreateNewAccButtonClick => new(async (o) => await CreateNewAccClick(), (o) => isUserLoginInfoExist());
         public RelayCommand CategorySelected => new((o) => categorySelected(o));
@@ -775,6 +837,7 @@ namespace SecurePass.ViewModels
         public RelayCommand AddEditObject => new((o) => createEditObject(o as BaseEntityVM));
         public RelayCommand DeleteObject => new(async (o) => await deleteObjectFromDataBase(o as BaseEntityVM));
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
-
+        public RelayCommand ChangeImage => new((o) => changeImage(o), (o) => (o is not SecureObjectVM) || (o as SecureObjectVM).IsEditable);
+        public RelayCommand SetCategoryImage => new ((o) => setCategoryImage(o));
     }
 }

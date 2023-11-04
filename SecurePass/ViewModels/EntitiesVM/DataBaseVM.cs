@@ -21,7 +21,7 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string pseudonym;
         private string connectionSettings;
 
-        public DataBaseVM() : base(0, -1, 0, "", "", false)
+        public DataBaseVM() : base(0, -1, 0, "", "", false,8)
         {
             type = string.Empty;
             server = string.Empty;
@@ -33,7 +33,7 @@ namespace SecurePass.ViewModels.EntitiesVM
             connectionSettings = string.Empty;
         }
 
-        public DataBaseVM( DataBase dataBase) : base(dataBase.Id,dataBase.ImageId,dataBase.CategoryId,dataBase.Title,dataBase.Name,dataBase.IsFavorit)
+        public DataBaseVM( DataBase dataBase) : base(dataBase.Id,dataBase.ImageId,dataBase.CategoryId,dataBase.Title,dataBase.Name,dataBase.IsFavorit,8)
         {
             type = dataBase.Type;
             server = dataBase.Server;

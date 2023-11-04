@@ -9,13 +9,13 @@ namespace SecurePass.ViewModels.EntitiesVM
 {
     internal class UserVM : BaseEntityVM
     {
-        public UserVM() : base(0, -1)
+        public UserVM() : base(0, -1,1)
         {
             NikName = string.Empty;
             PasswordHash = string.Empty;
         }
 
-        public UserVM(User user):base(user.Id,user.ImageId)
+        public UserVM(User user):base(user.Id,user.ImageId,1)
         {
             NikName = user.NikName;
             PasswordHash = user.PasswordHash;

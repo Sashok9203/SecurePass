@@ -13,9 +13,9 @@ namespace SecurePass.ViewModels.EntitiesVM
         private string name;
         private int elementsCount;
 
-        public CategoryVM(): base(0, 0) { name = string.Empty;  }
+        public CategoryVM(): base(0, -1,17) { name = string.Empty;  }
 
-        public CategoryVM(Category category) : base(category.Id, category.ImageId)
+        public CategoryVM(Category category) : base(category.Id, category.ImageId,17)
         {
             this.name = category.Name;
             UserId = category.UserId;
