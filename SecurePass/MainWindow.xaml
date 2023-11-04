@@ -142,7 +142,7 @@
                 <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" 
                            Margin="20,0,0,0" Foreground="White" VerticalAlignment="Center"></TextBlock>
                 <!--Quit from account -->
-                <Image Margin="225, 0, 0, 0" Height="35" Width="35" Source="/Images/quit_icon.png">
+                <Image Margin="225, 0, 0, 0" Height="25" Width="25" Source="/Images/quit_icon.png">
                     <Image.InputBindings>
                         <MouseBinding Gesture="LeftClick" Command="{Binding QuitFromAccount}"/>
                     </Image.InputBindings>
