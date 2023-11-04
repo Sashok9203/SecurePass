@@ -713,10 +713,10 @@ namespace SecurePass.ViewModels
 
         public bool IsEditUserWindowEnabled
         {
-            get => isAddEditCategoryWindowEnabled;
+            get => isEditUserWindowEnabled;
             set
             {
-                isAddEditCategoryWindowEnabled = value;
+                isEditUserWindowEnabled = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MainWindowBlocked));
             }
