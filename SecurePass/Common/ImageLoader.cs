@@ -69,8 +69,11 @@ namespace SecurePass.Common
             };
             if (fod.ShowDialog() == true)
             {
-                Bitmap bmp = new(Bitmap.FromFile(fod.FileName) as Bitmap, new(64, 64));
-                userImages[newImageId] = converter.ConvertTo(bmp, typeof(byte[])) as byte[];
+                if (Bitmap.FromFile(fod.FileName) is Bitmap tmp)
+                {
+                    Bitmap bmp = new(tmp, new((int)(tmp.Width / ((double)tmp.Height / 64)), 64));
+                    userImages[newImageId] = converter.ConvertTo(bmp, typeof(byte[])) as byte[];
+                }
             }
             else
             {
