@@ -34,12 +34,14 @@ namespace SecurePass.Common
             if (registryKey == null) return;
             Registry.CurrentUser.DeleteSubKeyTree(keyLoginRegistryPath);
         }
-
+        public static void SetInfoToRegistry(string value)
+        {
+            using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath, true);
+            if (registryKey == null) return;
         public static void SetInfoToRegistry(string value)
         {
             using RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(keyLoginRegistryPath,true);
             if (registryKey == null) return;
-            
             registryKey.SetValue(userLoginValueName, value);
         }
     }
