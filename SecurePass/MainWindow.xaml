@@ -55,7 +55,7 @@
                     
                     <!--List of type and filter -->
                     <DockPanel Grid.Column="0" Grid.Row="1">
-                        <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"   Height="30" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0" 
+                        <ComboBox Style="{DynamicResource ObjectInfoComboBoxStyle}"   Height="30" HorizontalAlignment="Left" Margin="10,0,0,0" 
                           SelectedIndex="{Binding SelectedFilterIndex}"
                           ItemsSource="{Binding FilterTypes}" Foreground="White" FontSize="16">
                             <ComboBox.ItemTemplate>
@@ -67,7 +67,11 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <Button Height="30" Width="30" HorizontalAlignment="Right" Margin="0,0,10,0">Filter</Button>
+                        <Image Height="20" HorizontalAlignment="Right" Margin="0,0,20,0" Source="{Binding IsDescendingSort ,Converter={StaticResource BoolToSortIconConverter}}">
+                            <Image.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding Sort}"/>
+                            </Image.InputBindings>
+                        </Image>
                     </DockPanel>
                     
                     <!--List of items-->
@@ -171,6 +175,7 @@
                 <BlurEffect Radius="{Binding MainWindowBlocked,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToInt5Converter}}"/>
             </Border.Effect>
         </Border>
+     
         <!--Edit User properties window-->
         <Border  Height="430" Width="320" CornerRadius="10" Visibility="{Binding IsEditUserWindowEnabled, Converter={StaticResource BoolToCallapseConverter}}"
                  HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3A3A3A" BorderBrush="#FF100F0F" BorderThickness="1">
@@ -231,6 +236,7 @@
                 <DropShadowEffect BlurRadius="10"  ShadowDepth="20" Opacity=".5" />
             </Border.Effect>
         </Border>
+     
         <!--Add/Edit category window-->
         <Border  Height="260" Width="300" CornerRadius="10"
                  Visibility="{Binding IsAddEditCategoryWindowEnabled , Converter={StaticResource BoolToCallapseConverter}}"

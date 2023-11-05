@@ -40,6 +40,8 @@
     <None Remove="Images\preview.png" />
     <None Remove="Images\right-arrow_3031735.png" />
     <None Remove="Images\search_icon.png" />
+    <None Remove="Images\sor-desc.png" />
+    <None Remove="Images\sort.png" />
     <None Remove="Images\window_close_w.png" />
     <None Remove="Resources\preview.png" />
   </ItemGroup>
@@ -68,7 +70,7 @@
       <LastGenOutput>DefaultCategoryImagesResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="PlusIconResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PlusIconResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resource.resx">
@@ -114,6 +116,8 @@
     <Resource Include="Images\preview.png" />
     <Resource Include="Images\right-arrow_3031735.png" />
     <Resource Include="Images\search_icon.png" />
+    <Resource Include="Images\sor-desc.png" />
+    <Resource Include="Images\sort.png" />
     <Resource Include="Images\window_close_w.png" />
   </ItemGroup>
 
