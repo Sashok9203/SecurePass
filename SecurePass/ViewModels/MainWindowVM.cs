@@ -119,10 +119,6 @@ namespace SecurePass.ViewModels
                 IsFirstStart = true;
                 IsMainWindowEnabled = false;
             }
-            else
-            {
-
-            }
         }
 
         private async Task setObjectToDataBase(BaseEntityVM? vm)
@@ -920,7 +916,6 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         // User password value 
         public string UserPassword 
