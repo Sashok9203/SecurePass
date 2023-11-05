@@ -145,6 +145,12 @@
                 <!--SecurePass label-->
                 <TextBlock Text="SecurePass" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Left" 
                            Margin="20,0,0,0" Foreground="White" VerticalAlignment="Center"></TextBlock>
+                <!--Quit from account -->
+                <Image Margin="225, 0, 0, 0" Height="25" Width="25" Source="/Images/quit_icon.png">
+                    <Image.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding QuitFromAccount}"/>
+                    </Image.InputBindings>
+                </Image>
                 
                 <!--User panel-->
                 <DockPanel LastChildFill ="True"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,10,0,0" >
@@ -460,11 +466,11 @@
                     <StackPanel Margin="50,0,0,0">
                         <DockPanel>
                             <Image HorizontalAlignment="Left" Height="60" Width="60"  x:Name="Avatar_LoginWindow"  Margin="0,0,0,12"  Source="{Binding CurrentUser.ImageId, Converter={StaticResource ImageIdToObjectConverter}, AsyncState=true}" Opacity="100"/>
-                            <TextBlock Text="{Binding UserLogin}" VerticalAlignment="Center" Foreground ="#FFCCCCCC" FontSize="20" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
+                            <TextBlock Text="{Binding UserLogin, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Foreground ="#FFCCCCCC" FontSize="20" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
                         </DockPanel>
                         <Border BorderBrush="#FF5A74B5" BorderThickness="2" Background="#FF171729"  CornerRadius="10" Width="260" Height="35">
                             <DockPanel>
-                                <TextBox Text="{Binding UserPassword,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0" Background="Transparent" Width="195" Height="30" BorderThickness="0" 
+                                <TextBox Text="{Binding UserPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="8,0,8,0" Background="Transparent" Width="195" Height="30" BorderThickness="0" 
                                          BorderBrush="Transparent" Foreground="White" CaretBrush="AliceBlue"
                                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="17" FontWeight="Thin">
                                 </TextBox>
@@ -484,9 +490,9 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
                             <TextBlock  Width ="240" Margin="8" FontSize="20" Text=" Welcome to SecurePass" FontWeight="Bold" Foreground ="#FFCCCCCC"></TextBlock>
                             <TextBlock Margin="30,0,0,4" HorizontalAlignment="Left" Text="Login" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
-                            <TextBox Text="{Binding UserLogin ,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" CaretBrush="White" FontSize="15" VerticalContentAlignment="Center"  Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7"></TextBox>
+                            <TextBox Text="{Binding UserLogin,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" CaretBrush="White" FontSize="15" VerticalContentAlignment="Center"  Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7"></TextBox>
                             <TextBlock Margin="30,3,0,4" HorizontalAlignment="Left" Text="Password" FontSize="15" Foreground="#FFDCD4D4"></TextBlock>
-                            <TextBox Text="{Binding UserPassword , UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" FontSize="15"  CaretBrush="White"  VerticalContentAlignment="Center" Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7" ></TextBox>
+                            <TextBox Text="{Binding UserPassword,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" FontSize="15"  CaretBrush="White"  VerticalContentAlignment="Center" Foreground="White" Height="35" Width ="200" Background="Transparent" Margin="0,0,0,7" ></TextBox>
                             <Button Command ="{Binding LoginButtonClick}" Style="{StaticResource RoundedButtonStyle}" Height="35" Width ="200" Margin="7" Background="#2150f5">Login</Button>
                             <Button Command="{Binding CreateNewAccButtonClick}"  Style="{StaticResource RoundedButtonStyle}" Background="Gray" Height="35" Width ="200" Margin="7">Create new account</Button>
                         </StackPanel>
