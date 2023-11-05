@@ -57,7 +57,19 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
-
+        private async Task changeFavorit(object o)
+        {
+            if (o is SecureObjectVM secureObject)
+            {
+                if(secureObject.IsFavorit)  
+                    staticCategoryButtons[1].ElementsCount--; 
+                else 
+                    staticCategoryButtons[1].ElementsCount++;
+                secureObject.IsFavorit = !secureObject.IsFavorit;
+                await setObjectToDataBase(secureObject);
+                OnPropertyChanged(nameof(SecureObjects));
+            }
+        }
         private void setCategoryImage(object o)
         {
             if (o is int newImageId)
@@ -595,6 +607,7 @@ namespace SecurePass.ViewModels
             };
             bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
             if (SelectedCategory?.Id == -1 && strFindCondition && condition) return true;
+            else if (SelectedCategory?.Id == -2 && so.IsFavorit && strFindCondition && condition) return true;
             else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition && condition;
         }
 
@@ -713,10 +726,10 @@ namespace SecurePass.ViewModels
 
         public bool IsEditUserWindowEnabled
         {
-            get => isAddEditCategoryWindowEnabled;
+            get => isEditUserWindowEnabled;
             set
             {
-                isAddEditCategoryWindowEnabled = value;
+                isEditUserWindowEnabled = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MainWindowBlocked));
             }
@@ -871,5 +884,7 @@ namespace SecurePass.ViewModels
         public RelayCommand AddNewObject => new( (o) => IsAddObjectWindowEnabled = !IsAddObjectWindowEnabled);
         public RelayCommand ChangeImage => new((o) => changeImage(o), (o) => (o is not SecureObjectVM) || (o as SecureObjectVM).IsEditable);
         public RelayCommand SetCategoryImage => new ((o) => setCategoryImage(o));
+        public RelayCommand ChangeFavorit => new(async(o) => await changeFavorit(o));
+
     }
 }
