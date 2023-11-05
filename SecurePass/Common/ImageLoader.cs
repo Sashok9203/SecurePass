@@ -32,6 +32,7 @@ namespace SecurePass.Common
             defaultCategoryImages.Insert(0, converter.ConvertTo(PlusIconResource.plus_ico, typeof(byte[])) as byte[]);
             if (!fileExist)
             {
+                isChanget = true;
                 SaveUserImages();
                 fileExist = true;
             }
