@@ -20,6 +20,6 @@
     <cf:TypeIdToCollapseInvertConverter  x:Key="TypeIdToCollapseInvertConverter"/>
     <cf:ImageIdToObjectConverter  x:Key="ImageIdToObjectConverter"/>
     <cf:BoolToContextMenuNameConverter x:Key="BoolToContextMenuNameConverter"/>
-
-
+    <cf:StringEmptyToBoolConverter  x:Key="StringEmptyToBoolConverter"/>
+    <cf:BoolToSortIconConverter  x:Key="BoolToSortIconConverter"/>
 </ResourceDictionary>
