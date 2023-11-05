@@ -9,7 +9,7 @@
                     <TextBlock VerticalAlignment="Center" FontSize="16" Foreground="White" Text="{Binding Title}"/>
                     <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="Gray" Text="{Binding Info}"/>
                 </StackPanel>
-                <Image DockPanel.Dock="Right" Source="/Images/icons/base_icons_for_categories/favorit.png" Width="20" Visibility="{Binding IsFavorit, Converter={StaticResource BoolToHidenConverter}}"></Image>
+                <Image DockPanel.Dock="Right" HorizontalAlignment="Right" Source="/Images/icons/base_icons_for_categories/favorit.png" Width="20" Visibility="{Binding IsFavorit, Converter={StaticResource BoolToHidenConverter}}"></Image>
             </DockPanel>
             <Border.Style>
                 <Style TargetType ="Border">

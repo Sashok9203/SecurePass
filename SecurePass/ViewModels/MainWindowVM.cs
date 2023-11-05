@@ -59,6 +59,7 @@ namespace SecurePass.ViewModels
         private List<SecureObjectVM> secureObjects = new();
         private SecureObjectVM? selectedSecureObject, secureObjectEdit;
         private BaseEntityVM? createdObject;
+
         private async Task changeFavorit(object o)
         {
             if (o is SecureObjectVM secureObject)
@@ -69,9 +70,11 @@ namespace SecurePass.ViewModels
                     staticCategoryButtons[1].ElementsCount++;
                 secureObject.IsFavorit = !secureObject.IsFavorit;
                 await setObjectToDataBase(secureObject);
-                OnPropertyChanged(nameof(SecureObjects));
+                if(SelectedCategory?.Id == -2) 
+                    OnPropertyChanged(nameof(SecureObjects));
             }
         }
+
         private void setCategoryImage(object o)
         {
             if (o is int newImageId)
@@ -144,9 +147,8 @@ namespace SecurePass.ViewModels
                         userVM.CopyToEntity(user);
                         await repository.Users.InsertAsync(user);
                         await repository.SaveAsync();
-                        user = repository.Users.FirstOrDefault(x => x.NikName == userVM.NikName);
-                        if (user != null)
-                            userVM = new(user);
+                        userVM.Id = repository.Users.FirstOrDefault(x => x.NikName == userVM.NikName)?.Id ?? 0;
+                        return;
                     }
                     else
                     {
@@ -162,8 +164,9 @@ namespace SecurePass.ViewModels
                         await repository.Categories.InsertAsync(category);
                         await repository.SaveAsync();
                         var ids = UserCategories.Select(x => x.Id);
-                        var newCategory = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !ids.Any(y => y == x.Id)).First();
-                        UserCategories.Add(new(newCategory));
+                        categoryVM.Id = repository.Categories.Get(x => x.UserId == CurrentUser.Id && !ids.Any(y => y == x.Id)).First().Id;
+                        UserCategories.Add(categoryVM);
+                        return;
                     }
                     else
                     {
@@ -182,6 +185,7 @@ namespace SecurePass.ViewModels
                                                                        .Where(x => x.CategoryId == wifiVM.CategoryId)
                                                                        .Select(x => x.Id);
                         wifiVM.Id = repository.WiFis.Get(x => x.CategoryId == wifiVM.CategoryId).First(y => !localWifisId.Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -200,6 +204,7 @@ namespace SecurePass.ViewModels
                                                                        .Where(x => x.CategoryId == universalVM.CategoryId)
                                                                        .Select(x => x.Id);
                         universalVM.Id = repository.Universals.Get(x => x.CategoryId == universalVM.CategoryId).First(y => !localUniversalsId.Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -218,6 +223,7 @@ namespace SecurePass.ViewModels
                                                                        .Where(x => x.CategoryId == serverVM.CategoryId)
                                                                        .Select(x => x.Id);
                         serverVM.Id = repository.Servers.Get(x => x.CategoryId == serverVM.CategoryId).First(y => !localServersId.Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -236,6 +242,7 @@ namespace SecurePass.ViewModels
                                                                        .Where(x => x.CategoryId == emailVM.CategoryId)
                                                                        .Select(x => x.Id);
                         emailVM.Id = repository.Emails.Get(x => x.CategoryId == emailVM.CategoryId).First(y => !localEmailsId.Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -256,6 +263,7 @@ namespace SecurePass.ViewModels
                         dataBaseVM.Id = repository.DataBases.Get(x => x.CategoryId == dataBaseVM.CategoryId)
                                                             .First(y => !localDataBasesId
                                                             .Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -276,6 +284,7 @@ namespace SecurePass.ViewModels
                         creditCardVM.Id = repository.CreditCards.Get(x => x.CategoryId == creditCardVM.CategoryId)
                                                             .First(y => !localCreditCardsId
                                                             .Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -296,6 +305,7 @@ namespace SecurePass.ViewModels
                         contactVM.Id = repository.Contacts.Get(x => x.CategoryId == contactVM.CategoryId)
                                                             .First(y => !localContactsId
                                                             .Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -316,6 +326,7 @@ namespace SecurePass.ViewModels
                         bankAccountVM.Id = repository.BankAccounts.Get(x => x.CategoryId == bankAccountVM.CategoryId)
                                                             .First(y => !localBankAccountsId
                                                             .Any(x => x == y.Id)).Id;
+                        return;
                     }
                     else
                     {
@@ -336,13 +347,10 @@ namespace SecurePass.ViewModels
         private async Task deleteObjectFromDataBase(BaseEntityVM? o)
         {
             if (o == null) return;
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this element?", "Delete element", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return;
             switch (o)
             {
-                case UserVM userVM:
-                    repository.Users.Delete(userVM.Id);
-                    RegistryUtility.DeleteInfoFromRegistry();
-                    clearData();
-                    break;
                 case CategoryVM categoryVM:
                     repository.Categories.Delete(categoryVM.Id);
                     var toDelete = secureObjects.Where(x => x.CategoryId == categoryVM.Id).ToArray();
@@ -461,8 +469,9 @@ namespace SecurePass.ViewModels
                 SecureObjectEdit.IsEditable = true;
                 if (SecureObjectEdit.Id == 0)
                 {
-                    SecureObjectEdit.CategoryId = 1;
-                    CategoryInObjectView = UserCategories[0];
+                    bool condition = SelectedCategory == null || SelectedCategory.Id == -1 || SelectedCategory.Id == -2;
+                    SecureObjectEdit.CategoryId = condition ? UserCategories[0].Id : SelectedCategory?.Id ?? UserCategories[0].Id;
+                    CategoryInObjectView = condition ? UserCategories[0] : SelectedCategory;
                     IsAddObjectWindowEnabled = false;
                 }
             }
@@ -486,9 +495,10 @@ namespace SecurePass.ViewModels
                         else { MessageBox.Show("Invalid password!"); return; };
                     }
                     IsImageChanget = CurrentUser?.ImageId != userVM.ImageId;
+                    if(CurrentUser?.NikName != userVM.NikName)
+                        RegistryUtility.SetInfoToRegistry(CurrentUser.NikName);
                     CurrentUser = userVM;
                     IsEditUserWindowEnabled = false;
-                    RegistryUtility.SetInfoToRegistry(CurrentUser.NikName);
                     NewPassword = null;
                     OldPassword = null;
                     break;
@@ -517,8 +527,8 @@ namespace SecurePass.ViewModels
                                 secureObjects[i] = secureObjectVM;
                                 if (currentId != secureObjectVM.CategoryId)
                                 {
-                                    setCategoryElementsCount(UserCategories.First(x => x.Id == currentId));
-                                    setCategoryElementsCount(UserCategories.First(x => x.Id == secureObjectVM.CategoryId));
+                                    UserCategories.First(x => x.Id == currentId).ElementsCount--;
+                                    UserCategories.First(x => x.Id == secureObjectVM.CategoryId).ElementsCount++;
                                 }
                                 IsImageChanget = SelectedSecureObject?.ImageId != secureObjectVM.ImageId;
                                 SelectedSecureObject = secureObjectVM;
@@ -612,7 +622,7 @@ namespace SecurePass.ViewModels
 
         private bool secureElementFilter(SecureObjectVM so)
         {
-            bool condition = SelectedIndex switch
+            bool typeCondition = SelectedIndex switch
             {
                 0 => true,
                 1 => so is BankAccountVM,
@@ -628,9 +638,10 @@ namespace SecurePass.ViewModels
                 _ => throw new NotImplementedException()
             };
             bool strFindCondition = string.IsNullOrWhiteSpace(FindString) || so.Title.ToLower().Contains(FindString.ToLower());
-            if (SelectedCategory?.Id == -1 && strFindCondition && condition) return true;
-            else if (SelectedCategory?.Id == -2 && so.IsFavorit && strFindCondition && condition) return true;
-            else return (so.CategoryId == SelectedCategory?.Id) && strFindCondition && condition;
+            bool allElements = SelectedCategory?.Id == -1;
+            bool isFavorit = SelectedCategory?.Id == -2 && so.IsFavorit;
+            bool isCategory = so.CategoryId == SelectedCategory?.Id;
+            return (allElements || isFavorit || isCategory) && typeCondition && strFindCondition;
         }
 
         private void changeImage(object o)
@@ -650,19 +661,17 @@ namespace SecurePass.ViewModels
             {
                 CurrentUser = new()
                 {
-                    NikName = UserLogin,
-                    PasswordHash = Utility.GetHash(UserPassword)
+                    NikName = UserLogin ?? string.Empty,
+                    PasswordHash = Utility.GetHash(UserPassword ?? string.Empty)
                 };
                 await setObjectToDataBase(CurrentUser);
                 await repository.SaveAsync();
-                RegistryUtility.SetLoginToRegistry(UserLogin);
+                RegistryUtility.CreateInfoInRegistry(UserLogin ?? string.Empty);
                 IsMainWindowEnabled = true;
-                var test = Resource.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentUICulture, true, true);
-
             }
         }
 
-        private async Task getUserFromDataBase(string nikName)
+        private async Task getUserFromDataBase(string? nikName)
         {
             var user = await repository.Users.FirstOrDefaultAsync(x => x.NikName == nikName);
             if (user != null)
@@ -674,12 +683,13 @@ namespace SecurePass.ViewModels
         // Login logic
         private async Task LoginClick()
         {
-            if (isFirstStart) await getUserFromDataBase(UserLogin);
-            if (Utility.GetHash(UserPassword) != CurrentUser?.PasswordHash)
+            if (isFirstStart && UserLogin != null) await getUserFromDataBase(UserLogin);
+            if (Utility.GetHash(UserPassword ?? string.Empty) != CurrentUser?.PasswordHash)
                 MessageBox.Show("Invalid password...", "Server information");
             else
             {
-                var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id, includeProperties: "Universals,CreditCards,Emails,Servers,DataBases,BankAccounts,WiFis,Contacts");
+                var categories = repository.Categories.Get(x => x.UserId == CurrentUser.Id, 
+                    includeProperties: "Universals,CreditCards,Emails,Servers,DataBases,BankAccounts,WiFis,Contacts");
                 foreach (var item in categories)
                 {
                     UserCategories.Add(new(item));
@@ -695,7 +705,7 @@ namespace SecurePass.ViewModels
                 SelectedCategory = staticCategoryButtons[0];
                 setCategoryElementsCount(staticCategoryButtons[1]);
                 setCategoryElementsCount(staticCategoryButtons[0]);
-                RegistryUtility.SetLoginToRegistry(UserLogin);
+                RegistryUtility.CreateInfoInRegistry(UserLogin ?? string.Empty);
                 IsMainWindowEnabled = true;
             }
         }
@@ -706,7 +716,7 @@ namespace SecurePass.ViewModels
             UserLogin = RegistryUtility.TryGetLogin();
             IsFirstStart = UserLogin == string.Empty;
             if (!IsFirstStart)
-                getUserFromDataBase(UserLogin);
+                getUserFromDataBase(UserLogin ?? string.Empty);
         }
 
         //Selected Filter
@@ -721,7 +731,7 @@ namespace SecurePass.ViewModels
         }
 
         // Filter string
-        public string FindString
+        public string? FindString
         {
             get => findString;
             set
@@ -753,6 +763,7 @@ namespace SecurePass.ViewModels
                 OnPropertyChanged(nameof(MainWindowBlocked));
             }
         }
+
         // Show/Hide add/edit category window
         public bool IsAddEditCategoryWindowEnabled
         {
@@ -889,7 +900,8 @@ namespace SecurePass.ViewModels
             get
             {
                 var sObjects = secureObjects.Where(x => secureElementFilter(x));
-                return IsDescendingSort ? sObjects.OrderByDescending(x => x.Title).ToList() : sObjects.OrderBy(x => x.Title).ToList();
+                var sObjectSort = IsDescendingSort ? sObjects.OrderByDescending(x => x.Title) : sObjects.OrderBy(x => x.Title);
+                return sObjectSort.ToList();
             }
         }
 
@@ -919,7 +931,7 @@ namespace SecurePass.ViewModels
         }
 
         // User login value 
-        public string UserLogin
+        public string? UserLogin
         {
             get => userLogin;
             set
@@ -930,7 +942,7 @@ namespace SecurePass.ViewModels
         }
 
         // User password value 
-        public string UserPassword 
+        public string? UserPassword 
         { 
             get => userPassword; 
             set 

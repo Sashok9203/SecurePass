@@ -19,10 +19,9 @@ namespace SecurePass.Common
                 return string.Empty;
             else
                 return registryKey?.GetValue(userLoginValueName)?.ToString() ?? string.Empty;
-           
         }
 
-        public static void SetLoginToRegistry(string login)
+        public static void CreateInfoInRegistry(string login)
         {
             using RegistryKey? registryKey = Registry.CurrentUser.CreateSubKey(keyLoginRegistryPath,true);
             registryKey.SetValue(userLoginValueName, login);
