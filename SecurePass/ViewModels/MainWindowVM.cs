@@ -480,7 +480,6 @@ namespace SecurePass.ViewModels
         private async Task saveObject()
         {
             await setObjectToDataBase(NewEditObject);
-            bool IsImageChanget = false;
             switch (NewEditObject)
             {
                 case UserVM userVM:
@@ -494,20 +493,19 @@ namespace SecurePass.ViewModels
                         }
                         else { MessageBox.Show("Invalid password!"); return; };
                     }
-                    IsImageChanget = CurrentUser?.ImageId != userVM.ImageId;
                     if(CurrentUser?.NikName != userVM.NikName)
                         RegistryUtility.SetInfoToRegistry(CurrentUser.NikName);
                     CurrentUser = userVM;
                     IsEditUserWindowEnabled = false;
                     NewPassword = null;
                     OldPassword = null;
+                    await setObjectToDataBase(userVM);
                     break;
                 case CategoryVM categoryVM:
                     for (int i = 0; i < UserCategories.Count; i++)
                     {
                         if (UserCategories[i].Id == categoryVM.Id)
                         {
-                            IsImageChanget = UserCategories[i].ImageId != categoryVM.ImageId;
                             UserCategories[i] = categoryVM;
                             break;
                         }
@@ -530,7 +528,6 @@ namespace SecurePass.ViewModels
                                     UserCategories.First(x => x.Id == currentId).ElementsCount--;
                                     UserCategories.First(x => x.Id == secureObjectVM.CategoryId).ElementsCount++;
                                 }
-                                IsImageChanget = SelectedSecureObject?.ImageId != secureObjectVM.ImageId;
                                 SelectedSecureObject = secureObjectVM;
                                 break;
                             }
@@ -538,7 +535,6 @@ namespace SecurePass.ViewModels
                     }
                     else
                     {
-                        IsImageChanget = secureObjectVM.ImageId >= ImageLoader.DefaultImages.Count;
                         secureObjects.Add(secureObjectVM);
                         UserCategories.First(x => x.Id == secureObjectVM.CategoryId).ElementsCount++;
                         staticCategoryButtons[0].ElementsCount++;
@@ -547,7 +543,7 @@ namespace SecurePass.ViewModels
                     OnPropertyChanged(nameof(SecureObjects));
                     break;
             }
-            if (IsImageChanget) ImageLoader.SaveUserImages();
+            ImageLoader.SaveUserImages();
             NewEditObject = null;
         }
 
